@@ -11,11 +11,11 @@
       "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\dao\\new_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|E:\\GitHubDestop\\web_Ninhthuan\\webvieclammoi\\dao\\new_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\dao\\new_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\views\\home\\_slider_pc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|E:\\GitHubDestop\\web_Ninhthuan\\webvieclammoi\\views\\home\\_slider_pc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\views\\home\\_slider_pc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
@@ -40,7 +40,7 @@
               "RelativeDocumentMoniker": "WebViecLammoi\\Web.config",
               "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Web.config",
               "RelativeToolTip": "WebViecLammoi\\Web.config",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAABkAAABiAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAACsAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
               "WhenOpened": "2024-10-21T15:09:14.042Z",
               "EditorCaption": ""
@@ -53,7 +53,7 @@
               "RelativeDocumentMoniker": "WebViecLammoi\\Views\\Home\\_Slider_PC.cshtml",
               "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Home\\_Slider_PC.cshtml",
               "RelativeToolTip": "WebViecLammoi\\Views\\Home\\_Slider_PC.cshtml",
-              "ViewState": "AQIAAEYAAAAAAAAAAAAAAF8AAAA8AAAA",
+              "ViewState": "AQIAAEAAAAAAAAAAAIBcwF8AAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-10-21T14:49:47.649Z",
               "EditorCaption": ""
@@ -66,7 +66,7 @@
               "RelativeDocumentMoniker": "WebViecLammoi\\Controllers\\NewsController.cs",
               "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Controllers\\NewsController.cs",
               "RelativeToolTip": "WebViecLammoi\\Controllers\\NewsController.cs",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAAAA0AAAAUAAAA",
+              "ViewState": "AQIAAAEAAAAAAAAAAABTwA0AAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-21T09:12:30.191Z",
               "EditorCaption": ""
