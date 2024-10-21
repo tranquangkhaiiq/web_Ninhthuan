@@ -1,0 +1,139 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\webvl2024_new - Copy\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\webvl2024_new - copy\\webvieclammoi\\dao\\new_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\dao\\new_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\webvl2024_new - copy\\webvieclammoi\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\webvl2024_new - copy\\webvieclammoi\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\webvl2024_new - copy\\webvieclammoi\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|E:\\webvl2024_new - Copy\\webvieclammoi\\views\\account\\_mainjob.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\views\\account\\_mainjob.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|E:\\webvl2024_new - Copy\\webvieclammoi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|E:\\webvl2024_new - Copy\\webvieclammoi\\dao\\dn_ungtuyen_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\dao\\dn_ungtuyen_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NewsController.cs",
+              "DocumentMoniker": "E:\\webvl2024_new - Copy\\WebViecLammoi\\Controllers\\NewsController.cs",
+              "RelativeDocumentMoniker": "WebViecLammoi\\Controllers\\NewsController.cs",
+              "ToolTip": "E:\\webvl2024_new - Copy\\WebViecLammoi\\Controllers\\NewsController.cs",
+              "RelativeToolTip": "WebViecLammoi\\Controllers\\NewsController.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAAAA0AAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T09:12:30.191Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "New_Dao.cs",
+              "DocumentMoniker": "E:\\webvl2024_new - Copy\\WebViecLammoi\\DAO\\New_Dao.cs",
+              "RelativeDocumentMoniker": "WebViecLammoi\\DAO\\New_Dao.cs",
+              "ToolTip": "E:\\webvl2024_new - Copy\\WebViecLammoi\\DAO\\New_Dao.cs",
+              "RelativeToolTip": "WebViecLammoi\\DAO\\New_Dao.cs",
+              "ViewState": "AQIAAEkAAAAAAAAAAAAWwFEAAABfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T09:07:20.226Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\webvl2024_new - Copy\\WebViecLammoi\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebViecLammoi\\Views\\Home\\Index.cshtml",
+              "ToolTip": "E:\\webvl2024_new - Copy\\WebViecLammoi\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "WebViecLammoi\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAANUAAAAAAAAAAAAAAO8AAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-21T09:05:44.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_MainJob.cshtml",
+              "DocumentMoniker": "E:\\webvl2024_new - Copy\\WebViecLammoi\\Views\\Account\\_MainJob.cshtml",
+              "RelativeDocumentMoniker": "WebViecLammoi\\Views\\Account\\_MainJob.cshtml",
+              "ToolTip": "E:\\webvl2024_new - Copy\\WebViecLammoi\\Views\\Account\\_MainJob.cshtml",
+              "RelativeToolTip": "WebViecLammoi\\Views\\Account\\_MainJob.cshtml",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAACcAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-19T12:08:16.621Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "E:\\webvl2024_new - Copy\\WebViecLammoi\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "WebViecLammoi\\Controllers\\AccountController.cs",
+              "ToolTip": "E:\\webvl2024_new - Copy\\WebViecLammoi\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "WebViecLammoi\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAAOIDAAAAAAAAAAAzwOIDAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-19T12:05:46.516Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DN_UngTuyen_Dao.cs",
+              "DocumentMoniker": "E:\\webvl2024_new - Copy\\WebViecLammoi\\DAO\\DN_UngTuyen_Dao.cs",
+              "RelativeDocumentMoniker": "WebViecLammoi\\DAO\\DN_UngTuyen_Dao.cs",
+              "ToolTip": "E:\\webvl2024_new - Copy\\WebViecLammoi\\DAO\\DN_UngTuyen_Dao.cs",
+              "RelativeToolTip": "WebViecLammoi\\DAO\\DN_UngTuyen_Dao.cs",
+              "ViewState": "AQIAAC8AAAAAAAAAAIBMwEYAAACGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T15:09:13.585Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "E:\\webvl2024_new - Copy\\WebViecLammoi\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "WebViecLammoi\\Controllers\\HomeController.cs",
+              "ToolTip": "E:\\webvl2024_new - Copy\\WebViecLammoi\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "WebViecLammoi\\Controllers\\HomeController.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAABoAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T05:27:49.229Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
