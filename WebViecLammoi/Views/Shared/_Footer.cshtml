@@ -1,0 +1,75 @@
+﻿@using WebViecLammoi.Utils
+<style>
+    .bgfooter {
+        background: rgb(0,111,199);
+        background: -moz-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+        background: -webkit-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+        background: linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#006fc7",endColorstr="#006fc7",GradientType=1);
+        margin: 0 !important;
+        color: white;
+        padding: 0 !important;
+        border-bottom: 1px solid #0404aa;
+    }
+</style>
+<div class="footer bgfooter" style=" box-shadow: 0px 0px 6px #0000004d;">
+    <div class="container">
+
+        <div class=" row" style="padding-top:10px">
+            <div class="col-lg-12 col-md-12">
+                @*<h3 class="text-uppercase" style="font-weight:bold;  ">Liên hệ</h3>*@
+
+                <p style="text-align:center;margin-top:10px;padding-bottom:10px;">
+                    <b style="text-transform:uppercase;font-size:20px">
+                        Trung tâm dịch vụ việc làm tỉnh @XString.tinh
+                    </b>
+                    <br />
+                    Trụ sở: @XString.DiaChi.
+                    <br>
+                    Điện thoại : @XString.SDT
+                    <br />
+                    Email: @XString.EmailLienhe
+                </p>
+
+            </div>
+        </div>
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" title="Go to top">
+            &#10548;
+        </button>
+        <script>
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () {
+                scrollFunction()
+            };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("movetop").style.display = "block";
+                } else {
+                    document.getElementById("movetop").style.display = "none";
+                }
+            }
+
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                $('html,body').animate({ scrollTop: 0 }, 500);
+                //document.body.scrollTop = 0;
+                //document.documentElement.scrollTop = 0;
+            }</script>
+        <!-- /move top -->
+
+
+
+    </div>
+</div>
+<div style="margin: 0; background-color: #006fc7; border: 0; font-size: 13px; border-top: 1px solid #329bac; ">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" style="">
+                <p style="padding:10px;margin:0;text-align:center;color:white">     ©2024 - Designed by LMT-91</p>
+            </div>
+        </div>
+
+    </div>
+</div>

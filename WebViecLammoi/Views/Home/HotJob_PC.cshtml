@@ -1,0 +1,420 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+<div class="carousel-inner">
+    <div class="item active" style="margin-left:5px">
+        @foreach (DoanhNghiep_TuyenDung mm in ViewBag.HotJob_Active)
+        {
+            var luong = " ";
+            if ((mm.LuongTu == 0 && mm.LuongDen == 0) || mm.LuongTu == null || mm.LuongDen == null)
+            {
+                luong = "Lương thỏa thuận";
+            }
+            else if (mm.LuongTu > 100)
+            {
+                luong = @Html.FormatValue(mm.LuongTu, "{0:#,###.##}") + " đến " + @Html.FormatValue(mm.LuongDen, "{0:#,###.##}");
+            }
+            else
+            {
+                luong = mm.LuongTu + " đến " + mm.LuongDen + " triệu";
+            }
+            var dndn = new DN_DoanhNghiep_Dao();
+            var DN = dndn.GetDN_ByDNID(mm.DN_ID);
+            if (DN != null)
+            {
+                var dm = new DanhMuc_Dao();
+                var nv_dao = new TD_NghiepVu_TinHoc_NgoaiNgu_Dao();
+                string tieude = mm.TieuDeTuyenDung.Length > 100 ? mm.TieuDeTuyenDung.Substring(0, 100) : mm.TieuDeTuyenDung;
+                string tdn = DN.TenDoanhNghiep;
+                string tendn = tdn.Length > 80 ? tdn.ToLower().Substring(0, 80) : tdn.ToLower();
+                int mkv = mm.NoiLamViec_HuyenID==null? 12286: mm.NoiLamViec_HuyenID.Value;
+                string tendc = dndn.GetDiaChiById(mkv).TenDiaChi;
+                var Lg = DN.Logo;
+                var nghiepvu = nv_dao.NghiepVu_TuyenDung(mm.TuyenDung_ID);
+                var ngoaingu = nv_dao.NghiepVu_Ngoaingu(mm.TuyenDung_ID);
+                var tinhoc = nv_dao.NghiepVu_TinHoc(mm.TuyenDung_ID);
+                var logo = XString.Cutstring(Lg);
+                var path = XString.maplocal + "Logo_DN\\" + XString.Cutstring(logo);
+                var DMchucdanh = dm.GetChucDanhbyID(mm.ChucDanh_ID);
+                var chucdanh = DMchucdanh != null ? DMchucdanh.TenChucDanh : "Không có";
+                var DMChuyenMon = dm.GetChuyenMonbyID(mm.YeuCauTrinhDo_ID);
+                var ChuyenMon = DMChuyenMon != null ? DMChuyenMon.TenChuyenMon : "Không yêu cầu";
+                var mtcv = @Html.Raw(mm.MoTaCongViec);
+                var tentieude = XString.Truncate(mm.TieuDeTuyenDung, 60);
+                var str = XString.ConvertToUnSign(tentieude);
+                var url = "/Tuyen-Dung/" + str + "-" + mm.TuyenDung_ID.ToString();
+                <div class="row" style="margin:0">
+                    <div class="col-md-2" style="padding: 0; margin-bottom: 0">
+                        @if (File.Exists(path))
+                        {
+                            <img src="@XString.GetImgBase64("Logo_DN",logo)" class="img_avatar" hidden/>
+                            <img data-src="/Content/Upload/Logo_DN/@logo" class="lazy img_avatar" />
+                        }
+                        else
+                        {<img data-src="/Content/Tien/icon3d/ctyicon.jpg" class="lazy img_avatar" />}
+
+                    </div>
+                    <div class="col-md-10 div_tieude" style="margin-top:5px;padding-left:5px;height:100px">
+                        
+                            <a href="@url" style="color: #555">
+                                <h4> @tieude.ToUpper()</h4>
+                            </a>
+                          
+                        <h6 style="text-transform:capitalize">
+                            @tendn
+                        </h6>
+                        <p>
+                            <a>
+                                <i class="icon-usd"></i> @luong
+                            </a>
+                            <a style="margin-left:30px">
+                                <i class="icon-map-marker"></i> @tendc
+                            </a>
+                        </p>
+                        <p>
+                            <a>
+                                <i class="icon-eye-open"></i> @mm.SoLuotXem lượt xem
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" style="margin:0">
+                    <div class="col-md-12 " style="padding: 0; margin-bottom: 0">
+
+                        <h4 class="h4_thongtin">Thông tin tuyển dụng</h4>
+                        <hr class="hr_thongtin" />
+
+                    </div>
+
+                 
+                            @*<div class="row" style="margin:0">*@
+                        <div class="col-md-12 div_tintuc_t" style="padding: 0; margin-bottom: 0; height:265px">
+                            <div class="div_thongtin">
+                                <div class="col-md-6 " style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-group"></i> Số lượng:
+                                        </p>
+                                        <p>
+                                            <b>@mm.SoLuongTuyen người</b>
+                                        </p>
+                                        <hr />
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-book"></i> Yêu cầu chuyên môn:
+                                        </p>
+                                        <p>
+                                            <b>@ChuyenMon</b>
+                                        </p>
+                                        <hr />
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-font"></i>Yêu cầu ngoại ngữ:
+                                        </p>
+
+                                        @foreach (DoanhNghiep_TuyenDung_NgoaiNgu nn in ngoaingu)
+                                        {<p>
+                                                <b>@nn.DM_NghiepVus.TenNghiepVu</b>
+                                            </p>
+                                        }
+
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-credit-card"></i> Chức danh:
+                                        </p>
+                                        <p>
+                                            <b>@chucdanh</b>
+                                        </p>
+                                        <hr />
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-user-md"></i> Kinh Nghiệm:
+                                        </p>
+                                        <p>
+                                            @if (mm.SoNamKinhNghiem == null || mm.SoNamKinhNghiem < 1)
+                                            {
+                                                <b>Không cần kinh nghiệm</b>
+                                            }
+                                            else { <b>@mm.SoNamKinhNghiem năm</b>}
+                                            
+                                        </p>
+                                        <hr />
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-desktop"></i> Tin học:
+                                        </p>
+
+                                        @foreach (DoanhNghiep_TuyenDung_TinHoc th in tinhoc)
+                                        {
+                                            <p>
+                                                <b>@th.DM_NghiepVus.TenNghiepVu</b>
+                                            </p>
+                                        }
+
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="margin:0;padding:0">
+                                    @if (nghiepvu.Count > 0)
+                                    {
+                                        <p>
+                                            <b>Yêu cầu khác:</b>
+                                            @foreach (DoanhNghiep_TuyenDung_NghiepVu TD_NV in nghiepvu)
+                                            {
+                                                <span>@TD_NV.DM_NghiepVus.TenNghiepVu .</span>
+                                            }
+                                        </p>
+                                        <hr />}
+                                    @if (mm.YeuCauCongViec != null && mm.YeuCauCongViec.Length>0)
+                                    {
+                                        <p>
+                                            <b>Yêu cầu công việc:</b>
+                                            <span>
+                                                @mm.YeuCauCongViec
+                                            </span>
+                                        </p>
+                                        <hr />}
+                                    @if (mm.QuyenLoi != null && mm.QuyenLoi.Length>0)
+                                    {
+                                        <p>
+                                            <b>Quyền lợi: </b>
+                                            <span>
+                                                @Html.Raw(mm.QuyenLoi)
+                                            </span>
+                                        </p>
+                                        <hr />}
+                                    @if (mtcv != null)
+                                    {
+                                        <p>
+                                            <b>Mô tả thêm: </b>
+                                            <span>
+                                                @mtcv
+                                            </span>
+                                        </p>
+                                    }
+
+                                    </div>
+                            </div>
+
+                        </div>
+                    @*</div>*@
+
+                    
+                
+                </div>
+            }
+        }
+    </div>
+    @foreach (DoanhNghiep_TuyenDung mm in ViewBag.HotJob)
+    {
+        var luong = " ";
+        if ((mm.LuongTu == 0 && mm.LuongDen == 0) || mm.LuongTu == null || mm.LuongDen == null)
+        {
+            luong = "Lương thỏa thuận";
+        }
+        else if (mm.LuongTu > 100)
+        {
+            luong = @Html.FormatValue(mm.LuongTu, "{0:#,###.##}") + " đến " + @Html.FormatValue(mm.LuongDen, "{0:#,###.##}");
+        }
+        else
+        {
+            luong = mm.LuongTu + " đến " + mm.LuongDen + " triệu";
+        }
+        var dndn = new DN_DoanhNghiep_Dao();
+        var DN = dndn.GetDN_ByDNID(mm.DN_ID);
+        if (DN != null)
+        {
+            var dm = new DanhMuc_Dao();
+            var nv_dao = new TD_NghiepVu_TinHoc_NgoaiNgu_Dao();
+            string tieude = mm.TieuDeTuyenDung.Length > 100 ? mm.TieuDeTuyenDung.Substring(0, 100) : mm.TieuDeTuyenDung;
+            string tdn = DN.TenDoanhNghiep;
+            string tendn = tdn.Length > 80 ? tdn.Substring(0, 80) : tdn;
+            int mkv = mm.NoiLamViec_HuyenID==null? 12286: mm.NoiLamViec_HuyenID.Value;
+            string tendc = dndn.GetDiaChiById(mkv).TenDiaChi;
+            var Lg = DN.Logo;
+            var nghiepvu = nv_dao.NghiepVu_TuyenDung(mm.TuyenDung_ID);
+            var ngoaingu = nv_dao.NghiepVu_Ngoaingu(mm.TuyenDung_ID);
+            var tinhoc = nv_dao.NghiepVu_TinHoc(mm.TuyenDung_ID);
+            var logo = XString.Cutstring(Lg);
+            var path = XString.maplocal+ "Logo_DN\\" + XString.Cutstring(logo);
+            var DMchucdanh = dm.GetChucDanhbyID(mm.ChucDanh_ID);
+            var chucdanh = DMchucdanh != null ? DMchucdanh.TenChucDanh : "Không có";
+            var DMChuyenMon = dm.GetChuyenMonbyID(mm.YeuCauTrinhDo_ID);
+            var ChuyenMon = DMChuyenMon != null ? DMChuyenMon.TenChuyenMon : "Không yêu cầu";
+            var mtcv = @Html.Raw(mm.MoTaCongViec);
+            var tentieude = XString.Truncate(mm.TieuDeTuyenDung, 60);
+            var str = XString.ConvertToUnSign(tentieude);
+            var url = "/Tuyen-Dung/" + str + "-" + mm.TuyenDung_ID.ToString();
+            <div class="item" style="margin-left:5px">
+                <div class="row" style="margin:0">
+                    <div class="col-md-2" style="padding: 0; margin-bottom: 0">
+                        @if (File.Exists(path))
+                        {
+
+                            <img src="@XString.GetImgBase64("Logo_DN",logo)" class="img_avatar" hidden/>
+                            <img data-src="/Content/Upload/Logo_DN/@logo" class="lazy img_avatar" />
+                        }
+                        else
+                        {<img data-src="/Content/Tien/icon3d/ctyicon.jpg" class="lazy img_avatar" />}
+
+                    </div>
+                    <div class="col-md-10 div_tieude" style="margin-top:5px;padding-left:5px;height:100px">
+                        <a href="@url" style="color: #555">
+                            <h4> @tieude.ToUpper()</h4>
+                        </a>
+                        <h6>
+                            @tendn
+                        </h6>
+                        <p>
+                            <a>
+                                <i class="icon-usd"></i> @luong
+                            </a>
+                            <a style="margin-left:30px">
+                                <i class="icon-map-marker"></i> @tendc
+                            </a>
+                        </p>
+                        <p>
+                            <a>
+                                <i class="icon-eye-open"></i> @mm.SoLuotXem lượt xem
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" style="margin:0">
+                    <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+
+                        <h4 class="h4_thongtin">Thông tin tuyển dụng</h4>
+                        <hr class="hr_thongtin" />
+
+                    </div>
+
+                    <div class="row" style="margin:0">
+                        <div class="col-md-12 div_tintuc_t" style="padding-left: 8px; margin-bottom: 0; height:265px">
+                            <div class="div_thongtin">
+                                <div class="col-md-6 " style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-group"></i> Số lượng:
+                                        </p>
+                                        <p>
+                                            <b>@mm.SoLuongTuyen người</b>
+                                        </p>
+                                        <hr />
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-book"></i> Yêu cầu chuyên môn:
+                                        </p>
+                                        <p>
+                                            <b>@ChuyenMon</b>
+                                        </p>
+                                        <hr />
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-font"></i>Yêu cầu ngoại ngữ:
+                                        </p>
+                                        @foreach (DoanhNghiep_TuyenDung_NgoaiNgu nn in ngoaingu)
+                                        {
+                                            <p>
+                                                <b>@nn.DM_NghiepVus.TenNghiepVu</b><span>:@nn.ChungChiNgoaiNgu</span>
+                                            </p>
+                                        }
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-credit-card"></i> Chức danh:
+                                        </p>
+                                        <p>
+                                            <b>@chucdanh</b>
+                                        </p>
+                                        <hr />
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-user-md"></i> Kinh Nghiệm:
+                                        </p>
+                                        <p>
+                                            @if (mm.SoNamKinhNghiem == null || mm.SoNamKinhNghiem < 1)
+                                            {
+                                                <b>Không cần kinh nghiệm</b>
+                                            }
+                                            else
+                                            { <b>@mm.SoNamKinhNghiem năm</b>}
+                                        </p>
+                                        <hr />
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-desktop"></i> Tin học:
+                                        </p>
+                                        @foreach (DoanhNghiep_TuyenDung_TinHoc th in tinhoc)
+                                        {
+                                            <p>
+                                                <b>@th.DM_NghiepVus.TenNghiepVu</b>
+                                            </p>
+                                        }
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="margin:0;padding:0">
+                                    @if (nghiepvu.Count > 0)
+                                    {
+                                        <p>
+                                            <b>Yêu cầu khác:</b>
+                                            @foreach (DoanhNghiep_TuyenDung_NghiepVu TD_NV in nghiepvu)
+                                            {
+                                                <span>@TD_NV.DM_NghiepVus.TenNghiepVu .</span>
+                                            }
+                                        </p>
+                                        <hr />}
+
+
+                                    @if (mm.YeuCauCongViec != null && mm.YeuCauCongViec.Length>0)
+                                    {
+                                        <p>
+                                            <b>Yêu cầu công việc: </b>
+                                            <span>
+                                                @mm.YeuCauCongViec
+                                            </span>
+                                        </p>
+                                        <hr />}
+                                    @if (mm.QuyenLoi != null && mm.QuyenLoi.Length>0)
+                                    {
+                                        <p>
+                                            <b>Quyền lợi: </b>
+                                            <span>
+                                                @Html.Raw(mm.QuyenLoi)
+                                            </span>
+                                        </p>
+                                        <hr />}
+                                    @if(mtcv != null) {
+                                        <p>
+                                            <b>Mô tả thêm: </b>
+                                            <span>
+                                                @mtcv
+                                            </span>
+                                        </p>
+                                    }
+                                    </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    }
+</div>

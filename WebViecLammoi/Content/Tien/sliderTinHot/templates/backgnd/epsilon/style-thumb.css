@@ -1,0 +1,11 @@
+#wowslider-container$GallerySuffix$ .ws_thumbs  a{
+	opacity:1;
+	border-radius: 7px;
+    border: 3px solid rgba(255,255,255,0.3);
+    background-color: #E5E5E5;
+}
+
+#wowslider-container$GallerySuffix$ .ws_thumbs a.ws_selthumb{
+	background-color: #ddd;	
+	border-color: $TemplateColor$;
+}

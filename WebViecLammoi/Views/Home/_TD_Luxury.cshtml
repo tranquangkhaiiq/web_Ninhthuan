@@ -1,0 +1,80 @@
+﻿@using WebViecLammoi.DAO
+@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+<div class="col-md-12 div_tintuc_t" style="height:500px">
+    @foreach (DoanhNghiep_TuyenDung td in ViewBag.LuxuryJob)
+    {
+        var dndn = new DN_DoanhNghiep_Dao();
+        var DN = dndn.GetDN_ByDNID(td.DN_ID);
+        if (DN != null)
+        {
+            var luong = " ";
+            if ((td.LuongTu == 0 && td.LuongDen == 0) || td.LuongTu == null || td.LuongDen == null)
+            {
+                luong = "Lương thỏa thuận";
+            }
+            else if (td.LuongTu > 500000)
+            {
+                luong = @Html.FormatValue(td.LuongTu, "{0:#,###.##}") + " đến " + @Html.FormatValue(td.LuongDen, "{0:#,###.##}");
+            }
+            else
+            {
+                luong = td.LuongTu + " đến " + td.LuongDen + " triệu";
+            }
+            var dm = new DanhMuc_Dao();
+            var title = DN.TenDoanhNghiep.ToLower();
+            var DMChuyenMon = dm.GetChuyenMonbyID(td.YeuCauTrinhDo_ID);
+            var ChuyenMon = DMChuyenMon != null ? DMChuyenMon.TenChuyenMon : "Không cần bằng cấp";
+            var yeucaunghe = dm.GetNgheNTVbyID(td.YeuCauNghe_ID);
+            int mkv = td.NoiLamViec_HuyenID ==null? 12286: td.NoiLamViec_HuyenID.Value;
+            string tendc = dndn.GetDiaChiById(mkv).TenDiaChi;
+            var tg = dm.GetTGbyID(td.ThoiGianLamViec_ID);
+            var tentieude = XString.Truncate(td.TieuDeTuyenDung, 60);
+            var str = XString.ConvertToUnSign(tentieude);
+            var url = "/Tuyen-Dung/" + str + "-" + td.TuyenDung_ID.ToString();
+        <div class="div_moinhat">
+            <div class="row" style="margin:0">
+                <div class="col-md-12" style="padding: 0;  margin-bottom: 0">
+                    <a href="@url" style="color: #555">
+                        <h4 class="h4_tieude" style="margin:0;margin-bottom:5px">
+                            @td.TieuDeTuyenDung.ToUpper()
+                        </h4>
+                    </a>
+                   
+                    <h5 class="h5_name" style="margin: 0; margin-bottom: 5px; color: #1d4c90 !important;text-transform:capitalize ">
+                        @title
+                    </h5>
+                </div>
+            </div>
+            <hr style="margin-top:5px;margin-bottom:5px" />
+            <div class="row" style="margin:0; margin-top:5px">
+                <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                    <p style="margin-bottom:5px">
+                        @if (yeucaunghe.TenNgheLaoDong == "Không rõ")
+                        {
+                            <i class="icon-briefcase"></i><span>Trình độ CMKT:</span> <b>@DMChuyenMon.TenChuyenMon</b>
+                            }
+                        else
+                        { <i class="icon-briefcase"></i><span>Trình độ CMKT:</span><b>@DMChuyenMon.TenChuyenMon</b><span>(@yeucaunghe.TenNgheLaoDong)</span> 
+                        }
+
+                    </p>
+                    <p style="margin-bottom:0px">
+                        <a>
+                            <i class="icon-usd"></i>@luong
+                        </a>
+                        <a style="margin-left:10px">
+                            <i class="icon-map-marker"></i> @tendc
+                        </a>
+                        <br />
+                        <a>
+                            <i class="icon-time"></i> @tg.TenThoiGianLamViec
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        }
+    }
+
+</div>

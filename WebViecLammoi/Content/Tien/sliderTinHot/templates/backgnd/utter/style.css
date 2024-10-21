@@ -1,0 +1,179 @@
+#wowslider-container$GallerySuffix$ .ws_controls {
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	overflow: hidden;
+}
+
+/* FS btn */
+#wowslider-container$GallerySuffix$ .ws_fullscreen {
+	left: $arrowWidth$;
+	top: 0;
+	font-size: 0.8rem;
+	padding: 8px;
+}
+
+/* bullets */
+#wowslider-container$GallerySuffix$ .ws_bullets { 
+	padding: 0px;
+	max-width: 25%;
+	text-align: right;
+	right: $arrowWidth$;
+	margin-right: 30px;
+}
+#wowslider-container$GallerySuffix$ .ws_bullets a { 
+	position:relative;
+	display: inline-block;
+	width: 0;
+	padding: 15px;
+} 
+#wowslider-container$GallerySuffix$ .ws_bullets a > span {
+	position:absolute;
+	display: block;
+	top:0;
+	right: 0;
+	height:100%;
+	width:100%;
+	background: $TransparentColor3$;
+	-webkit-transition: 300ms background ease;
+	transition: 300ms background ease;
+}
+
+#wowslider-container$GallerySuffix$ .ws_bullets a.ws_overbull > span,
+#wowslider-container$GallerySuffix$ .ws_bullets a.ws_selbull > span {
+	background: $TransparentColor6$;
+}
+
+
+
+/* Play / Pause */
+#wowslider-container$GallerySuffix$ .ws_playpause {
+	position:absolute;
+	right: $arrowWidth$;
+	$TooltipPos$: 0;
+	padding: 15px;
+	background: $TransparentColor3$;
+	color: #ffffff;
+	z-index: 100;
+	-webkit-transition: 300ms background ease;
+	transition: 300ms background ease;
+}
+
+#wowslider-container$GallerySuffix$ .ws_playpause > span:before {
+	font: 1.2em "ws-ctrl-utter";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	right: 0;
+	margin-top: 1px;
+	display: block;
+	text-align: center;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+#wowslider-container$GallerySuffix$ .ws_playpause:hover {
+	background: $TransparentColor6$;
+}
+/* IE10+ hacks */
+_:-ms-input-placeholder, :root #wowslider-container$GallerySuffix$ a.ws_playpause > span:before {line-height: 3.2em;}
+
+#wowslider-container$GallerySuffix$ .ws_play > span:before {
+	content:"\e800";
+}
+#wowslider-container$GallerySuffix$ .ws_pause > span:before {
+	content:"\e801";
+}
+
+/* arrows */
+#wowslider-container$GallerySuffix$ a.ws_next,
+#wowslider-container$GallerySuffix$ a.ws_prev {
+	position:absolute;
+	color: #ffffff;
+	width: $arrowWidth$;
+	height: 100%;
+	z-index: 100;
+	overflow: hidden;
+	-webkit-transition: background 300ms ease-in-out, -webkit-transform 300ms ease-in-out, box-shadow 300ms ease-in-out;
+	transition: background 300ms ease-in-out, transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out, box-shadow 300ms ease-in-out;
+}
+#wowslider-container$GallerySuffix$ a.ws_next {
+	right: 0;
+}
+#wowslider-container$GallerySuffix$ a.ws_prev {
+	left: 0;
+}
+
+#wowslider-container$GallerySuffix$ a.ws_next > span,
+#wowslider-container$GallerySuffix$ a.ws_prev > span {
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	color: #fff;
+	text-align: center;
+	z-index: 2;
+	-webkit-transition: 300ms background ease;
+	transition: 300ms background ease;
+}
+
+#wowslider-container$GallerySuffix$ a.ws_next:hover > span,
+#wowslider-container$GallerySuffix$ a.ws_prev:hover > span{
+	background: $TransparentColor3$;
+}
+
+#wowslider-container$GallerySuffix$ a.ws_next > span:before,
+#wowslider-container$GallerySuffix$ a.ws_prev > span:before,
+#wowslider-container$GallerySuffix$ a.ws_next > span:after,
+#wowslider-container$GallerySuffix$ a.ws_prev > span:after {
+	position: absolute;
+	display: block;
+	font: 2.5em "ws-ctrl-utter";
+	top: 50%;
+	left: 0;
+	right: 0;
+	margin-top: 1px;
+	margin-left: -8px;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+/* IE10+ hacks */
+_:-ms-input-placeholder, :root #wowslider-container$GallerySuffix$ a.ws_next > span:before {line-height: 3.2em;}
+_:-ms-input-placeholder, :root #wowslider-container$GallerySuffix$ a.ws_prev > span:before {line-height: 3.2em;}
+
+#wowslider-container$GallerySuffix$ a.ws_next > span:before,
+#wowslider-container$GallerySuffix$ a.ws_next > span:after {
+	content:'\e803';
+}
+#wowslider-container$GallerySuffix$ a.ws_prev > span:before,
+#wowslider-container$GallerySuffix$ a.ws_prev > span:after {
+	content:'\e802';
+}
+#wowslider-container$GallerySuffix$ a.ws_next > span:after,
+#wowslider-container$GallerySuffix$ a.ws_prev > span:after {
+	margin-left: 8px;
+}
+
+#wowslider-container$GallerySuffix$ a.ws_prev img,
+#wowslider-container$GallerySuffix$ a.ws_next img {
+	position: absolute;
+	top: 0;
+	opacity: 0;
+	height: 100%;
+	-webkit-transition: 300ms opacity ease, 300ms -webkit-transform ease;
+	transition: 300ms opacity ease, 300ms transform ease;
+}
+
+#wowslider-container$GallerySuffix$ a.ws_prev img {
+	left: 0;
+	-webkit-transform: translateX($arrowWidth$);
+	transform: translateX($arrowWidth$);
+}
+#wowslider-container$GallerySuffix$ a.ws_next img {
+	right: 0;
+	-webkit-transform: translateX(-$arrowWidth$);
+	transform: translateX(-$arrowWidth$);
+}
+
+#wowslider-container$GallerySuffix$ a.ws_next:hover img,
+#wowslider-container$GallerySuffix$ a.ws_prev:hover img {
+	opacity: 1;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+}

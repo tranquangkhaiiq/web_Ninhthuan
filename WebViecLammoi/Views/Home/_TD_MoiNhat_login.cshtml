@@ -1,0 +1,218 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.i18n
+@using WebViecLammoi.Utils
+@using WebViecLammoi.DAO
+@model IEnumerable<DoanhNghiep_TuyenDung>
+
+
+@*<link href="~/Content/NhutCC/cssUpdate1707.css" rel="stylesheet" />*@
+<style>
+    .header_T {
+        color: black;
+    }
+
+    .item-jobpost {
+    }
+
+    @@media screen and (max-width:768px) {
+        /*.item-jobpost .Phu_header img {
+            width: 80px;
+        }*/
+    }
+
+    @@media screen and (max-width:575px) {
+        .mobikh {
+            padding-left: 7%;
+        }
+    }
+
+    .Online_DNKH span i {
+        color: red;
+    }
+</style>
+@helper Truncate(string input, int length)
+{
+    if (input != null)
+    {
+        if (input.Length <= length)
+        {
+            @input
+        }
+        else
+        {
+            @input.Substring(0, length)<text>...</text>
+        }
+    }
+
+}
+@helper Xoa(string output)
+{
+    @output
+}
+<div class="card">
+    <div class="row">
+        <div class="col-md-12" style="margin:auto">
+            <div class="jobpost-title-Nh">
+                <div class="row" style="margin-left: 0; width: 100%">
+                    <div class="col-md-1 col-sm-1 col-xs-1">
+
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-5">
+                        <p><i class="fa fa-bars"></i>  Tiêu đề / Tên Cty</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <p><i class="fa fa-map-marker"></i> Khu vực/HOT</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-3">
+                        <p><i class="fa fa-briefcase"></i>  KN/ Số Lượng</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 ngaydang">
+                        <p><i class="fa fa-calendar"></i> Cập nhật</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row">
+
+        @if (Model.Count() > 0)
+        {
+            VLDB dbcc = new VLDB();
+            <div class="card-body col-md-12">
+
+                @foreach (DoanhNghiep_TuyenDung h in Model)
+                {
+                    var tieude = h.TieuDeTuyenDung;
+                    var str = XString.ConvertToUnSign(tieude);
+                        int mkv = new DN_DoanhNghiep_Dao().GetDN_ByDNID(h.DN_ID).Huyen_ID.Value;
+                        int mttp = new DN_DoanhNghiep_Dao().GetDN_ByDNID(h.DN_ID).Tinh_ID.Value;
+                        var Logo = new DN_DoanhNghiep_Dao().GetDN_ByDNID(h.DN_ID).Logo;
+                        string tendn = new DN_DoanhNghiep_Dao().GetDN_ByDNID(h.DN_ID).TenDoanhNghiep;
+
+                    string tendc = new DN_DoanhNghiep_Dao().GetDiaChiById(mkv).TenDiaChi;
+                    var url = "/Tuyen-Dung/" + str.Replace("/", "-") + "-" + h.TuyenDung_ID;
+                    var tkv = mkv + ".png";
+
+                    var title = tieude.Length > 28 ? Truncate(tieude.ToUpper(), 60) : Xoa("");
+                    //var Num_UserID = VLVN.Dao.User_SignlR_DAO.GetUserID_LoaiID(dbcc, h.DoanhNghieps.DN_ID, "TD");
+
+                    <div class="item-jobpost">
+                        <div class="row">
+                            <div class="col-md-1 col-sm-1 col-xs-1" style="padding-top:10px;padding-left:1%">
+                                <a class="Phu_header" href="@url">
+                                    @if (Logo == null || Logo == "")
+                                    {
+                                        if (mttp == 9)
+                                        {
+                                            <div class="box-img">
+                                                <img src="~/Content/NhutCC/img/@tkv" style="width: 40px; height: 40px">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Content/img/iconlogo1.png" style="width: 40px; height: 40px; " />
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var logo = XString.Cutstring(Logo);
+                                        <img src="~/Content/Upload/Logo_DN/@logo" style="width: 40px; height: 40px" alt="">
+
+                                    }
+                                </a>
+                            </div>
+
+                            <div class="col-md-4 col-sm-4 col-xs-5 mobikh">
+                                <h5 style="margin-bottom:5px">
+                                    <a class=" header_T h5_hover" title="@title" style="font-size:15px;text-decoration:none;font-family: 'Open Sans', sans-serif,'Times New Roman', Times, serif" href="@url" target="_blank">
+                                        @Truncate(tieude.ToUpper(), 28)
+                                    </a>
+                                </h5>
+
+                                <p style="font-size: 13px; margin-bottom: 5px">
+                                    <a class=" header_T p_hover" style="text-decoration:none;" href="@url" target="_blank">@Truncate(tendn.ToUpper(), 28)</a>
+                                </p>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 jobpost-Nh mt10">
+                                @if (mkv > 0)
+                                {
+                                    <span>@tendc</span><br />
+                                }
+                                else
+                                {
+                                    <span>Không xác định</span><br />
+                                }
+                                @if (h.NoiBat == true)
+                                {
+                                    <span class="txt-hot">
+                                        Hot
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span style="display:none" class="txt-hot">
+                                        Hot
+                                    </span>
+                                }
+                                @*<a style="cursor: pointer">
+                                    <span class="Online_DNKH">
+                                        <span class="@Num_UserID">OffLine</span>
+                                    </span>
+                                </a>*@
+
+                                @*<span><i class="fa fa-money m-r-10"></i>&nbsp;@h.DM_MucLuong.TenMucLuong</span><br />*@
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-3 jobpost-Nh mt10">
+                                @if (h.SoNamKinhNghiem != null)
+                                {
+                                    if (h.SoNamKinhNghiem > 0)
+                                    {
+                                        <span>KN: @h.SoNamKinhNghiem năm</span><br />
+                                    }
+                                    else
+                                    {
+                                        <span>Không yêu cầu KN</span><br />
+                                    }
+                                }
+                                else
+                                {
+                                    <span>KN: Không yêu cầu</span><br />
+                                }
+                                <span>Số lượng: @h.SoLuongTuyen</span>
+                            </div>
+
+                            <div class="col-md-2 col-sm-2 col-xs-2 mt10 ngaydang">
+                                <span>@Html.FormatValue(h.NgayTao, "{0:dd/MM/yyyy}")</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="text-align:right">
+            <a href="/Tuyen-Dung" class="btn btn-info  text-uppercase " style=" margin-top: 25px; font-weight: bold; line-height: 30px; "><i class="fa fa-search"></i>&nbsp;Tra cứu hồ sơ tuyển dụng</a>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(".item-jobpost").mouseenter(function () {
+        $(this).css("color", "#006fc7");
+        $(this).find(".h5_hover").css("color", "#006fc7");
+        $(this).find(".h6_hover").css("color", "#006fc7");
+        $(this).find(".p_hover").css("color", "#006fc7");
+    }).mouseleave(function () {
+        $(this).css("color", "black");
+        $(this).find(".h6_hover").css("color", "black");
+        $(this).find(".h5_hover").css("color", "black");
+        $(this).find(".p_hover").css("color", "black");
+    });
+</script>
+

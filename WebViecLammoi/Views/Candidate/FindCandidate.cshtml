@@ -1,0 +1,78 @@
+﻿@using WebViecLammoi.i18n
+@using WebViecLammoi.Models
+<link href="~/Content/css/FindControl_Style.css" rel="stylesheet" />
+<section style="background-image: url(/Content/img/map.png); background-attachment: fixed !important; background-size: cover !important; background-position: 50% 0 !important;">
+    <div class="container">
+        <div class="row">
+            @using (Html.BeginForm("CandidateListByCustom", "Candidate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <p>***Hướng dẫn: <span style="color:blue"><i>Nhập nội dung rồi Click nút "Tìm Kiếm", chọn "Khu Vực" để thu hẹp phạm vi</i></span></p>
+                <div class="col-md-6 col-xs-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-lg" style="width:100%">
+                            <div class="input-group-addon">
+                                <i class="fa fa-tag"></i>
+                            </div>
+                            <input value="@Session["searchStrNTV"]" type="text" class="form-control" placeholder=":Tên hồ sơ" id="searchStr" name="searchStrNTV">
+                        </div>
+                    </div>
+                    <p hidden><u>Key:</u> <a style="color:red">@Session["searchStrNTV"]</a></p>
+                </div>
+                <div class="col-md-2 col-xs-2">
+                    <div class="form-group">
+                        <div class="input-group input-group-lg" style="display:none">
+                            <div class="input-group-addon">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            @Html.DropDownList("LocationNTVId", null, new { @class = "form-control", @required = true })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <div class="input-group input-group-lg" style="width:100%">
+                            <button class="btn btn-primary btn-block btn-lg">@Common.Search</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+
+                            <label class="label label-success">@Common.SearchBy : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @*<a href="#findnn" class="btn btn-danger btn-width btn-send-msg" data-toggle="collapse" data-parent="#accordion">@Common.Profession</a>*@
+                            <a href="#findkv" class="btn btn-danger btn-width btn-send-msg" data-toggle="collapse" data-parent="#accordion">@Common.Area</a>
+                            <label class="label" style="color:darkblue">@Session["TenLoNTV"] </label>
+                            @*<a href="https://bhtn.vieclambinhduong.vn" class="btn btn-danger btn-width btn-send-msg" target="_blank" rel="noopener noreferrer">Danh Sách BHTN</a>*@
+                        </h4>
+                    </div>
+                    <div id="findkv" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                @foreach (DM_DiaChi d in ViewBag.LocationNTV)
+                                {
+                                    <div class="col-sm-3">
+                                        <a style="color:black" href="/Candidate/CandidateListByLocation/@d.Id"><i class="glyphicon glyphicon-chevron-right"></i> @d.TenDiaChi</a>
+                                    </div>
+                                }
+                                <div class="col-sm-3">
+                                    <a href="/Candidate/CandidateListByLocation/9999"><i class="glyphicon glyphicon-chevron-right"></i> Khác</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $("#searchStr").keyup(function () {
+
+    });
+</script>

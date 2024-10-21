@@ -1,0 +1,87 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@using WebViecLammoi.DAO
+@helper Truncate(string input, int length)
+{
+    if (input != null)
+    {
+        if (input.Length <= length)
+        {
+            @input
+        }
+        else
+        {
+            @input.Substring(0, length)<text>...</text>
+        }
+    }
+}
+<style>
+    .item a {
+        display: -webkit-box;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+        font-size: 14px;
+        line-height: 1.25;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+<div class="row SliderTinHotUpdate_Nh" style="position:absolute;right:0;width:75%;top:0">
+    <div class="col-md-12" style="text-align:center">
+        @*<div id="tinhot" class="col-md-1 text-uppercase" style="margin-top:5px;  padding: 5px 0px 5px 0px;  background-color: #0d45e1; color: white; ">Tin Hot</div>*@
+        <div class="col-md-12" style="position:relative;padding-bottom:5px;padding-right:0;height:50px">
+            <div id="myCarousel_tinhot" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox" style="text-align:left;height:100%">
+                    @foreach (New_small TT in ViewBag.New_small)
+                    {
+                        var str = XString.EditString(TT.Title);
+                        var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + TT.NewId;
+
+                        <div class="item active">
+                            <div class="row m-0">
+                                <div class="col-md-1">
+                                    <img src="~/Content/Upload/News_Img/@TT.ImagePath" style="width:30px;height:30px;margin-top:10px" />
+                                </div>
+                                <div class="col-md-11">
+                                    <a style="text-decoration:none;color:black" href="@url" title="@Truncate(TT.Summary, 20)">@Truncate(TT.Summary, 210)</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                    @foreach (New_small TT in ViewBag.New_small1)
+                    {
+                        var str = XString.EditString(TT.Title);
+                        var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + TT.NewId;
+
+                        <div class="item">
+                            <div class="row m-0">
+                                <div class="col-md-1">
+                                    <img src="~/Content/Upload/News_Img/@TT.ImagePath" style="width:30px;height:30px" />
+                                </div>
+                                <div class="col-md-11">
+                                    <a style="text-decoration:none;color:black" href="@url" title="@Truncate(TT.Summary, 20)">@Truncate(TT.Summary, 210) </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Content/Tien/sliderTinHot/templates/common/js/wowslider.js"></script>
+
+<script src="~/Content/Tien/sliderTinHot/templates/effects/carousel/script.js"></script>
+
+
+
+
+

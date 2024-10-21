@@ -1,0 +1,106 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@using WebViecLammoi.DAO
+@model IEnumerable<DoanhNghiep_TuyenDung>
+
+<div class="TD_XemNhieu" id="TD_XemNhieu">
+    <div class=" row" style="margin-left:0">
+
+        <label style="background-color:lightblue" class="label_tab"><i class="fa fa-users"></i><span>Tuyển dụng xem nhiều</span></label>
+    </div>
+
+    <div class="QC-Nh-list">
+        @if (Model != null)
+        {
+            VLDB dbc = new VLDB();
+
+            foreach (DoanhNghiep_TuyenDung nh in Model)
+            {
+                var tenhs = XString.Truncate(nh.TieuDeTuyenDung, 30);
+                var tencty = XString.Truncate(DN_DoanhNghiep_Dao.GetName_DN(dbc, "TenDoanhNghiep", nh.DN_ID), 30);
+                var TenNgheLaoDong = DN_DoanhNghiep_Dao.GetName_DN(dbc, "TenNgheLaoDong", nh.DN_ID);
+                var str = XString.ConvertToUnSign(nh.TieuDeTuyenDung);
+                int mkv = int.Parse(DN_DoanhNghiep_Dao.GetName_DN(dbc, "Huyen_ID", nh.DN_ID));
+                string tendiachi = DN_DoanhNghiep_Dao.GetName_DN(dbc, "TenDiaChi", nh.DN_ID);
+                var url = "/Tuyen-Dung/" + str.Replace("/", "-") + "-" + nh.TuyenDung_ID;
+                <div class="QC-Nh-item" style="position:relative">
+                    <div class="QC-Nh-item-name">
+                        <a href=@url><p>@tenhs</p></a>
+                    </div>
+                    <div class="QC-Nh-item-com">
+                        <p><a href=@url>@tencty</a></p>
+                    </div>
+                    <div class="QC-Nh-item-com">
+                        <a href=@url>Nghề tuyển: @TenNgheLaoDong</a>
+                    </div>
+                    <div class="QC-Nh-item-info">
+                        <div class="row">
+                            <div class="col-md-5 col-xs-5">
+                                @if (nh.LuongTu == 0 && nh.LuongDen == 0)
+                                {
+                                    <span class="glyphicon glyphicon-usd"> Thỏa thuận</span>
+                                }
+                                else if (@nh.LuongTu < 300)
+                                {
+                                    <span class="glyphicon glyphicon-usd">@nh.LuongTu đến @nh.LuongDen (tr)</span>
+                                }
+                                else
+                                {
+                                    <span class="glyphicon glyphicon-usd"> @Html.FormatValue(nh.LuongTu, "{0:#,###.##}") đến @Html.FormatValue(nh.LuongDen, "{0:#,###.##}")</span>
+                                }
+
+
+                            </div>
+                            <div class="col-md-7 col-xs-7">
+                                <span class="glyphicon glyphicon-map-marker"></span>&nbsp;
+                                @if (mkv > 0)
+                                {
+                                    <span>@tendiachi</span><br />
+                                }
+                                else
+                                {
+                                    <span>Không xác định</span><br />
+                                }
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                <span class="glyphicon glyphicon-align-left"></span>&nbsp;
+                                @if (nh.SoNamKinhNghiem != null)
+                                {
+
+                                    if (nh.SoNamKinhNghiem > 0)
+                                    {
+                                        <span>KN: @nh.SoNamKinhNghiem năm</span><br />
+                                    }
+                                    else
+                                    {
+                                        <span>KN: Không có</span><br />
+                                    }
+                                }
+                                else
+                                {
+                                    <span>KN: Không có</span><br />
+                                }
+                            </div>
+                            <div class="col-md-6 col-xs-6" style="padding-top:5px;">
+                                @*<span class="glyphicon glyphicon-time"></span>&nbsp;@Html.FormatValue(@nh.NgayCapNhat, "{0:dd/MM/yyyy}")*@
+                                <i class="fa fa-eye">&nbsp; @nh.SoLuotXem lượt xem</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        if ($("#TD_DaXem").css("display") === "block") {
+            $("#TD_XemNhieu").css("display", "none");
+        }
+        else {
+            $("#TD_XemNhieu").css("display", "block");
+        }
+    });
+</script>

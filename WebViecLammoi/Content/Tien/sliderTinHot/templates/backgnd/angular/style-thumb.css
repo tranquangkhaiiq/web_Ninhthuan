@@ -1,0 +1,8 @@
+#wowslider-container$GallerySuffix$ .ws_thumbs a.ws_selthumb{
+	opacity: 0.6;
+}
+
+#wowslider-container$GallerySuffix$ .ws_thumbs a{
+	opacity: 1;
+	background-color: $TemplateColor$;
+}

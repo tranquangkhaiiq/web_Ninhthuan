@@ -1,0 +1,70 @@
+#wowslider-container$GallerySuffix$ a.ws_next,
+#wowslider-container$GallerySuffix$ a.ws_prev,
+#wowslider-container$GallerySuffix$ .ws_playpause {
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transform: scale(0);
+	-moz-transform: scale(0);
+  	transform: scale(0);
+}
+
+#wowslider-container$GallerySuffix$ a.ws_next {
+	-webkit-transition: -webkit-transform 0.3s ease 0s,
+	 					opacity 0.3s ease 0s,
+	  					visibility 0.3s ease 0s,
+	  					background-color 0.3s ease 0s;	
+
+	-moz-transition: 	-moz-transform 0.3s ease 0s,
+	 					opacity 0.3s ease 0s,
+	  					visibility 0.3s ease 0s,
+	  					background-color 0.3s ease 0s;					
+
+	transition:			transform 0.3s ease 0s,
+	 					opacity 0.3s ease 0s,
+	  					visibility 0.3s ease 0s,
+	  					background-color 0.3s ease 0s;		  					
+}
+
+#wowslider-container$GallerySuffix$ a.ws_prev {
+	-webkit-transition: -webkit-transform 0.3s ease 0.15s,
+	 					opacity 0.3s ease 0.15s,
+	  					visibility 0.3s ease 0.15s,
+	  					background-color 0.3s ease 0s;	
+
+	-moz-transition: 	-moz-transform 0.3s ease 0.15s,
+	 					opacity 0.3s ease 0.15s,
+	  					visibility 0.3s ease 0.15s,
+	  					background-color 0.3s ease 0s;	
+
+	transition: 		transform 0.3s ease 0.15s,
+	 					opacity 0.3s ease 0.15s,
+	  					visibility 0.3s ease 0.15s,
+	  					background-color 0.3s ease 0s;		  						  								
+}
+
+#wowslider-container$GallerySuffix$ .ws_playpause {
+	-webkit-transition: -webkit-transform 0.3s ease 0.3s,
+	 					opacity 0.3s ease 0.3s,
+	  					visibility 0.3s ease 0.3s,
+	  					background-color 0.3s ease 0s;					
+
+	-moz-transition: 	-moz-transform 0.3s ease 0.3s,
+	 					opacity 0.3s ease 0.3s,
+	  					visibility 0.3s ease 0.3s,
+	  					background-color 0.3s ease 0s;
+
+	transition: 		transform 0.3s ease 0.3s,
+	 					opacity 0.3s ease 0.3s,
+	  					visibility 0.3s ease 0.3s,
+	  					background-color 0.3s ease 0s;	  					  					
+}
+
+#wowslider-container$GallerySuffix$:hover a.ws_next,
+#wowslider-container$GallerySuffix$:hover a.ws_prev,
+#wowslider-container$GallerySuffix$:hover .ws_playpause {
+	opacity: 1;
+  	visibility: visible;
+  	-webkit-transform: scale(1);
+  	-moz-transform: scale(1);
+  	transform: scale(1);
+}

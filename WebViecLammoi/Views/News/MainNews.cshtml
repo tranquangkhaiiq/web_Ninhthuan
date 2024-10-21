@@ -1,0 +1,163 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+@model WebViecLammoi.Models.NewsCategory
+@{
+    ViewBag.Title = "Tra cứu Tin tức";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@{
+    int page = ViewBag.TTTTLD_page;
+    int LoaiTinTuc_ID = Model.CategoryID;
+
+    double tongtt = ViewBag.TTTTLD_count;
+    double tt_page = tongtt / 10;
+    int tongpage = (int)Math.Ceiling(tt_page);
+}
+
+
+<div class="col-md-9" style="padding:0">
+    <div class="card card_t" style="border:0px">
+        @*//////////*@
+
+        <div class="header bgcardhead header_t">
+            <div class="navbar-default bgnavbarTD">
+                <div class="container" style="padding:0">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse2">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @if (Model != null)
+                        {
+                            <label class="label_cardhead">
+                                @Model.CategoryName
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="label_cardhead">
+                                Loại tin: không tồn tại
+                            </label>
+                        }
+                    </div>
+                    <div class="navbar-collapse2 collapse" id="topmenu">
+                        @Html.Partial("DM_News")
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        @*////////////*@
+        <div class="body" style="padding: 0; margin: -1px">
+            <style>
+                .a_tintuc {
+                    color: #383838;
+                    text-decoration: none;
+                    font-size: 90%;
+                }
+
+                    .a_tintuc img {
+                        border: 1px solid #ccc;
+                        width: 100%;
+                        max-height: 350px;
+                        padding: 3px;
+                    }
+
+                    .a_tintuc h4 {
+                        font-weight: bold;
+                        color: #006fc7;
+                        margin-top: 3px;
+                    }
+
+                    .a_tintuc p {
+                        margin-bottom: 5px
+                    }
+
+                    .a_tintuc div.row {
+                        margin: 0;
+                    }
+
+                    .a_tintuc div.col-md-5 {
+                        margin: 0;
+                        padding: 10px;
+                    }
+
+                    .a_tintuc div.col-md-7 {
+                        margin: 0;
+                        padding: 10px;
+                        text-align: justify;
+                    }
+            </style>
+            @foreach (New_small cater in ViewBag.TTTTLD)
+            {
+                var str = " ";
+                var path = XString.maplocal + "News_Img\\" + cater.ImagePath;
+                if (cater.Title.Length > 100)
+                {
+                    str = XString.ConvertToUnSign(cater.Title).Substring(0, 100);
+                }
+                else { str = XString.ConvertToUnSign(cater.Title); }
+                var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + cater.NewId;
+                <a class="a_tintuc" href="@url">
+                    <div class="row">
+                        <div class="col-md-5">
+                            @if (File.Exists(path))
+                            {
+                                <img src="@XString.GetImgBase64("News_Img",cater.ImagePath)" hidden />
+                                <img src="~/Content/Upload/News_Img/@cater.ImagePath" />
+                            }
+                            else
+                            {<img src="~/Content/Upload/News_Img/NoPic.jpg" />}
+
+                        </div>
+                        <div class="col-md-7">
+                            <h4>
+                                @cater.Title
+                            </h4>
+                            <p style="text-align:right">
+                                <i>
+                                    <i class="icon-calendar-empty"></i> @Html.FormatValue(cater.Createdate, "{0:dd/MM/yyyy}")
+                                </i>
+                            </p>
+                            <p>
+                                @Html.Raw(cater.Summary)
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <hr style="margin:5px" />
+            }
+        </div>
+
+
+
+        <nav style="text-align:center">
+            <ul class="pagination">
+                <li class="@(page==1? "disable" : "")">
+                    <a href="@( page == 1 ? "javascript:void(0);" : "/News/MainNews?page=" + (page - 1).ToString() + "&LoaiTinTuc_ID=" + LoaiTinTuc_ID.ToString())">
+                        <i class="icon-chevron-left"></i>
+                    </a>
+                </li>
+                <li style="@(page<4?"display:none":"")"><a href="@("/News/MainNews?page=" + (page - 3).ToString() + "&LoaiTinTuc_ID=" + LoaiTinTuc_ID.ToString())" class="waves-effect">@(page - 3)</a></li>
+                <li style="@(page<3?"display:none":"")"><a href="@("/News/MainNews?page=" + (page - 2).ToString() + "&LoaiTinTuc_ID=" + LoaiTinTuc_ID.ToString())" class="waves-effect">@(page - 2)</a></li>
+                <li style="@(page<2?"display:none":"")"><a href="@("/News/MainNews?page=" + (page - 1).ToString() + "&LoaiTinTuc_ID=" + LoaiTinTuc_ID.ToString())" class="waves-effect">@(page - 1)</a></li>
+                <li><a href="javascript:void(0);" style="font-weight: bold; background-color: rgb(0,111,199);color:white" class="waves-effect">@page</a></li>
+                <li style="@((page + 1) > tongpage ? "display:none" : "")"><a href="@("/News/MainNews?page=" + (page + 1).ToString() + "&LoaiTinTuc_ID=" + LoaiTinTuc_ID.ToString())" class="waves-effect">@(page + 1)</a></li>
+                <li style="@((page + 2) > tongpage  ? "display:none" : "")"><a href="@("/News/MainNews?page=" + (page + 2).ToString() + "&LoaiTinTuc_ID=" + LoaiTinTuc_ID.ToString())" class="waves-effect">@(page + 2)</a></li>
+                <li style="@((page + 3) > tongpage  ? "display:none" : "")"><a href="@("/News/MainNews?page=" + (page + 3).ToString() + "&LoaiTinTuc_ID=" + LoaiTinTuc_ID.ToString())" class="waves-effect">@(page + 3)</a></li>
+                <li class="@(page>=tongpage ? "disable" : "")">
+                    <a href="@(page >= tongpage ? "javascript:void(0);" : "/News/MainNews?page=" + (page + 1).ToString()+"&LoaiTinTuc_ID=" + LoaiTinTuc_ID.ToString())" class="waves-effect">
+                        <i class="icon-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<div class="col-md-3" id="Panel_Right" style="padding:0px">
+    @Html.Action("Panel_Right", "News")
+</div>

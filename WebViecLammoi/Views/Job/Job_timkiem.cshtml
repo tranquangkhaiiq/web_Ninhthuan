@@ -1,0 +1,145 @@
+﻿
+@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+<style>
+    p {
+        margin: 0px 0 5px;
+    }
+</style>
+@foreach (DoanhNghiep_TuyenDung all in ViewBag.Job_timkiem)
+{
+    var dndn = new DN_DoanhNghiep_Dao();
+    var dm = new DanhMuc_Dao();
+    var DMchucdanh = dm.GetChucDanhbyID(all.ChucDanh_ID);
+    var chucdanh = DMchucdanh != null ? DMchucdanh.TenChucDanh : "Không có";
+    var DMChuyenMon = dm.GetChuyenMonbyID(all.YeuCauTrinhDo_ID);
+    var ChuyenMon = DMChuyenMon != null ? DMChuyenMon.TenChuyenMon : "Không yêu cầu";
+    var DN = dndn.GetDN_ByDNID(all.DN_ID);
+
+    if (DN != null)
+    {
+
+        var Lg = DN.Logo;
+        var tentieude = XString.Truncate(all.TieuDeTuyenDung, 55);
+        var tencty = XString.Truncate(DN.TenDoanhNghiep, 37);
+        var quyenloi = all.QuyenLoi.Length > 30 ? "Click xem chi tiết." : all.QuyenLoi;
+        var tg = dm.GetTGbyID(all.ThoiGianLamViec_ID);
+        var logo = XString.Cutstring(Lg);
+        var path = XString.maplocal+ "Logo_DN\\" + XString.Cutstring(logo);
+        int noilamviecH = 12286;
+        if (all.NoiLamViec_HuyenID != null)
+        {
+            noilamviecH = all.NoiLamViec_HuyenID.Value;
+        }
+        int tt = all.NoiLamViec_TinhID.Value;
+        string tendc = dndn.GetDiaChiById(noilamviecH).TenDiaChi;
+        string tinh = dndn.GetDiaChiById(tt).TenDiaChi;
+        if (quyenloi == null || quyenloi == "")
+        {
+            quyenloi = "Đang update ...";
+        }
+
+        var kn = "";
+        var gioitinh = "";
+        if (all.SoNamKinhNghiem == null || all.SoNamKinhNghiem < 1)
+        {
+            kn = "Không cần kinh nghiệm";
+        }
+        else
+        { kn = all.SoNamKinhNghiem.ToString() + " năm kinh nghiệm."; }
+        if (all.YeuCauGioiTinh == 1)
+        {
+            gioitinh = "giới tính nam";
+        }
+        else if (all.YeuCauGioiTinh == 2)
+        {
+            gioitinh = "giới tính nữ";
+        }
+        else { gioitinh = "không yêu cầu giới tính"; }
+        var luong = " ";
+        if ((all.LuongTu == 0 && all.LuongDen == 0) || all.LuongTu == null || all.LuongDen == null)
+        {
+            luong = "Lương thỏa thuận";
+        }
+        else if (all.LuongTu > 500000)
+        {
+            luong = @Html.FormatValue(all.LuongTu, "{0:#,###.##}") + " đến " + @Html.FormatValue(all.LuongDen, "{0:#,###.##}");
+        }
+        else
+        {
+            luong = all.LuongTu + " đến " + all.LuongDen + " triệu";
+        }
+        var str = XString.ConvertToUnSign(tentieude);
+        var url = "/Tuyen-Dung/" + str + "-" + all.TuyenDung_ID.ToString();
+        <a href="@url">
+            <div class="col-md-6">
+                <div class="div_card_hstd">
+                    <div class="col-md-2" style="padding: 0; margin-bottom: 0">
+                        @if (File.Exists(path))
+                        {
+                            <img src="@XString.GetImgBase64("Logo_DN",logo)" class="img_avatar" hidden/>
+                            <img src="~/Content/Upload/Logo_DN/@logo" class="img_avatar" />
+                        }
+                        else
+                        {<img src="~/Content/Tien/icon3d/ctyicon.jpg" class="img_avatar" />}
+                    </div>
+                    <div class="col-md-10" style="padding: 0;padding-left:5px; margin-bottom: 0">
+                        <h4 class="h4_tieude" style="margin-top:0px">
+                            @tentieude.ToUpper()
+                            <span style="float:right">
+                                <i class="icon-eye-open" style="font-size:14px"></i> @all.SoLuotXem
+                            </span>
+                        </h4>
+
+                        <h5 class="h5_name" style="margin-bottom: 0; text-transform: capitalize">
+                            Cty: @tencty
+
+                        </h5>
+                    </div>
+
+
+                    <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                        <div style="height: 80px; color: #555 ">
+                            <p>
+                                Tuyển @all.SoLuongTuyen @chucdanh (@ChuyenMon), @kn @gioitinh.ToLower().
+                            </p>
+                            <p>
+                                <b>Quyền lợi:</b> @Html.Raw(quyenloi)
+                            </p>
+                        </div>
+
+                        <p style="margin-top:10px;margin-bottom:5px">
+                            <a>
+                                <i class="icon-usd"></i> @luong
+                            </a>
+
+                            <a style="float:right">
+                                <i class="icon-time"></i>  @tg.TenThoiGianLamViec
+                            </a>
+
+                        </p>
+                        <p style="margin-bottom:5px">
+
+                            <a>
+                                <i class="icon-map-marker"></i>  @tendc _ @tinh
+                            </a>
+                            <a class="hstd_date">
+                                <i class="icon-star"></i>
+                                @Html.FormatValue(all.NgayCapNhat, "{0:dd/MM/yyyy}")
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    }
+
+}
+
+
+
+
+
+
+

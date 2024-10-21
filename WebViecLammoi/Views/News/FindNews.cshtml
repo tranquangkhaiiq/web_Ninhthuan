@@ -1,0 +1,25 @@
+﻿@using WebViecLammoi.i18n
+<div class="sidebar-nav " style="background:none;">
+    <div>
+        <div class="nav-side-menu">
+            <div class="brand">@Common.Search</div>
+            <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+            <div class="menu-list">
+                <form method="post" action="/News/SearchNews">
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control input-sm" name="KeywordsTT" placeholder="@Common.Keyword" />
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="findNews">
+                                @Common.Search
+                            </button>
+                        </span>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

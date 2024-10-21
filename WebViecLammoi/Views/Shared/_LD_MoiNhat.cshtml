@@ -1,0 +1,243 @@
+﻿@using WebViecLammoi.Models
+@model IEnumerable<KhachHang_TimViecLam>
+@using WebViecLammoi.i18n
+@using WebViecLammoi.Utils
+<style>
+    .header_T {
+        color: black;
+        font-family: 'Times New Roman';
+    }
+
+    .item-jobpost {
+        /*transition: .5s ease;*/
+        font-family: 'Times New Roman';
+    }
+
+    .btn-fresh {
+        color: #fff;
+        background-color: #51bf87;
+        border-bottom: 2px solid #41996c;
+    }
+
+        .btn-fresh:hover, .btn-sky.active:focus, .btn-fresh:focus, .open > .dropdown-toggle.btn-fresh {
+            color: #fff;
+            background-color: #66c796;
+            border-bottom: 2px solid #529f78;
+            outline: none;
+        }
+
+
+        .btn-fresh:active, .btn-fresh.active {
+            color: #fff;
+            background-color: #47a877;
+            border-top: 2px solid #39865f;
+            outline: none;
+            outline-offset: none;
+            margin-top: 2px;
+        }
+
+    .btn:focus,
+    .btn:active:focus,
+    .btn.active:focus {
+        outline: none;
+        outline-offset: 0px;
+    }
+
+    a-fresh {
+        color: #fff;
+    }
+
+        a-fresh:hover {
+            text-decoration: none;
+            color: #fff;
+        }
+
+    @@media screen and (max-width:576px) {
+        /*.item-jobpost .jobpost-apply-btn img {
+            width: 80px;
+        }*/
+        /*.jobpost-location {
+            display: none;
+        }*/
+    }
+
+
+    /*CSS UPDATE NHỰT*/
+    .mt10 {
+        margin-top: 10px;
+    }
+
+    .fl {
+        float: left;
+    }
+
+    .item-jobpost {
+        position: relative;
+    }
+
+    .jobpost-title-Nh p {
+        font-size: 13px;
+        color: #22924c;
+        font-weight: 600;
+    }
+
+    .jobpost-title-Nh {
+        border-bottom: 1px dashed #ccc;
+    }
+
+    .tdcmkt-Nh {
+        background-color: white !important;
+        color: unset;
+        font-size: 14px;
+        font-weight: normal;
+        padding: 0;
+    }
+
+    .box-img {
+        width: 40px;
+        padding-right: 0;
+        height: 40px;
+        box-shadow: 1px 1px 2px 0px #a98f8f;
+    }
+</style>
+@helper Truncate(string input, int length)
+{
+    if (input != null)
+    {
+        if (input.Length <= length)
+        {
+            @input
+        }
+        else
+        {
+            @input.Substring(0, length)<text>...</text>
+        }
+    }
+}
+<div class="card">
+    <div class="row">
+        <div class="col-md-12" style="margin:auto">
+            <div class="jobpost-title-Nh">
+                <div class="row" style="margin-left: 0; width: 99%">
+                    <div class="col-md-1 col-sm-1 col-xs-1">
+
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-5">
+                        <p><i class="fa fa-bars"></i>  Tiêu đề / Tên NTV</p>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <p><i class="fa fa-map-marker"></i> Khu vực/Kinh nghiệm</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-3">
+                        <p><i class="fa fa-folder-open"></i> Nghề / Vị trí </p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 ngaydang">
+                        <p><i class="fa fa-calendar"></i> Ngày Update</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="card-body col-md-12">
+            @foreach (KhachHang_TimViecLam h in Model)
+            {
+                var ten = h.KhachHangs.HoTen;
+                var tenhs = h.TenHoSo;
+                var str = XString.EditString(ten);
+                var url = "/Nguoi-Tim-Viec/" + str.Replace("/", "-") + "-" + h.TimViec_ID;
+                <div class="item-jobpost" style="margin:auto">
+
+                    <div class="row" style="margin-left:0;width:99%">
+                        <div class="col-md-1 col-sm-1 col-xs-1 jobpost-apply-btn" style="padding-left:0">
+                            <div class="box-img">
+                                <a href="@url">
+                                    @if (h.KhachHangs.Hinh != "")
+                                    {
+                                        var anh = XString.Cutstring(h.KhachHangs.Hinh);
+
+                                        <img src="~/Content/Upload/Avatar_UV/@anh" style="width: 40px;height:40px" alt="" />
+                                    }
+                                    else if (h.KhachHangs.Hinh == "" && h.KhachHangs.GioiTinh == 1)
+                                    {
+                                        <img src="~/Content/Upload/Avatar_UV/AvataNam.jpg" style="width: 40px;height:40px" alt="" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/Upload/Avatar_UV/AvataNu.jpg" style="width: 40px; height: 40px; " alt="" />
+                                    }
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-5">
+                            <h5 class="item_hover" style="margin-bottom:5px">
+                                <a class="header_T item_hover" title="@Truncate(tenhs.ToUpper(),70)" style="text-decoration:none;font-size:14px;font-family: 'Open Sans', sans-serif,'Times New Roman', Times, serif" href="@url">
+                                    @Truncate(tenhs.ToUpper(), 28)
+                                </a>
+                            </h5>
+                            <ul class="list-inline" style="margin-bottom:5px">
+                                <li><a class="header_T item_hover" style="text-decoration:none;font-size:13px" href="@url">@ten.ToUpper()</a></li>
+
+                            </ul>
+
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 item_hover">
+                            <h4 style="margin-bottom: 5px; font-weight: bold; font-size: 14px;">&nbsp;@h.KhachHangs.DM_DiaChi.TenDiaChi</h4>
+                            @if (h.SoNamKinhNghiem == 0)
+                            {
+                                <span>&nbsp;Chưa có KN</span><br />
+                            }
+                            else if (h.SoNamKinhNghiem > 0)
+                            {
+                                <span>&nbsp;@h.SoNamKinhNghiem năm</span><br />
+                            }
+                            else
+                            {
+                                <span style="color:darkkhaki">&nbsp;Chưa update KN</span><br />
+                            }
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-3">
+                            <h4 style="margin-bottom: 5px; font-weight: bold; font-size: 14px;">@h.DM_NgheKinhDoanhs.TenNgheKD</h4>
+                            <label class="lighten-1 tdcmkt-Nh">@h.DM_ChucDanhs.TenChucDanh</label>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-2 ngaydang" style="margin-bottom:5px">
+                            @if (h.KhachHangs.GioiTinh == 1)
+                            {
+                                <h4 style="margin-bottom: 5px; font-weight: bold; font-size: 14px;">&nbsp;Nam , @(DateTime.UtcNow.Year - h.KhachHangs.NgaySinh.Value.Year) tuổi</h4>
+                            }
+                            else
+                            {
+                                <h4 style="margin-bottom: 5px; font-weight: bold; font-size: 14px;">&nbsp;Nữ , @(DateTime.UtcNow.Year - h.KhachHangs.NgaySinh.Value.Year) tuổi</h4>
+                            }
+                            <span>&nbsp;@Html.FormatValue(h.NgayCapNhat, "{0:dd/MM/yyyy}")</span>
+
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="text-align:right">
+            <a href="/Ung-Vien" class="btn btn-info   text-uppercase" style="font-weight: bold; line-height: 30px;text-decoration:underline;margin-top:25px; "><i class="fa fa-search"></i>&nbsp;Tra cứu hồ sơ tìm việc</a>
+        </div>
+    </div>
+</div>
+<script>
+    $(".item-jobpost").mouseenter(function () {
+        $(this).css("color", "#006fc7");
+        $(this).find(".item_hover").css("color", "#006fc7");
+
+    }).mouseleave(function () {
+        $(this).css("color", "black");
+        $(this).find(".item_hover").css("color", "black");
+
+    });
+</script>

@@ -1,0 +1,511 @@
+﻿<!DOCTYPE html>
+<html>
+@{
+
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trung tâm Dịch vụ Việc làm Việt Nam" />
+    <meta name="geo.region" content="VN-DVVL" />
+    <meta name="geo.placename" content="Việt Nam" />
+    @*<meta name="geo.position" content="10.947626662420811, 106.65360739763939" />*@
+    @*<meta name="ICBM" content="10.947626662420811, 106.65360739763939" />*@
+    <meta name="robots" content="index, archive, follow, noodp">
+    <meta name="googlebot" content="index,archive,follow,noodp">
+    <meta name="msnbot" content="all,index,follow">
+    <meta name="keywords" content="việc làm, lao động, tuyển dụng, doanh nghiệp" />
+    <meta name="keywords" content="viec-lam,lao-dong,tuyen-dung,doanh-nghiep" />
+    <meta property="og:title" content="Trung tâm Dịch vụ Việc làm Việt Nam">
+    <title>Trung Tâm DVVL Ninh Thuận</title>
+    @Styles.Render("~/Content/AdminBSB-css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/font-awesome/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- JQuery DataTable Css -->
+    <link href="~/Content/AdminBSB-cssjs/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- Light Gallery Plugin Css -->
+    <link href="~/Content/AdminBSB-cssjs/plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="~/Content/AdminBSB-cssjs/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="~/Content/Tien/css_t.css" rel="stylesheet" />
+    <link href="~/Content/owlcarousel/assets/owl.carousel.css" rel="stylesheet" />
+    <link href="~/Content/owlcarousel/assets/owl.theme.default.css" rel="stylesheet" />
+    <link href="~/Content/Tien/CardCss.css" rel="stylesheet" />
+
+    <link href="~/Content/Tien/Tien-Style.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/AdminBSB-js")
+
+    <style>
+        .div_noidungtintuc {
+            text-align: justify;
+            font-size: 16px;
+        }
+
+            .div_noidungtintuc p {
+                text-align: justify;
+            }
+
+            .div_noidungtintuc img {
+                max-width: 100%;
+                margin: auto;
+                display: block;
+            }
+    </style>
+    <style>
+        .bgnavbar {
+            background: rgb(0,111,199);
+            background: -moz-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+            background: -webkit-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+            background: linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#006fc7",endColorstr="#006fc7",GradientType=1);
+            margin: 0 !important;
+            color: white;
+            padding: 0 !important;
+            border-bottom: 1px solid #0404aa;
+        }
+
+        .navbar-default .navbar-nav > li {
+            text-align: center
+        }
+
+        .navbar-default .navbar-nav li a {
+            color: white !important;
+        }
+
+        .navbar-default .navbar-brand {
+            color: white !important;
+        }
+
+        .ul_menu > li {
+            background: url(/Content/Tien/bg-li-mainmenu.png) no-repeat left center;
+        }
+
+        .ul_menu li a {
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            padding: 12px;
+            text-transform: uppercase;
+        }
+
+        .ul_menu > li {
+            width: auto;
+            transition: 0.3s;
+        }
+
+        .navbar {
+            min-height: 0;
+        }
+
+        .navbar-brand {
+            height: auto;
+        }
+
+        .ul_menu li a:hover,
+        .ul_menu li a:focus {
+            font-weight: bold;
+            color: #0071bc !important
+        }
+
+        .ul_menu li:hover,
+        .ul_menu li:focus {
+            background-color: white;
+            color: #0071bc !important
+        }
+
+        .navbar-default .navbar-brand:hover,
+        .navbar-default .navbar-brand:focus {
+            color: white;
+        }
+
+        .ul_menu2 li {
+            border-top: 1px #f8f8f82b solid;
+            margin: 5px;
+        }
+
+        .title_user {
+            font-style: inherit;
+            font-weight: bold;
+        }
+
+        .nav-tabs {
+            padding-bottom: 10px;
+            margin-bottom: 5px
+        }
+
+            .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+                border-top: 0px;
+                border-bottom: 0px
+            }
+
+        .h4_thongtin {
+            background-color: #fff;
+            color: #183883 !important;
+            font-family: Roboto;
+            font-size: 18px;
+            font-weight: 400;
+            float: left;
+            padding-right: 20px;
+            z-index: 5;
+            position: relative;
+        }
+
+        .hr_thongtin {
+            position: absolute;
+            top: 0;
+            margin-top: 20px;
+            z-index: 0;
+            width: 100%;
+            right: 0;
+            border-width: 3px;
+        }
+        .container > .navbar-header {
+            margin-right: 0;
+            margin-left: 0;
+        }
+        #topmenu {
+            color: white;
+            margin-left: 45px;
+        }
+        
+        @@media screen and (max-width:767px) {
+            #topmenu {
+                color: white;
+                margin-left: 0 !important;
+            }
+        }
+.row {
+    margin-right: -3px;
+    margin-left: -3px;
+}
+    </style>
+</head>
+<body style="background: url(/Content/Tien/body-bg6.png)">
+    <div class="row" style="width:100%">
+        <div class="row bgnavbar">
+            <div class="col-md-12" style="padding:0px">
+
+                @Html.Action("QLLoGo", "Home")
+            </div>
+        </div>
+        <div class="navbar navbar-default bgnavbar" style="border-radius: 0px; border-left: 0px; border-right: 0px; box-shadow: 0px 0px 6px #0000004d;  ">
+            <div class="container" style="padding:0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/Trang-Chu" style="padding: 8px 23px;font-size: 25px"><i class="icon-home"></i></a>
+                </div>
+                <div class="navbar-collapse collapse" id="topmenu">
+                    @Html.Partial("_TopMenu")
+                </div>
+            </div>
+        </div>
+        <div class="container body-content" style="box-shadow: 0px 0px 6px #0000004d; background-color:white;padding-top:5px ">
+            <style>
+                .bgcardhead {
+                    background-color: rgb(0,111,199);
+                    background-image: url(/Content/Tien/bieutuong_w.svg),url(/Content/Tien/CardHeadImg.png);
+                    background-repeat: no-repeat;
+                    background-position: 0px 0px,right top;
+                    background-size: 30px 30px, auto;
+                }
+
+                .label_cardhead {
+                    color: white;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    color: #fff !important;
+                    margin-bottom: 0px;
+                    font-size: 14px;
+                }
+
+                .card_t {
+                    border: 1px solid #ddd;
+                    box-shadow: none;
+                    margin: 5px;
+                }
+
+                .header_t {
+                    padding: 10px 10px 10px 40px !important;
+                    margin: -1px;
+                    border-bottom: 1px solid #bd1701 !important;
+                }
+
+                .img_avatar {
+                    width: 100%;
+                    border: 1px solid rgb(200, 200, 200);
+                    border-radius: 3px;
+                    max-height:70px;
+                    padding: 5px
+                }
+                .img_sp {
+                    max-height: 150px;
+                }
+                .div_moinhat {
+                    border: 1px solid rgb(200, 200, 200);
+                    border-radius: 3px;
+                    padding: 10px;
+                    margin-bottom: 10px
+                }
+
+                .h4_tieude {
+                    color: var(--d-1,#2a2c31);
+                    font-family: Roboto;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: bold;
+                    line-height: normal;
+                }
+
+                .h5_name {
+                    color: var(--cl-1,#183883);
+                    font-family: Roboto;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                #ThongBaostr {
+                    text-decoration: underline;
+                }
+                #movetop {
+                    display: none;
+                    position: fixed;
+                    bottom: 5px;
+                    right: 20px;
+                    z-index: 99;
+                    font-size: 18px;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    color: #26243c;
+                    width: 37px;
+                    height: 37px;
+                    background: #FE79A2;
+                    padding: 0;
+                    line-height: 36px;
+                    border-radius: 35px;
+                    scroll-behavior: smooth;
+                    transition: 0.3s ease-out;
+                }
+            </style>
+            <div class="row">
+                <div class="col-md-12" style="padding-bottom: 20px; min-height: 575px">
+                    @RenderBody()
+                </div>
+
+            </div>
+        </div>
+        <style>
+            .bgfooter {
+                background: rgb(0,111,199);
+                background: -moz-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+                background: -webkit-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+                background: linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#006fc7",endColorstr="#006fc7",GradientType=1);
+                margin: 0 !important;
+                color: white;
+                padding: 0 !important;
+                border-bottom: 1px solid #0404aa;
+            }
+        </style>
+        
+        @Html.Partial("_Footer")
+    </div>
+    
+
+    <script>
+        
+        var pageNo = 0;
+        var pageSize = 10;
+        var count = 0;
+        var bien = 0;
+        var tk = '';//str
+        var search = '';
+        var searchNN = '';
+        var ViewMainNN = '';
+        var isactive_tk = 1;
+        var select_dc = 0;
+        var kNghanhNghe = 0;
+        
+        kNghanhNghe = parseInt($('#keyMain').val());
+        searchNN = $('#SearchMainNN').val();
+        ViewMainNN = $('#ViewMainNN').val();
+        if (kNghanhNghe > 0) {////////////////////khi nghành Index click
+            count = kNghanhNghe;
+            tk = searchNN;
+            document.getElementById("timkiem_cv").disabled = true;
+            $('#ThongBaostr').html(ViewMainNN + ' có ' + count + ' hồ sơ.');
+        } else {
+            count = parseInt($('#count_model').val());
+            document.getElementById("timkiem_cv").disabled = false;
+            $('#ThongBaostr').html('Tất cả có ' + count + ' hồ sơ.');
+        }
+        loadpage(tk, select_dc, kNghanhNghe, searchNN) //load lần chạy đầu tiên
+        function loadpage(tk, select_dc, kNghanhNghe, searchNN) {
+            $("#loading").show();
+                $.ajax({
+                    url: "/Job/JobList",
+                    data: { pageNo: pageNo, pageSize: pageSize, str: tk, id: select_dc, keyNghanhNghe: kNghanhNghe, searchNN: searchNN },
+                    success: function (response) {
+                        $("#VTN_all").append(response);
+                        $("#loading").hide();
+                        pageNo++;
+                        isactive_tk = 1;
+                        $('#count_VTN').html(count)
+                        if (pageNo * 10 < count) {
+                            $("#total_VTN").html(pageNo * 10);
+                        } else {
+                            $("#total_VTN").html(count);
+                        }
+                    }
+                });
+        }
+        
+        $(window).on("scroll", function () {
+            var scroll = $(window).scrollTop();
+            var scroll1 = $('#VTN_all').height();
+            var scroll2 = scroll1 - scroll1/2;
+            if (scroll >= scroll2 && bien < scroll2) {
+                bien = scroll2;
+                //alert(scroll2);
+                this.console.log('scroll1: ' + scroll1 + " ;scroll2: " + scroll2);
+                if (isactive_tk === 1) {
+                    loadpage(tk, select_dc, kNghanhNghe, searchNN);
+                }
+                if (isactive_tk === 2) {
+                    //loadpage_timkiem không có phân trang =>không chạy
+                }
+            }
+        });
+        $("input:checkbox").on('click', function () {
+            // checkbox click
+            var $box = $(this);
+            if ($box.is(":checked")) {
+                var group = "input:checkbox[name='" + $box.attr("name") + "']";
+                $(group).prop("checked", false);
+                $box.prop("checked", true);
+                $('#VTN_all').html('');
+                pageNo = 0;
+                bien = 0;
+                kNghanhNghe = 0;
+                count = $box.attr("value");
+                if (document.getElementById("timkiem_cv").disabled === true) {
+                    document.getElementById("timkiem_cv").disabled = false;
+                }
+                $('#count_VTN').html(count);//Gán giá trị cho nút Tổng
+                tk = $box.attr("id"); select_dc = 0;
+                $('#ThongBaostr').html(tk + ' có ' + $box.attr("value") + ' hồ sơ.');
+                //bỏ chọn địa chỉ.
+                selectOption(0);
+                loadpage(tk, select_dc, kNghanhNghe, searchNN);
+                //alert($box.attr("value"))
+                if (document.getElementById("timkiem_cv").value != '') {
+                    document.getElementById("timkiem_cv").value ='';
+                }
+            } else {
+                $box.prop("checked", false);
+                pageNo = 0;
+                bien = 0;
+                kNghanhNghe = 0;
+                $('#VTN_all').html('');
+                //alert($('#count_model').val()) 
+                $('#count_VTN').html($('#count_model').val());
+                tk = ''; select_dc = 0;
+                count = parseInt($('#count_VTN').html());
+                $('#ThongBaostr').html('');
+                loadpage(tk, select_dc, kNghanhNghe, searchNN);
+            }
+        });
+        function selectOption(index) {
+            document.getElementById("select_dc").options.selectedIndex = index;
+        }
+        $(function () {
+            $('#select_dc').change(function () {
+                pageNo = 0;
+                bien = 0;
+                kNghanhNghe = 0;
+                $('#VTN_all').html(''); //Xóa trắng html
+                select_dc = $('#select_dc').val();
+                if (select_dc == 0) {
+                    //$('#count_VTN').html($('#count_model').val());
+                    count = parseInt($('#count_model').val());
+                } else {
+                    count = $(this).children(":selected").attr("id");
+                }
+                $('#count_VTN').html(count) //Gán tổng = count
+                tk = '';
+                $('#ThongBaostr').html($('#select_dc option:selected').text() + '(' + count+')');
+                //bỏ chọn cột bên trái.
+                $("input:checkbox").prop("checked", false)
+                isactive_tk = 1;
+                if (document.getElementById("timkiem_cv").value != '') {
+                    document.getElementById("timkiem_cv").value = '';
+                }
+                if (document.getElementById("timkiem_cv").disabled === true) {
+                    document.getElementById("timkiem_cv").disabled = false;
+                }
+                loadpage(tk, select_dc, kNghanhNghe, searchNN);
+            });
+        });
+        function mySearch() {
+            search = document.getElementById("timkiem_cv").value;
+            $('#VTN_all').html(''); //Xóa trắng html
+            if (tk != '') {
+                $('#ThongBaostr').html(search + '_' + tk);
+            }
+            if (select_dc > 0) {
+                $('#ThongBaostr').html(search + '_' + $('#select_dc option:selected').text());
+            }
+            if (select_dc === 0 && tk === '') {
+                $('#ThongBaostr').html(search);
+            }
+            loadpage_timkiem(tk, search.trim(), select_dc);
+        }
+        function loadpage_timkiem(tk, search, select_dc) {
+            $("#loading").show();
+            $("#VTN_all").css('display', 'none');
+            $.ajax({
+                url: "/Job/Job_timkiem",
+                data: { str : tk, str_timkiem : search, id: select_dc },
+                success: function (response) {
+                    $("#VTN_all").append(response);
+                    setTimeout(function () {
+                        $("#VTN_all").css('display', 'block');
+                        //1s sau hiên lên
+                    }, 800);
+                    $("#loading").hide();
+                    isactive_tk = 2; //không load hàm scroll-window khi lăn chuột
+                    $('#count_VTN').html('');//không đếm số hồ sơ
+                    $("#total_VTN").html('');//không đếm số hồ sơ
+                }
+            });
+        }
+    </script>
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="~/Content/AdminBSB-cssjs/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/Content/AdminBSB-cssjs/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/Content/AdminBSB-cssjs/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <!-- Light Gallery Plugin Js -->
+    <script src="~/Content/AdminBSB-cssjs/plugins/light-gallery/js/lightgallery-all.js"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="~/Content/AdminBSB-cssjs/plugins/node-waves/waves.js"></script>
+    <script src="~/Content/owlcarousel/owl.carousel.js"></script>
+    <script src="~/Content/Tien/number_slideshow.js"></script>
+    <script src="~/Content/AdminBSB-cssjs/js/pages/cards/basic.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+

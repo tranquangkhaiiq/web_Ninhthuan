@@ -1,0 +1,96 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@model IEnumerable<DoanhNghiep_TuyenDung>
+
+@if (Model != null && Model.Count() != 0)
+{
+    <div class="TD_kh_daxem row" id="TD_DaXem" style="margin-left:0" hidden>
+
+        <label style="background-color:lightblue" class="label_tab"><i class="fa fa-users"></i><span>Tuyển dụng đã xem</span></label>
+    </div>
+    <div class="QC-Nh-list">
+        @foreach (DoanhNghiep_TuyenDung h in Model)
+        {
+            var tenhs = XString.Truncate(h.TieuDeTuyenDung, 30);
+            var tencty = XString.Truncate(h.DoanhNghieps.TenDoanhNghiep, 30);
+            var str = XString.ConvertToUnSign(h.TieuDeTuyenDung);
+            var url = "/Tuyen-Dung/" + str.Replace("/", "-") + "-" + h.TuyenDung_ID;
+            <div class="QC-Nh-item" style="position:relative">
+                <div class="QC-Nh-item-name">
+                    <a href=@url><p>@tenhs</p></a>
+                </div>
+                <div class="QC-Nh-item-com">
+                    <p><a href=@url>@tencty</a></p>
+                </div>
+                <div class="QC-Nh-item-com">
+                    <a href=@url>Nghề tuyển: @h.DM_NgheLaoDongs.TenNgheLaoDong</a>
+                </div>
+                <div class="QC-Nh-item-info">
+                    <div class="row">
+                        <div class="col-md-5 col-xs-5">
+                            @if (h.LuongTu == 0 && h.LuongDen == 0)
+                            {
+                                <span class="glyphicon glyphicon-usd"> Thỏa thuận</span>
+                            }
+                            else if (@h.LuongTu < 300)
+                            {
+                                <span class="glyphicon glyphicon-usd">@h.LuongTu đến @h.LuongDen (tr)</span>
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-usd"> @Html.FormatValue(h.LuongTu, "{0:#,###.##}") đến @Html.FormatValue(h.LuongDen, "{0:#,###.##}")</span>
+                            }
+
+
+                        </div>
+                        <div class="col-md-7 col-xs-7">
+                            <span class="glyphicon glyphicon-map-marker"></span>&nbsp;
+                            @if (h.DoanhNghieps.Huyen_ID.Value > 0)
+                            {
+                                <span>@h.DoanhNghieps.DM_DiaChi.TenDiaChi</span><br />
+                            }
+                            else
+                            {
+                                <span>Không xác định</span><br />
+                            }
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <span class="glyphicon glyphicon-align-left"></span>&nbsp;
+                            @if (h.SoNamKinhNghiem != null)
+                            {
+
+                                if (h.SoNamKinhNghiem > 0)
+                                {
+                                    <span>KN: @h.SoNamKinhNghiem năm</span><br />
+                                }
+                                else
+                                {
+                                    <span>KN: Không có</span><br />
+                                }
+                            }
+                            else
+                            {
+                                <span>KN: Không có</span><br />
+                            }
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <span class="Phu_header"><i class="fa fa-eye"></i>&nbsp;@h.SoLuotXem Lượt xem</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        if ($("#TD_DaXem").css("display") === "block") {
+            $("#TD_XemNhieu").css("display", "none");
+        }
+        else {
+            $("#TD_XemNhieu").css("display", "block");
+        }
+    });
+</script>
+
+

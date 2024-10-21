@@ -1,0 +1,370 @@
+﻿@using WebViecLammoi.i18n
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+<style>
+    .bgfooter {
+        background: rgb(0,111,199);
+        background: -moz-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(44,155,198,1) 50%, rgba(0,111,199,1) 100%);
+        background: -webkit-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(44,155,198,1) 50%, rgba(0,111,199,1) 100%);
+        background: linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(44,155,198,1) 50%, rgba(0,111,199,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#006fc7",endColorstr="#006fc7",GradientType=1);
+        margin: 0 !important;
+        color: white;
+        padding: 0 !important;
+        border-bottom: 1px solid #0404aa;
+    }
+</style>
+<div class="footer bgfooter">
+    <div class="row" style="width:97%; margin:auto">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding:30px">
+
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12">
+                    <h3 class="text-uppercase" style="font-weight:bold">Liên hệ chi nhánh</h3>
+                    <p>
+                        <i class="fa fa-map-marker"></i>
+                        <b>
+                            @Common.HeadQuarter
+                        </b>:
+                        369 Đại Lộ Bình Dương, KP.Hòa Lân, Thuận Giao, Thuận An, Bình Dương<br>
+                        @Common.Phonenumber : (0274) 3.899.019
+                    </p>
+                    <hr />
+                    <p>
+                        <i class="fa fa-map-marker"></i>
+                        <b>
+                            @Common.Branch Dĩ An
+                        </b>:
+                        10 Ngô Văn Sở, KP.Bình Minh 2, Dĩ An, Bình Dương.<br>
+                        @Common.Phonenumber : (0274) 3.775.458
+                    </p>
+                    <hr />
+                    <p>
+                        <i class="fa fa-map-marker"></i>
+                        <b>
+                            @Common.Branch Tân Định
+                        </b>:
+                        Đại Lộ Bình Dương, KP 2, Tân Định, Bến Cát, Bình Dương (gần khu du lịch Đại Nam).                                    <br>
+                        @Common.Phonenumber : (0274) 3.857.679
+                    </p>
+                    <hr />
+                    <p>
+                        <i class="fa fa-map-marker"></i>
+                        <b>
+                            @Common.Branch T&#226;n Uyên
+                        </b>:
+                        ĐH421, tổ 4, khu phố 4, Uyên Hưng, Tân Uyên, Bình Dương<br>
+                        @Common.Phonenumber : (0274) 3.642.414
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12" style="margin-top: 30px; border-radius: 10px">
+            <h3 class="text-uppercase" style="font-weight:bold">KẾT NỐI</h3>
+
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FTTDVVLBD%2F&tabs=timeline&width=450&height=300&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1647888175295074"
+                    style="border: none; overflow: hidden; width: 100%; height: 300px; border-radius: 10px"
+                    scrolling="no" frameborder="0" allowtransparency="true"
+                    allow="encrypted-media"></iframe>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12" style="margin-top:30px;padding-right:30px">
+            <div class="row">
+                <h3 class="text-uppercase" style="font-weight:bold">Liên kết website</h3>
+            </div>
+
+            <div class="row">
+                @foreach (New_small TN in ViewBag.TN)
+                {
+
+                    var str = XString.ConvertToUnSign(TN.Title);
+                    var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + TN.NewId;
+                    <div class="col-md-4 col-xs-4" style="padding:5px ">
+                        <a href="@url">   <img class="lazy" data-src="/Content/Upload/News_Img/@TN.ImagePath" style="max-width: 100%; padding: 5px; border: 1px solid black; background-color: white; border-radius: 5px; " /></a>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                @foreach (New_small TN in ViewBag.TN1)
+                {
+                    var str = XString.ConvertToUnSign(TN.Title);
+                    var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + TN.NewId;
+                    <div class="col-md-4 col-xs-4" style="padding:5px ">
+                        <a href="@url">  <img class="lazy" data-src="/Content/Upload/News_Img/@TN.ImagePath" style="max-width: 100%; padding: 5px; border: 1px solid black; background-color: white; border-radius: 5px; " /></a>
+                    </div>
+                }
+                <div class="col-md-4 col-xs-4" style="padding:5px">
+                    <a href="https://tdmu.edu.vn/">  <img class="lazy" data-src="/Content/Tien/banner/fa2a2397-2c25-44b3-aeab-4029995107e3.png" style="max-width: 100%; padding: 5px; border: 1px solid black; background-color: white; border-radius: 5px; " /></a>
+                </div>
+                <div class="col-md-4 col-xs-4" style="padding:5px">
+                    <a href="http://www.bdu.edu.vn/">  <img class="lazy" data-src="/Content/Tien/banner/d362609a-0e8d-433b-92dd-cc2eadf7cc6a.png" style="max-width: 100%; padding: 5px; border: 1px solid black; background-color: white; border-radius: 5px; " /></a>
+                </div>
+            </div>
+            <div class="row" style="padding:5px">
+                <div class="row">
+                    <div class="col-md-7 col-xs-7" style="padding-left:0">
+                        <i class="glyphicon glyphicon-user"></i> @Common.Online : @AppState["TotalOnlineUsers"]
+                    </div>
+                    <div class="col-md-5 col-xs-5">
+                        <i class="fa fa-globe"></i> <span>Hôm Nay: @AppState["Visitoday"]</span>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-7 col-xs-7" style="padding-left:0">
+                        <i class="fa fa-globe"></i> @Common.NumOfVisit : @AppState["Visitors"]
+                    </div>
+                    <div class="col-md-5 col-xs-5">
+                        <i class="fa fa-globe"></i> <span>Hôm Qua: @AppState["VisiYesterday"]</span>
+                    </div>
+                    <div class="col-md-5 col-xs-5">
+                        <i class="fa fa-globe"></i> <span>UserLogin: @AppState["UserVisitor"]</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @if (Session["User"] != null)
+                    {
+                        using (Html.BeginForm("Doimaunen", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select class="form-control" name="maunen">
+                                        <option value="">Default</option>
+                                        <option value="#DAA520">Goldenrod</option>
+                                        <option value="#CD5C5C">IndianRed</option>
+                                        <option value="#90EE90">LightGreen</option>
+                                        <option value="#40E0D0">Turquoise</option>
+                                        <option value="#8470FF">LightSlateBlue</option>
+                                        <option value="#F4A460">SandyBrown</option>
+                                    </select>
+                                    <br />
+                                    <button class="btn btn-danger btn-width btn-send-msg">@Common.Changecolor</button>
+                                </div>
+
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+<div class="row" style="margin: 0; background-color: #006fc7; border: 0; font-size: 13px; border-top: 1px solid #329bac; ">
+    <div class="col-md-12" style="">
+
+        <p style="padding:10px;margin:0;text-align:right;color:white">     © 2018 - Designed by TTDVVL Bình Dương</p>
+    </div>
+</div>
+@*@Html.Action("_TimViecTuyenDungNhanh", "Home")*@
+<script>
+    $(function () {
+        //$('.face-commen').css("display", "none");
+        $("#CanMenu").click(function () {
+            @(Session["CanType"] = "");
+        });
+
+        $("#JobMenu").click(function () {
+            @(Session["JobType_kh"] = "");
+        });
+        $("#NewsMenu").click(function () {
+            @(Session["NewsType"] = "");
+        });
+        ///////////////////////////////////////////////////////////////
+
+            //var hub = $.connection.chatHub;
+            //var UserOn = 0;
+            //hub.client.broadcastUserToChat = function (user) {
+            //    UserOn = user.length;
+            //    //var User_o = ' Online: ' + UserOn + '; '+'<span class="" id="chat-' + user[i].id + '">' + count_chuaxem + '</span>' + '<i class="fas fa-comments"></i>';
+
+            //    var chat = '';
+            //    for (var i = 0; i < user.length; i++) {
+            //        chat = '';
+            //        chat = ' / <i class="fa fa-comments" style="color:blue"></i>: ' + user[i].count_chat + ' / ' + '<i class="fa fa-comments"></i>:' + user[i].count_chat_chuaxem;
+            //        let Id = user[i].id;
+
+            //        let online = user[i].trangthai ? '(<i class="fa fa-circle"></i><span style="color:black">Online</span>)' : '(OffLine)';
+            //        $('.card').find('.item-jobpost').find('.Online_NTVKH').find('.' + Id).html(online);
+            //        $('.card').find('.item-jobpost').find('.Online_DNKH').find('.' + Id).html(online);
+
+            //        $('.TD-TV').find('.row').find('.tab_container').find('.label_tab').find('#' + user[i].id).html(chat);
+            //        $('#detail-' + user[i].id).html('<div><span><i class="fa fa-comments" style="color:blue"></i>:Tổng số tin nhắn bạn nhận được </span><span><i class="fa fa-comments"></i>:Tin nhắn chưa đọc</span>\
+            //                                    <h3 class="text-center">Tin gửi đến bạn _ chưa đọc.</h3>');
+            //        var tinnhan = user[i].UserGui;
+            //        //var datach = $('#' + user[i].id).attr("data-chat");
+            //        if (tinnhan.length > 0 && tinnhan) {
+            //            $('.ghichu-' + user[i].id).css("display", "none");
+            //            for (var j = 0; j < tinnhan.length; j++) {
+
+            //                if (tinnhan.length === 1) {
+            //                    if (tinnhan[0].group_chat === '' || tinnhan[0].group_chat === null) {
+            //                        $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[0].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span>' + tinnhan[0].TenGui + '(-từ Voichat)' + ': </span><span>' + tinnhan[0].TinNhan_Text + '</span></div><div style="text-align:right"><a class="ngaytao">' + tinnhan[0].NgayTao + '</a></div>\
+            //                                                    <div class="TinNhan-' + tinnhan[0].UserGui + '" style="border-bottom: 2px solid #eeeeee;margin-left:5%"><span style="color:blueviolet"> Trả Lời Nhanh Cho: ' + tinnhan[0].TenGui + '(-đến Voichat)' + ' </span><input type="text" id="TXTTraloi-' + tinnhan[0].UserGui + '" style="width:100%" /></div>\
+            //                                                <div class="TinNhan-' + tinnhan[0].UserGui + '" style="text-align:right"><a class="guinhanh" onclick="GuiNhanh(' + tinnhan[0].UserGui + ',' + Id +')">Gửi Nhanh</a></div>');
+            //                    } else if (tinnhan[0].group_chat.length > 1) {
+            //                        $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[0].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhan[0].TenGui + ': </span><span>' + tinnhan[0].TinNhan_Text + '</span></div><div style="text-align:right"><a class="ngaytao">' + tinnhan[0].NgayTao + '</a></div>\
+            //                                                <div class="TinNhan-' + tinnhan[0].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 0 + ',' + tinnhan[0].UserGui + ',' + Id + ',\'' + tinnhan[0].group_chat + '\')">Đến ' + tinnhan[0].group_chat +' xem và trả lời cho' + tinnhan[0].TenGui + '</a></div></br>');
+            //                    }
+
+            //                } else {
+            //                    if (j === 0) {
+            //                        if (tinnhan[0].group_chat === '' || tinnhan[0].group_chat === null) {
+            //                            $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[0].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span>' + tinnhan[0].TenGui + '(-từ Voichat)' + ': </span><span>' + tinnhan[0].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[0].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[0].NgayTao + '</a></div>');
+            //                        } else if (tinnhan[0].group_chat.length > 1) {
+            //                            $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[0].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhan[0].TenGui + ': </span><span>' + tinnhan[0].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[0].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[0].NgayTao + '</a></div>');
+            //                        }
+
+            //                    } else if (tinnhan[j].group_chat === tinnhan[j - 1].group_chat) {
+
+            //                        if(tinnhan[j - 1].group_chat === null || tinnhan[j - 1].group_chat === ''){
+            //                            if (tinnhan[j].TenGui === tinnhan[j - 1].TenGui && j < tinnhan.length - 1) {
+            //                                $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span>' + tinnhan[j].TenGui + '(-từ Voichat)' + ': </span><span>' + tinnhan[j].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[j].NgayTao + '</a></div>');
+            //                            } else if (tinnhan[j].TenGui === tinnhan[j - 1].TenGui && j === tinnhan.length - 1) {
+            //                                $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span>' + tinnhan[j].TenGui + '(-từ Voichat)' + ': </span><span>' + tinnhan[j].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[j].NgayTao + '</a></div>\
+            //                                                        <div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee;margin-left:5%"><span style="color:blueviolet"> Trả Lời Nhanh Cho: ' + tinnhan[j].TenGui + '(-đến Voichat)' + ' </span><input type="text" id="TXTTraloi-' + tinnhan[j].UserGui + '" style="width:100%" /></div>\
+            //                                                    <div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="guinhanh" onclick="GuiNhanh(' + tinnhan[j].UserGui + ',' + Id +')">Gửi Nhanh</a></div>');
+            //                            } else if (tinnhan[j].TenGui != tinnhan[j - 1].TenGui && j < tinnhan.length - 1) {
+            //                                $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[j - 1].UserGui + '" style="border-bottom: 2px solid #eeeeee;margin-left:5%"><span style="color:blueviolet"> Trả Lời Nhanh Cho: ' + tinnhan[j - 1].TenGui + '(-đến Voichat)' + ' </span><input type="text" id="TXTTraloi-' + tinnhan[j - 1].UserGui + '" style="width:100%" /></div>\
+            //                                                    <div class="TinNhan-' + tinnhan[j - 1].UserGui + '" style="text-align:right"><a class="guinhanh" onclick="GuiNhanh(' + tinnhan[j - 1].UserGui + ',' + Id +')">Gửi Nhanh</a></div>\
+            //                                            <div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span>' + tinnhan[j].TenGui + '(-từ Voichat)' + ': </span><span>' + tinnhan[j].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[j].NgayTao + '</a></div>');
+            //                            } else if (tinnhan[j].TenGui != tinnhan[j - 1].TenGui && j === tinnhan.length - 1) {
+            //                                $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[j - 1].UserGui + '" style="border-bottom: 2px solid #eeeeee;margin-left:5%"><span style="color:blueviolet"> Trả Lời Nhanh Cho: ' + tinnhan[j - 1].TenGui + '(-đến Voichat)' + ' </span><input type="text" id="TXTTraloi-' + tinnhan[j - 1].UserGui + '" style="width:100%" /></div>\
+            //                                                    <div class="TinNhan-' + tinnhan[j - 1].UserGui + '" style="text-align:right"><a class="guinhanh" onclick="GuiNhanh(' + tinnhan[j - 1].UserGui + ',' + Id +')">Gửi Nhanh</a></div>\
+            //                                            <div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span>' + tinnhan[j].TenGui + '(-từ Voichat)' + ': </span><span>' + tinnhan[j].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[j].NgayTao + '</a></div>\
+            //                                            <div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee;margin-left:5%"><span style="color:blueviolet"> Trả Lời Nhanh Cho: ' + tinnhan[j].TenGui + '(-đến Voichat)' + ' </span><input type="text" id="TXTTraloi-' + tinnhan[j].UserGui + '" style="width:100%" /></div>\
+            //                                                    <div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="guinhanh" onclick="GuiNhanh(' + tinnhan[j].UserGui + ',' + Id +')">Gửi Nhanh</a></div>');
+            //                            }
+            //                        } else if (tinnhan[j - 1].group_chat.length > 1) {
+            //                            if (tinnhan[j].TenGui === tinnhan[j - 1].TenGui && j < tinnhan.length - 1) {
+            //                                $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhan[j].TenGui + ': </span><span>' + tinnhan[j].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[j].NgayTao + '</a></div>');
+            //                            } else if (tinnhan[j].TenGui === tinnhan[j - 1].TenGui && j === tinnhan.length - 1) {
+            //                                $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhan[j].TenGui + ': </span><span>' + tinnhan[j].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[j].NgayTao + '</a></div>\
+            //                                                        <div class="TinNhan-' + tinnhan[j].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 0 + ',' + tinnhan[j].UserGui + ',' + Id + ',\'' + tinnhan[j].group_chat + '\')">Đến ' + tinnhan[j].group_chat +' xem và trả lời cho' + tinnhan[j].TenGui + '</a></div></br>');
+
+            //                            } else if (tinnhan[j].TenGui != tinnhan[j - 1].TenGui && j < tinnhan.length - 1) {
+            //                                $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[j - 1].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 0 + ',' + tinnhan[j - 1].UserGui + ',' + Id + ',\'' + tinnhan[j - 1].group_chat + '\')">Đến ' + tinnhan[j - 1].group_chat +' xem và trả lời cho' + tinnhan[j - 1].TenGui + '</a></div></br>\
+            //                                            <div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhan[j].TenGui + ': </span><span>' + tinnhan[j].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[j].NgayTao + '</a></div>');
+            //                            } else if (tinnhan[j].TenGui != tinnhan[j - 1].TenGui && j === tinnhan.length - 1) {
+            //                                $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[j - 1].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 0 + ',' + tinnhan[j - 1].UserGui + ',' + Id + ',\'' + tinnhan[j - 1].group_chat + '\')">Đến ' + tinnhan[j - 1].group_chat +' xem và trả lời cho' + tinnhan[j - 1].TenGui + '</a></div></br>\
+            //                                            <div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhan[j].TenGui + ': </span><span>' + tinnhan[j].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[j].NgayTao + '</a></div>\
+            //                                            <div class="TinNhan-' + tinnhan[j].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 0 + ',' + tinnhan[j].UserGui + ',' + Id + ',\'' + tinnhan[j].group_chat + '\')">Đến ' + tinnhan[j].group_chat +' xem và trả lời cho' + tinnhan[j].TenGui + '</a></div></br>');
+            //                            }
+            //                        }
+
+            //                    } else if (tinnhan[j].group_chat != tinnhan[j - 1].group_chat && (tinnhan[j - 1].group_chat === null || tinnhan[j - 1].group_chat === '')) {
+            //                        $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[j - 1].UserGui + '" style="border-bottom: 2px solid #eeeeee;margin-left:5%"><span style="color:blueviolet"> Trả Lời Nhanh Cho: ' + tinnhan[j - 1].TenGui +'(-đến Voichat)'+ ' </span><input type="text" id="TXTTraloi-' + tinnhan[j - 1].UserGui + '" style="width:100%" /></div>\
+            //                                                    <div class="TinNhan-' + tinnhan[j - 1].UserGui + '" style="text-align:right"><a class="guinhanh" onclick="GuiNhanh(' + tinnhan[j - 1].UserGui + ',' + Id +')">Gửi Nhanh</a></div>\
+            //                                            <div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhan[j].TenGui + ': </span><span>' + tinnhan[j].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[j].NgayTao + '</a></div>');
+            //                    } else if (tinnhan[j].group_chat != tinnhan[j - 1].group_chat && (tinnhan[j - 1].group_chat.length > 1)) {
+            //                        if (j < tinnhan.length - 1) {
+            //                            $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[j - 1].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 0 + ',' + tinnhan[j - 1].UserGui + ',' + Id + ',\'' + tinnhan[j - 1].group_chat + '\')">Đến ' + tinnhan[j - 1].group_chat +' xem và trả lời cho' + tinnhan[j - 1].TenGui + '</a></div></br>\
+            //                                            <div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhan[j].TenGui + ': </span><span>' + tinnhan[j].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[j].NgayTao + '</a></div>');
+            //                        } else {
+            //                            $('#detail-' + user[i].id).append('<div class="TinNhan-' + tinnhan[j - 1].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 0 + ',' + tinnhan[j - 1].UserGui + ',' + Id + ',\'' + tinnhan[j - 1].group_chat + '\')">Đến ' + tinnhan[j - 1].group_chat +' xem và trả lời cho' + tinnhan[j - 1].TenGui + '</a></div></br>\
+            //                                            <div class="TinNhan-' + tinnhan[j].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhan[j].TenGui + ': </span><span>' + tinnhan[j].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhan[j].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhan[j].NgayTao + '</a></div>\
+            //                                            <div class="TinNhan-' + tinnhan[j].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 0 + ',' + tinnhan[j].UserGui + ',' + Id + ',\'' + tinnhan[j].group_chat + '\')">Đến ' + tinnhan[j].group_chat +' xem và trả lời cho' + tinnhan[j].TenGui + '</a></div>');
+            //                        }
+
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        var countdaxem = user[i].count_chat_daxem;
+            //        $('#detail2-' + user[i].id).html('<h3 class="text-center">Tin gửi đến bạn _ đã đọc(' + countdaxem + ').</h3>');
+            //        var tinnhandaxem = user[i].UserGuidaxem;
+            //        if (tinnhandaxem.length > 0 && tinnhandaxem) {
+            //            for (var x = 0; x < tinnhandaxem.length; x++) {
+            //                if (tinnhandaxem.length === 1) {
+            //                    if (tinnhandaxem[0].group_chat === '' || tinnhandaxem[0].group_chat === null) { //-từ Voichat (chỉ cho xem lại)
+            //                        $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[0].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span>' + tinnhandaxem[0].TenGui + '(-từ Voichat)' + ': </span><span>' + tinnhandaxem[0].TinNhan_Text + '</span></div><div style="text-align:right"><a class="ngaytao">' + tinnhandaxem[0].NgayTao + '</a></div>');
+            //                    } else if (tinnhandaxem[0].group_chat.length > 1) {
+            //                        $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[0].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhandaxem[0].TenGui + ': </span><span>' + tinnhandaxem[0].TinNhan_Text + '</span></div><div style="text-align:right"><a class="ngaytao">' + tinnhandaxem[0].NgayTao + '</a></div>\
+            //                                                <div class="TinNhan-' + tinnhandaxem[0].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 1 + ',' + tinnhandaxem[0].UserGui + ',' + Id + ',\'' + tinnhandaxem[0].group_chat + '\')">Đến ' + tinnhandaxem[0].group_chat +' xem và trả lời cho' + tinnhandaxem[0].TenGui + '</a></div></br>');
+            //                    }
+
+            //                } else {
+            //                    if (x === 0) {
+            //                        if (tinnhandaxem[0].group_chat === '' || tinnhandaxem[0].group_chat === null) {
+            //                            $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[0].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span>' + tinnhandaxem[0].TenGui + '(-từ Voichat)' + ': </span><span>' + tinnhandaxem[0].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[0].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[0].NgayTao + '</a></div>');
+            //                        } else if (tinnhandaxem[0].group_chat.length > 1) {
+            //                            $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[0].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhandaxem[0].TenGui + ': </span><span>' + tinnhandaxem[0].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[0].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[0].NgayTao + '</a></div>');
+            //                        }
+
+            //                    } else if (tinnhandaxem[x].group_chat === tinnhandaxem[x - 1].group_chat) {
+
+            //                        if (tinnhandaxem[x - 1].group_chat === null || tinnhandaxem[x - 1].group_chat === '') {
+            //                            if (tinnhandaxem[x].TenGui === tinnhandaxem[x - 1].TenGui && x < tinnhandaxem.length - 1) {
+            //                                $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span>' + tinnhandaxem[x].TenGui + '(-từ Voichat)' + ': </span><span>' + tinnhandaxem[x].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[x].NgayTao + '</a></div>');
+            //                            } else if (tinnhandaxem[x].TenGui === tinnhandaxem[x - 1].TenGui && x === tinnhandaxem.length - 1) {//-từ Voichat (chỉ cho xem lại)
+            //                                $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span>' + tinnhandaxem[x].TenGui + '(-từ Voichat)' + ': </span><span>' + tinnhandaxem[x].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[x].NgayTao + '</a></div>');
+            //                            } else if (tinnhandaxem[x].TenGui != tinnhandaxem[x - 1].TenGui && x < tinnhandaxem.length - 1) {
+            //                                $('#detail2-' + user[i].id).append('');
+            //                            } else if (tinnhandaxem[x].TenGui != tinnhandaxem[x - 1].TenGui && x === tinnhandaxem.length - 1) {
+            //                                $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span>' + tinnhandaxem[x].TenGui + '(-từ Voichat)' + ': </span><span>' + tinnhandaxem[x].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[x].NgayTao + '</a></div>');
+            //                            }
+            //                        } else if (tinnhandaxem[x - 1].group_chat.length > 1) {
+            //                            if (tinnhandaxem[x].TenGui === tinnhandaxem[x - 1].TenGui && x < tinnhandaxem.length - 1) {
+            //                                $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhandaxem[x].TenGui + ': </span><span>' + tinnhandaxem[x].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[x].NgayTao + '</a></div>');
+            //                            } else if (tinnhandaxem[x].TenGui === tinnhandaxem[x - 1].TenGui && x === tinnhandaxem.length - 1) {
+            //                                $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhandaxem[x].TenGui + ': </span><span>' + tinnhandaxem[x].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[x].NgayTao + '</a></div>\
+            //                                                        <div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 1 + ',' + tinnhandaxem[x].UserGui + ',' + Id + ',\'' + tinnhandaxem[x].group_chat + '\')">Đến ' + tinnhandaxem[x].group_chat +' xem và trả lời cho' + tinnhandaxem[x].TenGui + '</a></div></br>');
+
+            //                            } else if (tinnhandaxem[x].TenGui != tinnhandaxem[x - 1].TenGui && x < tinnhandaxem.length - 1) {
+            //                                $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[x - 1].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 1 + ',' + tinnhandaxem[x - 1].UserGui + ',' + Id + ',\'' + tinnhandaxem[x - 1].group_chat + '\')">Đến ' + tinnhandaxem[x - 1].group_chat +' xem và trả lời cho' + tinnhandaxem[x - 1].TenGui + '</a></div></br>\
+            //                                            <div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhandaxem[x].TenGui + ': </span><span>' + tinnhandaxem[x].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[x].NgayTao + '</a></div>');
+            //                            } else if (tinnhandaxem[x].TenGui != tinnhandaxem[x - 1].TenGui && x === tinnhandaxem.length - 1) {
+            //                                $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[x - 1].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 1 + ',' + tinnhandaxem[x - 1].UserGui + ',' + Id + ',\'' + tinnhandaxem[x - 1].group_chat + '\')">Đến ' + tinnhandaxem[x - 1].group_chat +' xem và trả lời cho' + tinnhandaxem[x - 1].TenGui + '</a></div></br>\
+            //                                            <div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhandaxem[x].TenGui + ': </span><span>' + tinnhandaxem[x].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[x].NgayTao + '</a></div>\
+            //                                            <div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 1 + ',' + tinnhandaxem[x].UserGui + ',' + Id + ',\'' + tinnhandaxem[x].group_chat + '\')">Đến ' + tinnhandaxem[x].group_chat +' xem và trả lời cho' + tinnhandaxem[x].TenGui + '</a></div></br>');
+            //                            }
+            //                        }
+
+            //                    } else if (tinnhandaxem[x].group_chat != tinnhandaxem[x - 1].group_chat && (tinnhandaxem[x - 1].group_chat === null || tinnhandaxem[x - 1].group_chat === '')) {
+            //                        $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhandaxem[x].TenGui + ': </span><span>' + tinnhandaxem[x].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[x].NgayTao + '</a></div>');
+            //                    } else if (tinnhandaxem[x].group_chat != tinnhandaxem[x - 1].group_chat && (tinnhandaxem[x - 1].group_chat.length > 1)) {
+            //                        if (x < tinnhandaxem.length - 1) {
+            //                            $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[x - 1].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 1 + ',' + tinnhandaxem[x - 1].UserGui + ',' + Id + ',\'' + tinnhandaxem[x - 1].group_chat + '\')">Đến ' + tinnhandaxem[x - 1].group_chat +' xem và trả lời cho' + tinnhandaxem[x - 1].TenGui + '</a></div></br>\
+            //                                            <div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhandaxem[x].TenGui + ': </span><span>' + tinnhandaxem[x].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[x].NgayTao + '</a></div>');
+            //                        } else {
+            //                            $('#detail2-' + user[i].id).append('<div class="TinNhan-' + tinnhandaxem[x - 1].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 1 + ',' + tinnhandaxem[x - 1].UserGui + ',' + Id + ',\'' + tinnhandaxem[x - 1].group_chat + '\')">Đến ' + tinnhandaxem[x -1].group_chat +' xem và trả lời cho' + tinnhandaxem[x - 1].TenGui + '</a></div></br>\
+            //                                            <div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="border-bottom: 2px solid #eeeeee"><span style="color:blue">' + tinnhandaxem[x].TenGui + ': </span><span>' + tinnhandaxem[x].TinNhan_Text + '</span></div><div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="text-align:right"><a class="ngaytao">' + tinnhandaxem[x].NgayTao + '</a></div>\
+            //                                            <div class="TinNhan-' + tinnhandaxem[x].UserGui + '" style="color:blueviolet;margin-left:5%"><a class="guinhanh" onclick="gotogroup(' + 1 + ',' + tinnhandaxem[x].UserGui + ',' + Id + ',\'' + tinnhandaxem[x].group_chat + '\')">Đến '+tinnhandaxem[x].group_chat+' xem và trả lời cho ' + tinnhandaxem[x].TenGui + '</a></div>');
+            //                        }
+
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //    var User_o = 'Online: ' + UserOn;
+            //    $('.TD-TV').find('.row').find('.tab_container').find('.label_tab').find('.User-online').html(User_o);
+            //}
+            //hub.client.broadcastOnlineUser = function (UserId) {
+            //    UserOn += 1;
+            //    var User_o = ' Online: ' + UserOn;
+            //    $('.card').find('.item-jobpost').find('.Online_NTVKH').find('.' + UserId).html('(<i class="fa fa-circle"></i><span style="color:black">Online</span>)');
+            //    $('.card').find('.item-jobpost').find('.Online_DNKH').find('.' + UserId).html('(<i class="fa fa-circle"></i> <span style="color:black">Online</span>)');
+            //    $('.TD-TV').find('.row').find('.tab_container').find('.label_tab').find('.User-online').html(User_o);
+            //}
+            //hub.client.broadcastOFFlineUser = function (userId) {
+            //    UserOn -= 1;
+            //    var User_o = ' Online: ' + UserOn;
+            //    $('.card').find('.item-jobpost').find('.Online_NTVKH').find('.' + userId).html('(<span class="glyphicon glyphicon-arrow-down"> OffLine</span>)');
+            //    $('.card').find('.item-jobpost').find('.Online_DNKH').find('.' + userId).html('(<span class="glyphicon glyphicon-arrow-down"> OffLine</span>)');
+            //    $('.TD-TV').find('.row').find('.tab_container').find('.label_tab').find('.User-online').html(User_o);
+            //}
+            //hub.connection.start().done(function () {
+            //    hub.server.getUserToChat();
+            //})
+        });
+</script>
+
+

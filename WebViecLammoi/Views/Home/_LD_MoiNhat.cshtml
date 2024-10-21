@@ -1,0 +1,97 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+<div class="body" style="padding-bottom:0">
+
+    <div class="row div_row_tintuc">
+        <div class="col-md-12 div_tintuc_t" style="height:700px">
+            @foreach (KhachHang_TimViecLam kh in ViewBag.LastestCandidate)
+            {
+                var NTV = new NTV_KhachHang_Dao().GetNTV_ByKHID(kh.KH_ID);
+                if (NTV != null)
+                {
+                    var luong = " ";
+                    if ((kh.MucLuongMongMuonTu == 0 && kh.MucLuongMongMuonDen == 0) || kh.MucLuongMongMuonTu == null || kh.MucLuongMongMuonDen == null)
+                    {
+                        luong = "Lương thỏa thuận";
+                    }
+                    else if (kh.MucLuongMongMuonTu > 100)
+                    {
+                        luong = @Html.FormatValue(kh.MucLuongMongMuonTu, "{0:#,###.##}") + " đến " + @Html.FormatValue(kh.MucLuongMongMuonDen, "{0:#,###.##}");
+                    }
+                    else
+                    {
+                        luong = kh.MucLuongMongMuonTu + " đến " + kh.MucLuongMongMuonDen + " triệu";
+                    }
+                    var dm = new DanhMuc_Dao();
+                    var nv = new Khachhang_trinhdo_nghiepvu_DAO();
+                    var trinhdo = nv.Getlist_khachhangtrinhdo(kh.KH_ID);
+                    var hinh = XString.Cutstring(NTV.Hinh);
+                    var path = XString.maplocal+ "Avatar_UV\\" + hinh;
+                    var tgmm = dm.GetTGbyID(kh.ThoiGianLamViecMongMuon);
+                    //int mkv = NTV.TamTru_Huyen_ID.Value;
+                    int mkv = kh.NoiLamViecMongMuon_ID.Value;
+                    string tendc = new DN_DoanhNghiep_Dao().GetDiaChiById(mkv).TenDiaChi;
+                    var strHoTen = XString.ConvertToUnSign(NTV.HoTen);
+                    var kinhnghiem = (kh.SoNamKinhNghiem != null && kh.SoNamKinhNghiem > 0) ? kh.SoNamKinhNghiem + " năm" : " Chưa có";
+                    var url = "/Nguoi-Tim-Viec/" + strHoTen + "-" + kh.TimViec_ID;
+            <div class="div_moinhat">
+                <div class="row" style="margin:0">
+                    <div class="col-md-2" style="padding: 0; margin-bottom: 0">
+                        @if (File.Exists(path))
+                        {
+                            <img src="@XString.GetImgBase64("Avatar_UV",hinh)" class="img_avatar" hidden/>
+                            <img data-src="/Content/Upload/Avatar_UV/@hinh" class="lazy img_avatar" />
+                        }
+                        else
+                        { <img data-src="/Content/Tien/icon3d/NguoiTimViecIcon.png" class="lazy img_avatar" />}
+                    </div>
+                    <div class="col-md-10" style="padding: 0;padding-left:10px; margin-bottom: 0">
+
+                        <a href="@url" style="color: #555">
+                            <h4 class="h4_tieude">
+                                @kh.TenHoSo.ToUpper()
+                                @if (tgmm != null)
+                                {<span>(@tgmm.TenThoiGianLamViec)</span>}
+                            </h4>
+                        </a>
+                       
+                        <h5 class="h5_name">
+                            @NTV.HoTen
+                        </h5>
+                        <h5><span>kinh nghiệm:</span> @kinhnghiem</h5>
+                    </div>
+                </div>
+                <div class="row" style="margin:0; margin-top:5px">
+                    <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                        <p style="margin-bottom:5px">
+                            <i class="icon-briefcase"></i> Trình độ CMKT:
+                            @if (trinhdo != null)
+                            {
+                                <b>@trinhdo.DM_TrinhDoChuyenMons.TenChuyenMon</b><span>(@trinhdo.DM_NgheLaoDongs.TenNgheLaoDong)</span>
+                            }
+                            @*@foreach (KhachHang_TrinhDo td in trinhdo)
+                            {
+                                <b>@td.DM_TrinhDoChuyenMons.TenChuyenMon</b><span>(@td.DM_NgheLaoDongs.TenNgheLaoDong)</span>}*@
+                        </p>
+                        <p style="margin-bottom:0px">
+                            <a>
+                                <i class="icon-usd"></i> @luong
+                            </a>
+                            <a style="margin-left:30px">
+                                <i class="icon-map-marker"></i> @tendc
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div> 
+                }
+            }
+            
+
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

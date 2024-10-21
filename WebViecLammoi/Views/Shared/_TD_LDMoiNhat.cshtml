@@ -1,0 +1,563 @@
+﻿@using WebViecLammoi.Models;
+@model IEnumerable<DoanhNghiep_TuyenDung>
+@using WebViecLammoi.i18n
+@using WebViecLammoi.Utils;
+<style>
+    .tdnb_T {
+        margin-top: 13px;
+        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.25);
+    }
+
+        .tdnb_T:hover {
+            box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.25);
+        }
+
+        .tdnb_T p {
+            margin-bottom: 5px;
+            font-size: 12px;
+            font-family: 'Times New Roman';
+        }
+
+    .tdnb_footer {
+        margin: 0;
+    }
+
+        .tdnb_footer div {
+            padding: 0;
+            border-top: 1px dashed #d6d9dc;
+        }
+
+    .div_qccty {
+        border-radius: 5px;
+        padding: 0;
+        box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.25);
+    }
+
+        .div_qccty img {
+            width: 100%;
+            height: 165px;
+            border-radius: 5px;
+        }
+
+    .QCmoney {
+        margin-right: 0;
+        margin-top: 10px;
+    }
+
+    .QC-right {
+        float: left;
+        width: 50%;
+        padding-top: 5px;
+    }
+
+    .TD_TV {
+        margin-right: 10px !important;
+    }
+
+    .QC-Nh-item-com p a {
+        color: darkkhaki;
+    }
+
+    @@media screen and (max-width:576px) {
+        .QCmoney .QC-right {
+            display: none;
+        }
+
+        .TD_TV {
+            width: 100%;
+        }
+    }
+</style>
+@*UPDATE THÊM Ô TÌM KIẾM NHỰT*@
+<div class="row boxSearch text-center">
+    <div class="col-md-3 col-sm-3" id="tiemKiem">
+        <select class="form-control sec-loaiTK" id="LoaiUser">
+            <option value="2">Tuyển dụng</option>
+            <option value="1">Người tìm việc</option>
+
+        </select>
+    </div>
+
+    <div class="ChonTD" style="display:none">
+        @using (Html.BeginForm("JobListByCustom", "Job", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col-md-7 col-sm-7 tk-tukhoa">
+                <i class="fa fa-tag"></i>
+                <input type="text" class="form-control" placeholder=" Tên Cty hoặc tiêu đề hồ sơ tuyển dụng " name="searchStr">
+            </div>
+
+            <div class="col-md-2 col-sm-2" style="line-height:36px">
+                <button class="btn btn-danger btn-width btn-send-msg">
+                    <span><i class="fa fa-search"></i> Tìm Cty</span>
+                </button>
+            </div>
+
+            <div class="form-group" style="display:none">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-addon">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                    @Html.DropDownList("LocationId", null, new { @class = "form-control", @required = true })
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="ChonNTV" style="display:none">
+
+
+        @using (Html.BeginForm("CandidateListByCustom", "Candidate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col-md-7 col-sm-7 tk-tukhoa">
+                <i class="fa fa-tag"></i>
+                <input type="text" class="form-control" placeholder=" Tên hoặc tiêu đề hồ sơ ứng viên..." name="searchStrNTV">
+            </div>
+
+            <div class="col-md-2 col-sm-2" style="line-height:36px">
+                <button class="btn btn-danger btn-width btn-send-msg">
+                    <span><i class="fa fa-search"></i>Tìm Người LD</span>
+                </button>
+            </div>
+
+            <div class="form-group" style="display:none">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-addon">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                    @Html.DropDownList("LocationNTVId", null, new { @class = "form-control", @required = true })
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<div>
+
+    <div class="col-md-9 col-sm-9 TD-TV">
+
+        <div class="row" style="margin:0">
+            <div class="col-lg-12 col-md-12 col-xs-12 about-box" style="  padding:0; ">
+                <div class="tab_container">
+
+                    <input id="tab1" type="radio" name="tabs" checked class="input_tab">
+                    <label for="tab1" style="margin-bottom: 0; font-family: arial, sans-serif;font-size:14px;line-height:1.1;font-weight:bold " class="label_tab">
+                        @*<i class="fa fa-briefcase"></i>*@ <span>@Common.Recruitment.ToUpper()</span>
+                    </label>
+                    <input id="tab2" type="radio" name="tabs" class="input_tab">
+                    <label for="tab2" class="label_tab" style="margin-bottom: 0; font-family: arial, sans-serif; font-size: 14px; line-height: 1.1; font-weight: bold; ">
+                        @*<i class="fa fa-users"></i>*@<span>@Common.Candidate.ToUpper()</span>
+                    </label>
+                    @Html.Action("SliderTinHot_T", "Home")
+
+
+                    <section id="content1" class="tab-content" style=" border-top: 3px solid #006fc7; box-shadow: 0 5px 11px 0px rgba(0,0,0,0.25);">
+                        @Html.Action("LastestJob", "Home")
+                    </section>
+                    <section id="content2" class="tab-content" style=" border-top: 3px solid #006fc7; box-shadow: 0 5px 11px 0px rgba(0,0,0,0.25);">
+                        @Html.Action("LastestCandidate", "Home")
+                    </section>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-3">
+
+        <div class="QC-Nh">
+            <div class="QC-Nh-title">
+                <h4 style="background-color:#ef907c !important">VIỆC LÀM HẤP DẪN</h4>
+            </div>
+
+            <div class="owl-carousel owl-theme carousel-QC-Nh">
+                @if (ViewBag.HotJob_count != 0)
+                {
+                    <div class="QC-Nh-list">
+                        @foreach (DoanhNghiep_TuyenDung h in ViewBag.HotJob)
+                        {
+                            var tieude = h.TieuDeTuyenDung;
+                            var tendn = h.DoanhNghieps.TenDoanhNghiep;
+                            var str = XString.EditString(tieude);
+                            var url = "/Tuyen-Dung/" + str.Replace("/", "-") + "-" + h.TuyenDung_ID;
+                            <div class="QC-Nh-item" style="position:relative">
+                                <div class="QC-Nh-item-name">
+                                    <a href=@url><p>@tieude</p></a>
+                                </div>
+                                <div class="QC-Nh-item-com">
+                                    <p><a href=@url>@tendn</a></p>
+                                </div>
+                                <div class="QC-Nh-item-info">
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            @if ((h.LuongTu == 0 && h.LuongDen == 0) || h.LuongTu == null || h.LuongDen == null)
+                                            {
+                                                <span class="glyphicon glyphicon-usd"> Thỏa thuận</span>
+                                            }
+                                            else if (h.LuongTu > 100)
+                                            {
+                                                <span class="glyphicon glyphicon-usd"> Từ @Html.FormatValue(h.LuongTu, "{0:#,###.##}") đến @Html.FormatValue(h.LuongDen, "{0:#,###.##}")</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="glyphicon glyphicon-usd">@h.LuongTu đến @h.LuongDen triệu</span>
+                                            }
+                                        </div>
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-map-marker"></span>&nbsp;
+                                            @if (h.DoanhNghieps.Huyen_ID.Value > 0)
+                                            {
+                                                <span>@h.DoanhNghieps.DM_DiaChi.TenDiaChi</span><br />
+                                            }
+                                            else
+                                            {
+                                                <span>Không xác định</span><br />
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-align-left"></span>&nbsp;
+                                            @if (h.SoNamKinhNghiem != null)
+                                            {
+
+                                                if (h.SoNamKinhNghiem > 0)
+                                                {
+                                                    <span>KN: @h.SoNamKinhNghiem năm</span><br />
+                                                }
+                                                else
+                                                {
+                                                    <span>Không yêu cầu KN</span><br />
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span>KN: Không yêu cầu</span><br />
+                                            }
+                                        </div>
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-time"></span>&nbsp;@Html.FormatValue(@h.NgayCapNhat, "{0:dd/MM/yyyy}")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>}
+                @if (ViewBag.HotJob1_count != 0)
+                {
+                    <div class="QC-Nh-list">
+                        @foreach (DoanhNghiep_TuyenDung h in ViewBag.HotJob1)
+                        {
+                            var tieude2 = h.TieuDeTuyenDung;
+                            var tendn2 = h.DoanhNghieps.TenDoanhNghiep;
+                            var str = XString.EditString(tieude2);
+                            var url = "/Tuyen-Dung/" + str.Replace("/", "-") + "-" + h.TuyenDung_ID;
+                            <div class="QC-Nh-item" style="position:relative">
+                                <div class="QC-Nh-item-name">
+                                    <a href=@url><p>@tieude2</p></a>
+                                </div>
+                                <div class="QC-Nh-item-com">
+                                    <p><a href=@url>@tendn2</a></p>
+                                </div>
+                                <div class="QC-Nh-item-info">
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            @if ((h.LuongTu == 0 && h.LuongDen == 0) || h.LuongTu == null || h.LuongDen == null)
+                                            {
+                                                <span class="glyphicon glyphicon-usd"> Thỏa thuận</span>
+                                            }
+                                            else if (h.LuongTu > 100)
+                                            {
+                                                <span class="glyphicon glyphicon-usd"> Từ @Html.FormatValue(h.LuongTu, "{0:#,###.##}") đến @Html.FormatValue(h.LuongDen, "{0:#,###.##}")</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="glyphicon glyphicon-usd">@h.LuongTu đến @h.LuongDen triệu</span>
+                                            }
+
+
+                                        </div>
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-map-marker"></span>&nbsp;
+                                            @if (h.DoanhNghieps.Huyen_ID.Value > 0)
+                                            {
+                                                <span>@h.DoanhNghieps.DM_DiaChi.TenDiaChi</span><br />
+                                            }
+                                            else
+                                            {
+                                                <span>Không xác định</span><br />
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-align-left"></span>&nbsp;
+                                            @if (h.SoNamKinhNghiem != null)
+                                            {
+
+                                                if (h.SoNamKinhNghiem > 0)
+                                                {
+                                                    <span>KN: @h.SoNamKinhNghiem năm</span><br />
+                                                }
+                                                else
+                                                {
+                                                    <span>Không yêu cầu KN</span><br />
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span>KN: Không yêu cầu</span><br />
+                                            }
+                                        </div>
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-time"></span>&nbsp;@Html.FormatValue(@h.NgayCapNhat, "{0:dd/MM/yyyy}")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>}
+                @if (ViewBag.HotJob2_count != 0)
+                {
+                    <div class="QC-Nh-list">
+                        @foreach (DoanhNghiep_TuyenDung h in ViewBag.HotJob2)
+                        {
+                            var tieude1 = h.TieuDeTuyenDung;
+                            var tendn1 = h.DoanhNghieps.TenDoanhNghiep;
+                            var str = XString.EditString(tieude1);
+                            var url = "/Tuyen-Dung/" + str.Replace("/", "-") + "-" + h.TuyenDung_ID;
+                            <div class="QC-Nh-item" style="position:relative">
+                                <div class="QC-Nh-item-name">
+                                    <a href=@url><p>@tieude1</p></a>
+                                </div>
+                                <div class="QC-Nh-item-com">
+                                    <p><a href=@url>@tendn1</a></p>
+                                </div>
+                                <div class="QC-Nh-item-info">
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            @if ((h.LuongTu == 0 && h.LuongDen == 0) || h.LuongTu == null || h.LuongDen == null)
+                                            {
+                                                <span class="glyphicon glyphicon-usd"> Thỏa thuận</span>
+                                            }
+                                            else if (h.LuongTu > 100)
+                                            {
+                                                <span class="glyphicon glyphicon-usd"> Từ @Html.FormatValue(h.LuongTu, "{0:#,###.##}") đến @Html.FormatValue(h.LuongDen, "{0:#,###.##}")</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="glyphicon glyphicon-usd">@h.LuongTu đến @h.LuongDen triệu</span>
+                                            }
+
+
+                                        </div>
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-map-marker"></span>&nbsp;
+                                            @if (h.DoanhNghieps.Huyen_ID.Value > 0)
+                                            {
+                                                <span>@h.DoanhNghieps.DM_DiaChi.TenDiaChi</span><br />
+                                            }
+                                            else
+                                            {
+                                                <span>Không xác định</span><br />
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-align-left"></span>&nbsp;
+                                            @if (h.SoNamKinhNghiem != null)
+                                            {
+
+                                                if (h.SoNamKinhNghiem > 0)
+                                                {
+                                                    <span>KN: @h.SoNamKinhNghiem năm</span><br />
+                                                }
+                                                else
+                                                {
+                                                    <span>Không yêu cầu KN</span><br />
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span>KN: Không yêu cầu</span><br />
+                                            }
+                                        </div>
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-time"></span>&nbsp;@Html.FormatValue(@h.NgayCapNhat, "{0:dd/MM/yyyy}")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>}
+                @if (ViewBag.HotJob3_count != 0)
+                {
+                    <div class="QC-Nh-list">
+                        @foreach (DoanhNghiep_TuyenDung h in ViewBag.HotJob3)
+                        {
+                            var tieude3 = h.TieuDeTuyenDung;
+                            var tendn3 = h.DoanhNghieps.TenDoanhNghiep;
+                            var str = XString.EditString(tendn3);
+                            var url = "/Tuyen-Dung/" + str.Replace("/", "-") + "-" + h.TuyenDung_ID;
+                            <div class="QC-Nh-item" style="position:relative">
+                                <div class="QC-Nh-item-name">
+                                    <a href=@url><p>@tieude3</p></a>
+                                </div>
+                                <div class="QC-Nh-item-com">
+                                    <p><a href=@url>@tendn3</a></p>
+                                </div>
+                                <div class="QC-Nh-item-info">
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            @if ((h.LuongTu == 0 && h.LuongDen == 0) || h.LuongTu == null || h.LuongDen == null)
+                                            {
+                                                <span class="glyphicon glyphicon-usd"> Thỏa thuận</span>
+                                            }
+                                            else if (h.LuongTu > 100)
+                                            {
+                                                <span class="glyphicon glyphicon-usd"> Từ @Html.FormatValue(h.LuongTu, "{0:#,###.##}") đến @Html.FormatValue(h.LuongDen, "{0:#,###.##}")</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="glyphicon glyphicon-usd">@h.LuongTu đến @h.LuongDen triệu</span>
+                                            }
+
+
+                                        </div>
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-map-marker"></span>&nbsp;
+                                            @if (h.DoanhNghieps.Huyen_ID.Value > 0)
+                                            {
+                                                <span>@h.DoanhNghieps.DM_DiaChi.TenDiaChi</span><br />
+                                            }
+                                            else
+                                            {
+                                                <span>Không xác định</span><br />
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-align-left"></span>&nbsp;
+                                            @if (h.SoNamKinhNghiem != null)
+                                            {
+
+                                                if (h.SoNamKinhNghiem > 0)
+                                                {
+                                                    <span>KN: @h.SoNamKinhNghiem năm</span><br />
+                                                }
+                                                else
+                                                {
+                                                    <span>Không yêu cầu KN</span><br />
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span>KN: Không yêu cầu</span><br />
+                                            }
+                                        </div>
+                                        <div class="col-md-6 col-xs-6">
+                                            <span class="glyphicon glyphicon-time"></span>&nbsp;@Html.FormatValue(@h.NgayCapNhat, "{0:dd/MM/yyyy}")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>}
+            </div>
+
+        </div>
+    </div>
+    <div style="clear:both"></div>
+</div>
+
+
+<div class="QCmoney">
+    @foreach (News QC in ViewBag.QC)
+    {
+        var str = XString.EditString(QC.Title);
+        var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+        <div class="col-md-2 col-sm-4 col-xs-4 pr-0">
+            <div class="QC-right">
+                <div style="margin-right:5px">
+                    <div class="div_qccty">
+                        <a target="_blank" href="@url"><img class="img-res lazy" data-src="/Content/Upload/News_Img/@QC.ImagePath"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    <div class="clear-both"></div>
+</div>
+<script>
+    $(".tdnb_T").mouseenter(function () {
+        $(this).find("b").css("color", "#00C3E2");
+        $(this).find("p").css("color", "#00C3E2");
+    }).mouseleave(function () {
+
+        $(this).find("b").css("color", "black");
+        $(this).find("p").css("color", "black");
+    });
+
+    //SLIDE TIN TỨC
+    $('.carousel-QC-Nh').owlCarousel({
+        loop: true,
+        margin: 10,
+        autoplay: true,
+        autoplayTimeout: 4000,
+        nav: true,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 1
+            }
+        }
+    })
+
+    ////HOVER SLIDE SẢN PHẦM CÙNG LOẠI
+    $(document).ready(function () {
+        //set gia tri mac định cho form tim kiem
+        /*$('#tiemKiem select').val('2');*/
+        $(".carousel-QC-Nh").hover(function () {
+            $(".carousel-QC-Nh .owl-nav").fadeIn();
+        },
+            function () {
+                $(".carousel-QC-Nh .owl-nav").fadeOut();
+            })
+    });
+    //END SLIDE TIN TỨC
+    //Nút tìm kiếm
+
+    $('#LoaiUser').show(function () {
+        var va = $(this).val();
+        if (va === "1") {
+            $('.ChonTD').css("display", "none");
+            $('.ChonNTV').css("display", "block");
+        } else {
+            $('.ChonNTV').css("display", "none");
+            $('.ChonTD').css("display", "block");
+        }
+    });
+    $('#LoaiUser').change(function () {
+        var va = $(this).val();
+        alert('change:' + va);
+        if (va === "1") {
+            $('.ChonTD').css("display", "none");
+            $('.ChonNTV').css("display", "block");
+        } else {
+            $('.ChonNTV').css("display", "none");
+            $('.ChonTD').css("display", "block");
+        }
+    });
+</script>
+
+

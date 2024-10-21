@@ -1,0 +1,650 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+@model KhachHang_TimViecLam
+
+@{
+    ViewBag.Title = "Chi tiết HSTV";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<style>
+    .container > .navbar-header {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    @@media screen and (max-width:767px) {
+        .container {
+            padding-right: 0;
+            padding-left: 0;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    }
+</style>
+@if (Model != null)
+            {
+
+                var NTV = new NTV_KhachHang_Dao().GetNTV_ByKHID(Model.KH_ID);
+                var nv = new Khachhang_trinhdo_nghiepvu_DAO();
+                if (NTV != null)
+                {
+                    var dm = new DanhMuc_Dao();
+                    var luong = " ";
+                    if ((Model.MucLuongMongMuonTu == 0 && Model.MucLuongMongMuonDen == 0) || Model.MucLuongMongMuonTu == null || Model.MucLuongMongMuonDen == null)
+                    {
+                        luong = "Lương thỏa thuận";
+                    }
+                    else if (Model.MucLuongMongMuonTu > 100)
+                    {
+                        luong = @Html.FormatValue(Model.MucLuongMongMuonTu, "{0:#,###.##}") + " đến " + @Html.FormatValue(Model.MucLuongMongMuonDen, "{0:#,###.##}");
+                    }
+                    else
+                    {
+                        luong = Model.MucLuongMongMuonTu + " đến " + Model.MucLuongMongMuonDen + " triệu";
+                    }
+                    var thuongtru = NTV.TamTru_Huyen_ID.Value;
+                    int mkv = Model.NoiLamViecMongMuon_ID.Value;
+                    var dcthuongtru = new DN_DoanhNghiep_Dao().GetDiaChiById(thuongtru).TenDiaChi;
+                    var tgmm = dm.GetTGbyID(Model.ThoiGianLamViecMongMuon);
+                    string tendc = new DN_DoanhNghiep_Dao().GetDiaChiById(mkv).TenDiaChi;
+                    var trinhdo = nv.Getlist_khachhangtrinhdo(Model.KH_ID);
+                    var nghiepvu = nv.Getlist_khachhangNghiepVu(Model.KH_ID);
+                    var ngoaingu = nv.GetList_KH_NgoaiNgu(Model.KH_ID);
+                    var tinhoc = nv.GetList_KH_tinhoc(Model.KH_ID);
+                    var tenntv = NTV.HoTen.Trim().ToLower();
+                    var hinh = XString.Cutstring(NTV.Hinh);
+                    var tuoi = DateTime.Now.Year - NTV.NgaySinh.Year;
+                    var path = XString.maplocal + "Avatar_UV\\" + hinh;
+                    var kinhnghiem = dm.GetListKNbyKHID(Model.KH_ID);
+                    var pathCV = XString.maplocal + "Document\\" + Model.KhaNangNoiTroi;
+                    string[] NganhNghe34 = XString.Cutstringcomcoma(Model.NganhNghe34_2022);
+        
+        <div class="col-md-8" style="padding:0">
+            <div class="card card_t">
+                <div class="body" style="padding: 0; margin: -1px; ">
+
+                    <div class="row" style="margin: 0; background-color: #f3f6f9">
+                        <div class="col-md-12" style="padding:15px; margin:0px">
+                            <div class="col-md-2" style="padding:5px; margin:0px">
+                                @if (File.Exists(path))
+        {
+                                    <img src="@XString.GetImgBase64("Avatar_UV",hinh)" class="img_avatar" hidden />
+                                    <img src="~/Content/Upload/Avatar_UV/@hinh" class="img_avatar" />
+                                }
+                                else
+                                { <img src="~/Content/Tien/icon3d/NguoiTimViecIcon.png" class="img_avatar" />}
+                            </div>
+                            <div class="col-md-10" style="padding:5px; margin:0px">
+                                <h3 style="margin:0; margin-bottom:10px">
+                                    @Model.TenHoSo.Trim().ToUpper()
+                                </h3>
+                                <p style="color: #1d4c90;text-transform:capitalize">(@tenntv)</p>
+                                <div class="row" style="margin:0; margin-bottom:5px">
+                                    <div class="col-md-5" style="padding:0; margin:0px">
+                                        <span style="color: #0168a5">
+                                            <i class="material-icons" style="font-size:14px">book</i> Mã nghề: @Model.NgheMongMuon_ID
+                                        </span>
+                                    </div>
+                                    <div class="col-md-5" style="padding:0; margin:0px">
+                                        @if (trinhdo != null)
+                                        {
+                                            <span style="color: #0168a5">
+                                                <i class="material-icons" style="font-size:14px">card_travel</i> @trinhdo.DM_NgheLaoDongs.TenNgheLaoDong
+                                            </span>}
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin:0; margin-bottom:5px">
+                                    <div class="col-md-5" style="padding:0; margin:0px">
+                                        <span>
+                                            <i class="material-icons" style="font-size:14px">alarm_on</i> Ngày đăng tuyển: @Html.FormatValue(Model.NgayDangKy, "{0:dd/MM/yyyy}")
+                                        </span>
+                                    </div>
+
+                                    <div class="col-md-5" style="padding:0; margin:0px">
+                                        <span>
+                                            <i class="material-icons" style="font-size:14px">date_range</i> Hạn nộp hồ sơ: @Html.FormatValue(Model.NgayHoSoHetHan, "{0:dd/MM/yyyy}")
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin:0; margin-bottom:5px">
+                                    <div class="col-md-5" style="padding:0; margin:0px">
+                                        <span>
+                                            <i class="icon-eye-open" style="font-size:14px"></i> Lượt xem: @Model.LuotXem
+                                        </span>
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-group" id="accordion_1" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" role="tab" id="headingFour_1">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseFour_1" aria-expanded="false"
+                                       aria-controls="collapseFour_1">
+                                        Việc làm mong muốn
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFour_1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour_1">
+                                <div class="panel-body">
+                                    <div class="row" style="margin: 0; ">
+                                        <div class="col-md-4" style="padding: 0; margin: 0px; color: #0168a5">
+                                            Loại hình doanh nghiệp:
+                                        </div>
+                                        <div class="col-md-8" style="padding:0; margin:0px">
+                                            @Model.DM_LoaiHinhDoanhNghieps.TenLoaiHinhDoanhNghiep
+                                        </div>
+                                    </div>
+                                    <hr style="margin: 0; margin-bottom: 10px; margin-top: 5px" />
+                                    <div class="row" style="margin: 0; ">
+                                        <div class="col-md-4" style="padding: 0; margin: 0px; color: #0168a5">
+                                            Tên nghề đào tạo:
+                                        </div>
+                                        <div class="col-md-8" style="padding:0; margin:0px">
+                                            @if (trinhdo != null)
+                                            {
+                                                @trinhdo.DM_NgheLaoDongs.TenNgheLaoDong
+                                            }
+                                        </div>
+                                    </div>
+                                    <hr style="margin: 0; margin-bottom: 10px; margin-top: 5px" />
+                                    <div class="row" style="margin: 0; ">
+                                        <div class="col-md-4" style="padding: 0; margin: 0px; color: #0168a5">
+                                            Chức danh:
+                                        </div>
+                                        <div class="col-md-8" style="padding:0; margin:0px">
+                                            @Model.DM_ChucDanhs.TenChucDanh
+
+                                        </div>
+                                    </div>
+
+                                    <hr style="margin:0; margin-bottom:10px; margin-top:5px" />
+                                    <div class="row" style="margin: 0; ">
+                                        <div class="col-md-4" style="padding: 0; margin: 0px; color: #0168a5">
+                                            Mức lương:
+                                        </div>
+                                        <div class="col-md-8" style="padding:0; margin:0px">
+                                            @luong
+
+                                        </div>
+                                    </div>
+                                    <hr style="margin:0; margin-bottom:10px; margin-top:5px" />
+                                    <div class="row" style="margin: 0; ">
+                                        <div class="col-md-4" style="padding: 0; margin: 0px; color: #0168a5">
+                                            Công tác theo yêu cầu:
+                                        </div>
+                                        <div class="col-md-8" style="padding:0; margin:0px">
+                                            @if (Model.CoTheDiCongTac == true)
+                                            {
+                                                <span>Sẵng sàng</span>
+                                            }
+                                            else
+{
+                                                <span>Không</span>
+                                            }
+                                        </div>
+                                    </div>
+                                    <hr style="margin:0; margin-bottom:10px; margin-top:5px" />
+                                    <div class="row" style="margin: 0; margin-bottom: 10px">
+                                        <div class="col-md-5" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Nơi làm việc:
+
+                                            </span>
+                                            <br />
+                                            <span>
+                                                <i class="material-icons" style="font-size:14px">done</i> @tendc
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Thời gian:
+                                            </span>
+                                            <br />
+                                            <span>
+                                                <i class="material-icons" style="font-size:14px">done</i> @tgmm.TenThoiGianLamViec
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Nghề mong muốn:
+                                            </span>
+                                            <br />
+                                            <span>
+                                                <i class="material-icons" style="font-size:14px">done</i> @Model.DM_NgheLaoDongs.TenNgheLaoDong
+                                            </span>
+                                            @if (NganhNghe34 != null)
+                                            {
+                                                if (NganhNghe34[0] != Model.NgheMongMuon_ID.ToString() && NganhNghe34[0] !="0")
+                                                {
+                                                    var tennghe = dm.GetNgheNTVbyID(int.Parse(NganhNghe34[0]));
+                                                    <br />
+                                                    <span>
+                                                        <i class="material-icons" style="font-size:14px">done</i> @tennghe.TenNgheLaoDong
+                                                    </span>
+                                                }
+                                                if (NganhNghe34[1] != Model.NgheMongMuon_ID.ToString() && NganhNghe34[1] != NganhNghe34[0] && NganhNghe34[1] != "0")
+                                                {
+                                                    var tennghe = dm.GetNgheNTVbyID(int.Parse(NganhNghe34[1]));
+                                                    <br />
+                                                    <span>
+                                                        <i class="material-icons" style="font-size:14px">done</i> @tennghe.TenNgheLaoDong
+                                                    </span>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                    <hr style="margin:0; margin-bottom:10px; margin-top:5px" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" role="tab" id="headingOne_1">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_1" aria-expanded="true" aria-controls="collapseOne_1">
+                                        Năng lực nổi trội, khả năng sở trường
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne_1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne_1">
+                                <div class="panel-body">
+                                    <div class="row" style="margin: 0; margin-bottom: 10px">
+                                        <div class="col-md-4" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">Ngoại ngữ:</span>
+                                            <br />
+                                            @foreach (KhachHang_TimViec_NgoaiNgu_2022 nn in ngoaingu)
+                                            {
+                                                <h5>
+                                                    <i class="material-icons" style="font-size:14px">done</i> @nn.DM_NghiepVus.TenNghiepVu
+                                                </h5>
+                                            }
+
+                                        </div>
+                                        <div class="col-md-4" style="padding:0; margin:0px">
+
+                                            <span style="color: #0168a5">
+                                                Công nghệ thông tin:
+                                            </span>
+                                            <br />
+                                            @foreach (KhachHang_TimViec_TinHoc th in tinhoc)
+                                            {
+                                                <h5>
+                                                    <i class="material-icons" style="font-size:14px">done</i> @th.DM_NghiepVus.TenNghiepVu
+                                                </h5>
+                                            }
+
+                                        </div>
+                                        <div class="col-md-4" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">Nghiệp vụ khác:</span>
+                                            <br />
+                                            @foreach (KhachHang_NghiepVu khnv in nghiepvu)
+                                            {
+                                                <span>
+                                                    <i class="material-icons" style="font-size:14px">done</i> @khnv.DM_NghiepVus.TenNghiepVu
+                                                </span>
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row" style="margin: 0; margin-bottom: 10px">
+                                        <div class="col-md-4" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Trình độ:
+                                            </span>
+                                            <br />
+                                            @if (trinhdo != null)
+                                            {
+                                                <span>
+                                                    <i class="material-icons" style="font-size:14px">done</i> @trinhdo.DM_TrinhDoChuyenMons.TenChuyenMon
+                                                </span>
+                                            }
+
+                                        </div>
+                                        <div class="col-md-4" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Nghành Học:
+                                            </span>
+                                            <br />
+                                            @if (trinhdo != null)
+                                            {
+                                                <span>
+                                                    <i class="material-icons" style="font-size:14px">done</i> @trinhdo.DM_NganhLaoDongs.TenNganhLaoDong
+
+                                                </span>
+                                            }
+
+                                        </div>
+                                        <div class="col-md-4" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Nghề đào tạo:
+                                            </span>
+                                            <br />
+                                            @if (trinhdo != null)
+                                            {
+                                                <span>
+                                                    <i class="material-icons" style="font-size:14px">done</i> @trinhdo.DM_NgheLaoDongs.TenNgheLaoDong
+
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin: 0; margin-bottom: 10px">
+                                        <p>
+                                            @Html.Raw(Model.MoTaKinhNghiemLamViec)
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" role="tab" id="headingThree_1">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseThree_1" aria-expanded="false"
+                                       aria-controls="collapseThree_1">
+                                        Kinh nghiệm làm việc
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree_1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree_1">
+                                <div class="panel-body">
+
+                                    @if (kinhnghiem.Count > 0)
+                                    {
+    foreach (KhachHang_KinhNghiem_LamViec_2022 kn in kinhnghiem)
+    {
+                                            <div class="job">
+                                                <h2>Cty:@kn.TenCongTy</h2>
+                                                <h3>@kn.ChucVu (<sp>@kn.TuThang - @kn.DenThang</sp>)</h3>
+
+                                                <p>Công việc chính: @kn.CongViecChinh</p>
+                                                <p>Kinh nghiệm ra nước ngoài: @kn.DaLamViecNuocNgoai</p>
+                                            </div>
+                                        }
+                                    }
+                                    else
+{
+                                        <h3>Chưa update...</h3>
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style=" padding-left: 10px; padding-right: 5px;">
+            <div class="row" style="margin:0">
+                <div class="col-md-12" style="padding:0">
+                    <div class="card card_t  ">
+                        <div class="body" style="padding: 10px; margin: -1px;">
+                            <div class="row" style="margin:0 ">
+
+                                <div class="col-md-12 div_tieude">
+                                    <h4 style="margin-block:10px;text-transform:capitalize">
+                                        @tenntv
+                                    </h4>
+                                    <h5 style="margin-block:10px">
+                                        @Model.DM_NgheLaoDongs.TenNgheLaoDong
+                                    </h5>
+                                    <p>
+                                        <a>
+                                            <i class="icon-calendar"></i> @tuoi tuổi
+                                        </a>
+                                        <a style="margin-left:30px">
+                                            @if (NTV.GioiTinh == 1)
+                                            {
+                                                <i class="icon-male"></i><span>Nam</span>
+                                            }
+                                            else
+{
+                                                <i class="icon-male"></i><span>Nữ</span>
+                                            }
+
+                                        </a>
+                                        @if (File.Exists(pathCV))
+                                        {
+    if (Session["quyen"] != null)
+    {
+        if (Session["quyen"].ToString() == "TD")
+        {
+                                                    <input id="idntv" value="@Model.TimViec_ID" hidden/>
+                                                <a href="@XString.GetImgBase64("Document",Model.KhaNangNoiTroi)"/>
+                                                <a id="luottaiCV" href="~/Content/Upload/Document/@Model.KhaNangNoiTroi" style="margin-left:10px" class="btn icon-btn btn-primary">
+                                                    <span class="icon-download" /> tải CV
+
+                                                </a>
+                                                <a title="lượt tải">
+                                                    <span>
+                                                        <i class="icon-eye-open" style="font-size:14px"></i> @Model.TyLeHoSoHoanThanh
+                                                    </span>
+                                                </a>
+
+                                            }
+                                        }
+                                        else
+{
+                                            <a style="margin-left:10px" class="btn icon-btn btn-primary" href="/Dang-Nhap" title="Bạn phải đăng nhập để tải CV"><span class="icon-download" />tải CV</a>
+                                        }
+                                        }
+                                    </p>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="float:left">
+                                        <i class="icon-phone"></i>  Điện thoại:
+                                    </span>
+                                    <span style="float:right">
+                                        liên hệ trung tâm
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="float:left">
+                                        <i class="icon-tag"></i> CMND/CCCD:
+                                    </span>
+                                    <span style="float:right">
+                                        liên hệ trung tâm
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="float:left">
+                                        <i class="icon-map-marker"></i> Địa chỉ:
+                                    </span>
+                                    <span style="float:right">
+                                        @dcthuongtru
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="float:left">
+                                        <i class="icon-envelope-alt"></i>   Email:
+                                    </span>
+                                    <span style="float:right">
+                                        @NTV.Email
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="float:left">
+                                        <i class="icon-file"></i>   Trình độ văn hóa:
+                                    </span>
+                                    <span style="float:right">
+                                        @NTV.DM_HocVan.HocVan_Ten
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="float:left">
+                                        <i class="icon-file"></i>   Trình độ chuyên môn:
+                                    </span>
+                                    <span style="float:right">
+                                        @if (trinhdo != null)
+                                        {
+    @trinhdo.DM_TrinhDoChuyenMons.TenChuyenMon
+                                        }
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="float:left">
+                                        <i class="icon-thumbs-up"></i> Tình trạng hôn nhân:
+                                    </span>
+                                    @if (NTV.TinhTrangHonNhan == 1)
+                                    {
+                                        <span style="float:right">Độc Thân</span>}
+                                    else
+{
+                                        <span style="float:right">Đã kết hôn</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                @if (Session["quyen"] != null)
+                                {
+    if (Session["quyen"] == "TD")
+    {
+        if (ViewBag.hsluu > 0)
+        {
+
+
+                                            <a class="btn icon-btn btn-danger" href="" style="background-color: #d9534f; color: white; border-color: #d43f3a; "><span class="glyphicon btn-glyphicon glyphicon-heart img-circle text-danger"></span>Bạn đã Lưu người này</a>
+                                        }
+                                        else
+{
+    var Id = Model.TimViec_ID;
+    var NguoiTimViecId = Model.KH_ID;
+    var TenHoSo = Html.Raw(Model.TenHoSo);
+                                            //
+                                            <a class="btn icon-btn btn-danger" title="Lưu lại để xem sau" href="/Candidate/CandidateSave/@Id?NTV_ID=@NguoiTimViecId&TenHoSo=@TenHoSo" style="background-color: #d9534f; color: white; border-color: #d43f3a;"><span class="glyphicon btn-glyphicon glyphicon-heart img-circle text-danger"></span>Lưu để xem sau</a>
+                                            <p style="margin-top:10px"><span><a style="color:darkblue" href="/Account/_MainJob">Chọn tài khoản</a>=>Quản Lý Ứng Viên=>Ứng Viên Đã Lưu</span></p>
+
+                                        }
+
+                                    }
+                                }
+                                else
+{
+                                    <a class="btn icon-btn btn-danger" href="/Dang-Nhap" style="font-family: monospace;background-color: #d9534f; color: white; border-color: #d43f3a" title="Bạn phải đăng nhập để lưu"><span class="glyphicon btn-glyphicon glyphicon-heart img-circle text-danger"></span>Lưu để xem sau</a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin:0">
+                <div class="col-md-12" style="padding:0">
+                    <div class="card card_t  ">
+                        <div class="body" style="margin: -1px;">
+                            <h4 class="h4_tieude" style="margin: 0; margin-bottom: 5px; text-align: center; text-transform: capitalize">
+                                ** Hồ Sơ Khác của @tenntv
+                            </h4>
+                            @foreach (KhachHang_TimViecLam hskhac in ViewBag.HSkhac)
+                            {
+                                var luongkh = " ";
+if ((hskhac.MucLuongMongMuonTu == 0 && hskhac.MucLuongMongMuonDen == 0) || hskhac.MucLuongMongMuonTu == null || hskhac.MucLuongMongMuonDen == null)
+{
+    luongkh = "Lương thỏa thuận";
+}
+else if (hskhac.MucLuongMongMuonTu > 100)
+{
+    luongkh = @Html.FormatValue(hskhac.MucLuongMongMuonTu, "{0:#,###.##}") + " đến " + @Html.FormatValue(hskhac.MucLuongMongMuonDen, "{0:#,###.##}");
+}
+else
+{
+    luongkh = hskhac.MucLuongMongMuonTu + " đến " + hskhac.MucLuongMongMuonDen + " triệu";
+}
+int mkvkh = Model.NoiLamViecMongMuon_ID.Value;
+string tendckh = new DN_DoanhNghiep_Dao().GetDiaChiById(mkvkh).TenDiaChi;
+var tgmmkh = dm.GetTGbyID(hskhac.ThoiGianLamViecMongMuon);
+var kinhnghiemkh = (hskhac.SoNamKinhNghiem != null && hskhac.SoNamKinhNghiem > 0) ? hskhac.SoNamKinhNghiem + " năm" : " Chưa có";
+var strHoTen = XString.ConvertToUnSign(NTV.HoTen);
+var url = "/Nguoi-Tim-Viec/" + strHoTen + "-" + hskhac.TimViec_ID;
+                                <div class="div_moinhat" style="height:180px">
+
+
+                                    <div class="row" style="padding: 0;padding-left:10px; margin-bottom: 0">
+
+                                        <a href="@url" style="color: #555">
+                                            <h4 class="h4_tieude">
+                                                @hskhac.TenHoSo.ToUpper()
+                                                @if (tgmmkh != null)
+                                                {<span>(@tgmmkh.TenThoiGianLamViec)</span>}
+                                            </h4>
+                                        </a>
+
+                                        <h5 class="h5_name">
+                                            @NTV.HoTen
+                                        </h5>
+                                        <h5><span>kinh nghiệm:</span> @kinhnghiemkh</h5>
+                                    </div>
+
+                                        <div class="row" style="padding: 0; margin-bottom: 0">
+                                            <p style="margin-bottom:5px">
+                                                <i class="icon-briefcase"></i> Trình độ CMKT:
+                                                @if (trinhdo != null)
+                                                {
+                                                    <b>@trinhdo.DM_TrinhDoChuyenMons.TenChuyenMon</b><span>(@trinhdo.DM_NgheLaoDongs.TenNgheLaoDong)</span>
+                                                }
+                                            </p>
+                                            <p style="margin-bottom:0px">
+                                                <a>
+                                                    <i class="icon-usd"></i> @luongkh
+                                                </a>
+                                                <a style="margin-left:30px">
+                                                    <i class="icon-map-marker"></i> @tendckh
+                                                </a>
+                                            </p>
+                                        </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<script>
+    $(function () {
+        $('#luottaiCV').click(function () {
+            idhsntv = parseInt($('#idntv').val());
+            
+            $.ajax({
+                url: "/Candidate/TangluottaiCV",
+                data: { Id: idhsntv },
+                success: function (response) {
+                }
+            });
+        });
+    });
+</script>

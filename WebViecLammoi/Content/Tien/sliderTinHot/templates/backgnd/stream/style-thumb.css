@@ -1,0 +1,7 @@
+#wowslider-container$GallerySuffix$ .ws_thumbs a.ws_selthumb{
+	background-color: $TemplateColor$;
+}
+
+#wowslider-container$GallerySuffix$ .ws_thumbs  a{
+	background-color: #34495E;
+}

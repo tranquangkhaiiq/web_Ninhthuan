@@ -1,0 +1,19 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+<p style="text-align:center;margin:0px">
+    @foreach (News logo in ViewBag.Logo)
+    {
+        var path = XString.maplocal + "News_Img\\" + logo.ImagePath;
+        <a href="/Trang-Chu">
+            @if (File.Exists(path))
+            {
+            <img src="@XString.GetImgBase64("News_Img", logo.ImagePath)" hidden />
+            <img src="~/Content/Upload/News_Img/@logo.ImagePath" class="img_bannerlon" />
+            }
+            else
+            {
+            <img src="~/Content/Tien/banner/BannerTTDVVL (3).png" class="img_bannerlon" />
+            }
+        </a>
+    }
+</p>

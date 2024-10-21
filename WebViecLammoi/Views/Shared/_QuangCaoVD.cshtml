@@ -1,0 +1,193 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.i18n
+@using WebViecLammoi.Utils
+@using WebViecLammoi.DAO
+<script src="~/Content/NhutCC/bootstrap-3.3.7-dist/Video_js_Nh.js"></script>
+<script src="~/Content/NhutCC/owl.carousel.min.js"></script>
+<style>
+    .div_videocon {
+        padding: 20px;
+    }
+
+        .div_videocon a {
+            text-decoration: none;
+        }
+
+        .div_videocon img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .div_videocon p {
+            font-weight: bold;
+            padding-top: 10px;
+            color: black;
+            font-size: 12px;
+            margin-bottom: 0;
+        }
+
+    .div_iconplay {
+        width: calc(100% - 30px);
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 15px;
+        background-color: rgb(0,0,0,0.5);
+        border-radius: 5px;
+        display: none;
+    }
+
+    .img_iconplay {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: calc(50% - 25px);
+        left: calc(50% - 25px);
+        display: none;
+    }
+
+    @@media screen and (max-width:576px) {
+        .NXB {
+            display: none;
+        }
+
+        .title-2021 {
+            font-size: 10px !important;
+        }
+
+        .dtvd {
+            width: 100%;
+        }
+
+        .dtdd {
+            display: none;
+        }
+    }
+</style>
+@helper Truncate(string input, int length)
+{
+    if (input != null)
+    {
+        if (input.Length <= length)
+        {
+            @input
+        }
+        else
+        {
+            @input.Substring(0, length)<text>...</text>
+        }
+    }
+}
+<div class="row" style="border-bottom: 3px solid #006fc7; margin-left:10px;">
+    <!-- Lien ket title -->
+    <div class="col-lg-12" style="padding:0">
+        <span class="title-part">
+            <h5 class="text-uppercase">BẢN TIN THÔNG TIN THỊ TRƯỜNG LAO ĐỘNG</h5>
+        </span>
+    </div>
+</div>
+
+
+<div class="row" style="margin-top:20px">
+    <div class="col-md-7 col-ms-7 col-xs-7 dtvd" style="padding-top: 0; padding-bottom: 0">
+        @*@foreach (Video cc in ViewBag.Video1_kh)
+        {
+            <iframe id="iframe_video" style="width: 100%; height: 330px; box-shadow: 0 2px 5px 1px rgba(0,0,0,0.25)" src="@cc.VideoPath" frameborder="0" allowfullscreen></iframe>
+        }*@
+    </div>
+
+    <div class="col-md-5 col-ms-5 col-xs-5 dtdd" style="box-shadow: 0 2px 5px 1px rgba( 0,0,0,0.25 ) ; padding:0">
+        <div class="owl-carousel owl-theme lophoctt">
+            <div class="lophoctt-item">
+                @if (ViewBag.CQCVD > 0)
+                {
+                    foreach (New_small QC in ViewBag.QCVD)
+                    {
+                        var str = XString.EditString(QC.Title);
+                        var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+                        <a target="_blank" href="@url">
+                            <img class="img-res lazy" src="/Content/Upload/News_Img/@QC.ImagePath" />
+                        </a>
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-6">
+
+    </div>
+</div>
+<div class="row">
+    @*@foreach (Video cc in ViewBag.Video_kh)
+    {
+        var str = XString.Cutstring_getLastString(cc.VideoPath);
+        <div class="col-md-2 col-xs-4 div_videocon">
+            <a href="#" onclick="chose_view(this.id);return false" id="@str">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="div_iconplay" style="">
+                        </div>
+                        <img class="img_iconplay" src="/Content/Tien/iconplay3.png" style="" />
+                        <img class="lazy" src="~/Content/NhutCC/img/@cc.ImagePath" />
+                    </div>
+                </div>
+                <p class="title-2021">@Truncate(cc.Title.ToString(), 20)</p>
+            </a>
+            <a class="NXB">@Truncate(cc.Fixdate.ToString(), 10)</a>
+        </div>
+    }*@
+</div>
+<div style="text-align:center">
+    <a class="xemthem" href="/Video_Nh/Index" target="_blank" style="padding: 12px 40px; background-color: #eee; color: #004f8c; text-decoration: none; ">Xem thêm</a>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".xemthem").hover(function () {
+            $(this).css("background-color", "#006fc7");
+            $(this).css("color", "white");
+            $(this).css("font-weight", "bold")
+        }, function () {
+            $(this).css("background-color", "#eee");
+            $(this).css("color", "#004f8c");
+            $(this).css("font-weight", "normal")
+        });
+    });
+
+    function chose_view(e) {
+        $('#iframe_video').attr('src', 'https://www.youtube.com/embed/' + e + "?rel=0&autoplay=1");
+
+    }
+    $(".div_videocon").mouseenter(function () {
+        $(this).find('.div_iconplay').css("display", "block");
+        $(this).find('.img_iconplay').css("display", "block");
+
+    }).mouseleave(function () {
+        $(this).find('.div_iconplay').css("display", "none");
+        $(this).find('.img_iconplay').css("display", "none");
+    });
+    // SLIDE CHỖ HÌNH CÁC LỚP HỌC (UPDATE NHUT)
+    $('.lophoctt').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 1
+            }
+        }
+    })
+</script>
+

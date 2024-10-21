@@ -1,0 +1,884 @@
+﻿@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+@using WebViecLammoi.i18n
+@using WebViecLammoi.Models
+@{
+    ViewBag.Title = "TT DVVL NTN";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        $('.div_hinhanhhoatdong').owlCarousel({
+            center: true,
+            items: 2,
+            loop: true,
+            margin: 10,
+            autoplay: true,
+            autoplayTimeout: 2000,
+            autoplayHoverPause: true,
+            responsive: {
+                600: {
+                    items: 4
+                }
+            }
+        });
+        $('#aniimated-thumbnials').lightGallery({
+            thumbnail: true,
+            selector: 'a'
+        });
+    });
+</script>
+
+<style>
+    .ul_tintuc_t {
+        padding-inline-start: 15px;
+    }
+
+        .ul_tintuc_t li {
+            border-bottom: 1px dashed rgb(200, 200, 200) !important;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+            .ul_tintuc_t li::before {
+                color: rgb(102, 102, 102);
+            }
+
+    .div_tintuc_t {
+        height: 175px;
+        overflow-x: hidden !important;
+    }
+
+        .div_tintuc_t::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #F5F5F5;
+        }
+
+        .div_tintuc_t::-webkit-scrollbar {
+            width: 5px;
+            background-color: #F5F5F5;
+        }
+
+        .div_tintuc_t::-webkit-scrollbar-thumb {
+            background-color: #0ae;
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.5, transparent), to(transparent));
+        }
+
+    .a_tintuc_t {
+        color: #555;
+        text-decoration: none;
+    }
+        /* mouse over link */
+        .a_tintuc_t:hover {
+            color: #006fc7;
+            text-decoration: none;
+        }
+
+    .p_tintuc_time {
+        color: #777;
+        font-size: 11px;
+        padding-top: 5px;
+    }
+
+    .div_row_tintuc {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    @@media screen and (min-width: 400px) {
+        #cardheadPC {
+            display: block;
+        }
+
+        #nganhnghepcpc {
+            display: block;
+        }
+
+        #cardheadmobile {
+            display: none;
+        }
+
+        #nganhnghemobilemobile {
+            display: none;
+        }
+    }
+
+    @@media screen and (max-width:400px) {
+        #cardheadPC {
+            display: none;
+        }
+
+        #nganhnghepcpc {
+            display: none;
+        }
+
+        #cardheadmobile {
+            display: block;
+        }
+
+        #nganhnghemobilemobile {
+            display: block;
+        }
+    }
+
+    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 3px;
+        padding-left: 3px;
+    }
+
+    @@media screen and (max-width:700px) {
+        .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+            position: relative;
+            min-height: 1px;
+            padding-right: 0;
+            padding-left: 0;
+        }
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+        <div class="row">
+            @*col-xs-12 col-sm-6 col-md-12 col-lg-12 col-xl-12*@
+            <div class="col-md-3 visible-lg-block visible-xl-block" style="padding:0">
+                @Html.Partial("DanhMuc")
+            </div>
+            <div class="col-md-12 visible-xs-block" style="padding:0">
+                <div class="card card_t" style="border:0">
+                    <div class="header bgcardhead header_t" style="background-size:   auto; background-image: url(/Content/Tien/CardHeadImg.png); background-repeat: no-repeat; background-position: right top; padding: 10px !important; ">
+                        <label class="label_cardhead" title="3303,3680,3302">
+                            <i class="icon-star" style="font-weight:bold;font-size:16px"></i> Tin tức nổi bật
+                        </label>
+                    </div>
+                    <div class="body" style="padding: 0;margin:-1px">
+                        <div class="row">
+                            <div class="col-md-12" style="margin-bottom:0">
+                                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                    <div class="row" style="margin:0">
+                                        <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                                            <!-- Wrapper for slides -->
+                                            @*Slide mobile*@
+                                            <style>
+                                                .carousel-inner .item > img {
+                                                    width: 100%;
+                                                }
+                                            </style>
+                                            @Html.Action("QCslide_Mobile", "Home")
+                                            <!-- End Carousel Inner -->
+                                            <style>
+                                                .a_control_t {
+                                                    background: none !important;
+                                                    opacity: 100 !important;
+                                                }
+                                            </style>
+                                            <a class="left carousel-control a_control_t" href="#myCarousel" data-slide="prev">
+                                                <i class="icon-chevron-left"></i>
+
+                                            </a>
+                                            <a class=" right carousel-control a_control_t" href="#myCarousel" data-slide="next">
+                                                <i class="icon-chevron-right"></i>
+
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="/Tin-Tuc/1/3309" style="position:absolute;right:20px; bottom:5px">
+                                    Xem thêm
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Carousel -->
+                        <script>
+                            $(document).ready(function () {
+
+                                var clickEvent = false;
+                                $('#myCarousel').carousel({
+                                    interval: 5000
+                                }).on('click', '.list-group li', function () {
+                                    clickEvent = true;
+                                    $('.list-group li').removeClass('active').removeClass('cl_red');
+                                    $(this).addClass('active').addClass('cl_red');
+                                }).on('slid.bs.carousel', function (e) {
+                                    if (!clickEvent) {
+                                        var count = $('.list-group').children().length - 1;
+                                        var current = $('.list-group li.active');
+                                        current.removeClass('active').removeClass('cl_red').next().addClass('active').addClass('cl_red');
+                                        var id = parseInt(current.data('slide-to'));
+                                        if (count == id) {
+                                            $('.list-group li').first().addClass('active').addClass('cl_red');
+
+
+                                        }
+                                    }
+                                    clickEvent = false;
+                                });
+                            })
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div id="center-noibat" class="col-md-9 visible-sm-block visible-lg-block visible-xl-block" style="padding:0">
+                <div class="card card_t">
+                    <div class="header bgcardhead header_t" style="background-size:   auto; background-image: url(/Content/Tien/CardHeadImg.png); background-repeat: no-repeat; background-position: right top; padding: 10px !important; ">
+                        <label class="label_cardhead" title="3303,3680,3302">
+                            <i class="icon-star" style="font-weight:bold;font-size:16px"></i> Tin tức nổi bật
+                        </label>
+
+                    </div>
+                    <div class="body" style="height:380px">
+                        <a href="/Tin-Tuc/1/3309" style="position:absolute;right:20px; bottom:5px">
+                            Xem thêm
+                        </a>
+                        <div class="row" style="margin:0">
+                            <div class="col-md-12" style="margin-bottom:0;padding:0">
+
+                                @*Slide PC*@
+                                @Html.Action("QCslide_PC", "Home")
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @Html.Action("QCTT_small", "Home")
+        
+        <style>
+
+            .div_bannerbig div {
+                padding-left: 5px;
+                padding-right: 5px;
+                margin-bottom: 0
+            }
+
+                    .div_bannerbig div img {
+                        box-shadow: 1px 0 3px #8ba6c5;
+                        width: 100%;
+                        max-height: 120px;
+                    }
+        </style>
+        <div class="row div_bannerbig">
+            @foreach (New_small QCPaNel in ViewBag.QC_TuyenDungPanel)
+            {
+                var str = " ";
+                var title = QCPaNel.Title.ToLower();
+                var path = XString.maplocal + "News_Img\\" + QCPaNel.ImagePath;
+                if (QCPaNel.Title.Length > 100)
+                {
+                    str = XString.ConvertToUnSign(QCPaNel.Title.Substring(0, 100));
+                }
+                else
+                {
+                    str = XString.ConvertToUnSign(QCPaNel.Title);
+                }
+                var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QCPaNel.NewId;
+                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                    <a href="@url" title="QC_Banner: @title" target="_blank">
+                        @if (File.Exists(path))
+                        {
+                            <img src="@XString.GetImgBase64("News_Img",QCPaNel.ImagePath)" hidden />
+                            <img src="~/Content/Upload/News_Img/@QCPaNel.ImagePath" style="width:100%;height:130px" />
+                        }
+                        else
+                        {<img src="~/Content/Upload/News_Img/NoPic.jpg" style="width: 100%; height: 130px" />}
+                    </a>
+                </div>
+            }
+            @for (int i = 0; i < ViewBag.QC_PanelTT; i++)
+            {
+                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                    <a href="" title="Quảng Cáo_Banner">
+                        <img src="~/Content/Upload/News_Img/200.jpg" style="width: 100%; height: 130px" />
+                    </a>
+                </div>
+            }
+        </div>
+        <style>
+            .div_tieude {
+                padding-right: 10px
+            }
+
+                .div_tieude h4 {
+                    margin-top: 0px;
+                    margin-bottom: 5px;
+                }
+
+                .div_tieude h6 {
+                    margin-top: 0px;
+                    margin-bottom: 5px;
+                }
+
+                .div_tieude p {
+                    margin-top: 0px;
+                    margin-bottom: 5px;
+                }
+
+
+
+            .div_thongtin p {
+                margin-bottom: 5px
+            }
+
+            .div_thongtin hr {
+                margin-bottom: 5px;
+                margin-top: 0;
+            }
+
+            .div_thongtin b {
+                padding-right: 20px
+            }
+
+            .div_thongtin i {
+                color: #0072bc
+            }
+
+            .div_thongtin {
+                height: 175px;
+                /*overflow-x: hidden !important;*/
+            }
+
+                .div_thongtin::-webkit-scrollbar-track {
+                    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+                    background-color: #F5F5F5;
+                }
+
+                .div_thongtin::-webkit-scrollbar {
+                    width: 5px;
+                    background-color: #F5F5F5;
+                }
+
+                .div_thongtin::-webkit-scrollbar-thumb {
+                    background-color: #0ae;
+                    background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.5, transparent), to(transparent));
+                }
+        </style>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6" style="padding:0">
+                        <div class="card card_t">
+                            <div class="header bgcardhead header_t">
+                                <label class="label_cardhead">
+                                    <span title="HotJob">VIỆC LÀM HẤP DẪN</span>
+                                </label>
+                                <a href="/Tuyen-Dung/0/" style="position:absolute;right:20px; bottom:5px;color:white;font-weight:bold">
+                                    Xem thêm <i class="icon-long-arrow-right"></i>
+                                </a>
+                            </div>
+                            <div class="body" style="padding-bottom:0">
+                                <div class="row">
+                                    <div class="col-md-12" style="margin-bottom:0">
+                                        <div id="myCarousel_vieclam" class="carousel slide" data-ride="carousel">
+                                            <div class="row" style="margin:0">
+                                                <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                                                    <!-- Wrapper for slides -->
+                                                    @*Slide PC*@
+
+
+                                                    @Html.Action("HotJob_PC", "Home")
+
+                                                    <!-- End Carousel Inner -->
+                                                    <style>
+                                                        .a_control_t {
+                                                            background: none !important;
+                                                            opacity: 100 !important;
+                                                        }
+                                                    </style>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" style="margin-bottom:0">
+                                                    <style>
+                                                        .carousel-indicators > li {
+                                                            background-color: #d6d6d6;
+                                                        }
+
+                                                        .carousel-indicators > .active {
+                                                            background-color: #858585;
+                                                        }
+
+                                                        .carousel-indicators {
+                                                            position: relative;
+                                                            margin-bottom: 0;
+                                                            bottom: 0px;
+                                                        }
+                                                    </style>
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#myCarousel_vieclam" data-slide-to="0" class="active"></li>
+                                                        <li data-target="#myCarousel_vieclam" data-slide-to="1"></li>
+                                                        <li data-target="#myCarousel_vieclam" data-slide-to="2"></li>
+                                                        <li data-target="#myCarousel_vieclam" data-slide-to="3"></li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- End Carousel -->
+                                <script>
+                                    $(document).ready(function () {
+
+                                        var clickEvent = false;
+                                        $('#myCarousel_vieclam').carousel({
+                                            interval: 5000
+                                        }).on('click', '.list-group li', function () {
+                                            clickEvent = true;
+                                            $('.list-group li').removeClass('active').removeClass('cl_red');
+                                            $(this).addClass('active').addClass('cl_red');
+                                        }).on('slid.bs.carousel', function (e) {
+                                            if (!clickEvent) {
+                                                var count = $('.list-group').children().length - 1;
+                                                var current = $('.list-group li.active');
+                                                current.removeClass('active').removeClass('cl_red').next().addClass('active').addClass('cl_red');
+                                                var id = parseInt(current.data('slide-to'));
+                                                if (count == id) {
+                                                    $('.list-group li').first().addClass('active').addClass('cl_red');
+
+
+                                                }
+                                            }
+                                            clickEvent = false;
+                                        });
+                                    })
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="padding:0">
+                        <div class="card card_t">
+                            <div class="header bgcardhead header_t">
+                                <label class="label_cardhead">
+                                    <span title="UngVienXemNhieu">ỨNG VIÊN NỔI BẬT</span>  @*UngVienXemNhieu*@
+                                </label>
+                                <a href="/Candidate/MainCandidate" style="position:absolute;right:20px; bottom:5px;color:white;font-weight:bold">
+                                    Xem thêm <i class="icon-long-arrow-right"></i>
+                                </a>
+                            </div>
+                            <div class="body" style="padding-bottom:0">
+                                <div class="row">
+                                    <div class="col-md-12" style="margin-bottom:0">
+                                        <div id="myCarousel_ungvien" class="carousel slide" data-ride="carousel">
+
+
+                                            <div class="row" style="margin:0">
+                                                <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                                                    <!-- Wrapper for slides -->
+                                                    @*Slide mobile*@
+                                                    <style>
+                                                        .carousel-inner .item > img {
+                                                            width: 100%;
+                                                        }
+                                                    </style>
+
+                                                    @Html.Action("UngVienXemNhieu_PC", "Home")
+
+                                                    <!-- End Carousel Inner -->
+                                                    <style>
+                                                        .a_control_t {
+                                                            background: none !important;
+                                                            opacity: 100 !important;
+                                                        }
+                                                    </style>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" style="margin-bottom:0">
+                                                    <style>
+                                                        .carousel-indicators > li {
+                                                            background-color: #d6d6d6;
+                                                        }
+
+                                                        .carousel-indicators > .active {
+                                                            background-color: #858585;
+                                                        }
+
+                                                        .carousel-indicators {
+                                                            position: relative;
+                                                            margin-bottom: 0;
+                                                            bottom: 0px;
+                                                        }
+                                                    </style>
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#myCarousel_ungvien" data-slide-to="0" class="active"></li>
+                                                        <li data-target="#myCarousel_ungvien" data-slide-to="1"></li>
+                                                        <li data-target="#myCarousel_ungvien" data-slide-to="2"></li>
+                                                        <li data-target="#myCarousel_ungvien" data-slide-to="3"></li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- End Carousel -->
+                                <script>
+                                    $(document).ready(function () {
+
+                                        var clickEvent = false;
+                                        $('#myCarousel_ungvien').carousel({
+                                            interval: 5000
+                                        }).on('click', '.list-group li', function () {
+                                            clickEvent = true;
+                                            $('.list-group li').removeClass('active').removeClass('cl_red');
+                                            $(this).addClass('active').addClass('cl_red');
+                                        }).on('slid.bs.carousel', function (e) {
+                                            if (!clickEvent) {
+                                                var count = $('.list-group').children().length - 1;
+                                                var current = $('.list-group li.active');
+                                                current.removeClass('active').removeClass('cl_red').next().addClass('active').addClass('cl_red');
+                                                var id = parseInt(current.data('slide-to'));
+                                                if (count == id) {
+                                                    $('.list-group li').first().addClass('active').addClass('cl_red');
+
+
+                                                }
+                                            }
+                                            clickEvent = false;
+                                        });
+                                    })
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="padding:0">
+                        <div class="card card_t" style="border:0">
+                            <div class="header bgcardhead header_t">
+                                <label class="label_cardhead">
+                                    Doanh Nghiệp Tiêu Biểu
+                                </label>
+                                <a href="/Tin-Tuc/1/0" style="position:absolute;right:20px; bottom:5px;color:white;font-weight:bold">
+                                    Xem thêm <i class="icon-long-arrow-right"></i>
+                                </a>
+                            </div>
+                            <div class="body" style="padding:0;padding-top:10px">
+
+                                <style>
+                                    .div_owl_slide_t img {
+                                        height: 110px;
+                                        width: 100%;
+                                    }
+
+                                    .div_owl_slide_t a {
+                                        color: #333;
+                                        text-align: center;
+                                        font-size: 14px;
+                                        text-decoration: none;
+                                    }
+                                </style>
+                                <div class="div_hinhanhhoatdong owl-carousel owl-theme div_owl_slide_t ">
+                                    @if (ViewBag.QC_TuyenDungTieuBieu != null)
+                                    {
+                                        foreach (New_small QCTB in ViewBag.QC_TuyenDungTieuBieu)
+                                        {
+                                            var str = " ";
+                                            var title = QCTB.Title.ToLower();
+                                            var path = XString.maplocal + "News_Img\\" + QCTB.ImagePath;
+                                            if (QCTB.Title.Length > 100)
+                                            {
+                                                str = XString.ConvertToUnSign(QCTB.Title.Substring(0, 100));
+                                            }
+                                            else
+                                            {
+                                                str = XString.ConvertToUnSign(QCTB.Title);
+                                            }
+                                            var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QCTB.NewId;
+                                            <div class="item" style="box-shadow: 1px 0 3px #8ba6c5">
+                                                @if (File.Exists(path))
+                                                {<a src="@XString.GetImgBase64("News_Img",QCTB.ImagePath)" hidden />
+                                                    <a href="@url" title="QC_TieuBieu: @title" data-sub-html="Hình 1">
+                                                        <img class="lazy" data-src="/Content/Upload/News_Img/@QCTB.ImagePath" style="width:100%;height:130px" />
+
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@url" title="QuangCao_TieuBieu" data-sub-html="Hình 1">
+                                                        <img class="lazy" data-src="/Content/Upload/News_Img/NoPic.jpg" style="width:100%;height:130px" />
+                                                    </a>
+                                                }
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="item">
+                                            <a href="~/Content/HinhAnhHoatDong/100.jpg" data-sub-html="Hình 1">
+                                                <img class="lazy" src="~/Content/HinhAnhHoatDong/100.jpg" style="width:100%;height:130px" />
+                                            </a>
+
+                                        </div>
+                                        <div class="item">
+                                            <a href="~/Content/HinhAnhHoatDong/100.jpg" data-sub-html="Hình 1">
+                                                <img class="lazy" src="~/Content/HinhAnhHoatDong/100.jpg" style="width:100%;height:130px" />
+                                            </a>
+
+                                        </div>
+                                    }
+                                
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6" style="padding:0">
+                        <div class="card card_t">
+                            <div class="header bgcardhead header_t">
+                                <label class="label_cardhead">
+                                    VIỆC TÌM NGƯỜI MỚI NHẤT
+                                </label>
+                                <a href="/Tuyen-Dung/0/" style="position:absolute;right:20px; bottom:5px;color:white;font-weight:bold">
+                                    Xem thêm <i class="icon-long-arrow-right"></i>
+                                </a>
+                            </div>
+                            <div class="body" style="padding-bottom:0">
+                                @Html.Action("LastestJob_PC", "Home")
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="padding:0">
+                        <div class="card card_t">
+                            <div class="header bgcardhead header_t">
+                                <label class="label_cardhead">
+                                    NGƯỜI TÌM VIỆC MỚI NHẤT
+                                </label>
+                                <a href="/Candidate/MainCandidate" style="position:absolute;right:20px; bottom:5px;color:white;font-weight:bold">
+                                    Xem thêm <i class="icon-long-arrow-right"></i>
+                                </a>
+                            </div>
+
+                            @Html.Action("LastestCandidate_PC", "Home")
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row div_bannerbig">
+                    <div class="col-md-12">
+                        @foreach (News Long in ViewBag.QC_NewLong)
+                        {
+                            var str = " ";
+                            var title = Long.Title.ToLower();
+                            var path = XString.maplocal + "News_Img\\" + Long.ImagePath;
+                            if (Long.Title.Length > 100)
+                            {
+                                str = XString.ConvertToUnSign(Long.Title.Substring(0, 100));
+                            }
+                            else
+                            {
+                                str = XString.ConvertToUnSign(Long.Title);
+                            }
+                            var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + Long.NewId;
+                            <a href="@url" title="1470_TT_Long" target="_blank">
+                                @if (File.Exists(path))
+                                {
+                                    <img src="@XString.GetImgBase64("News_Img", Long.ImagePath)" hidden />
+                                    <img style="width:100%;height:120px" src="~/Content/Upload/News_Img/@Long.ImagePath" />
+                                }
+                                else
+                                {<img src="~/Content/Upload/News_Img/SlideLong321.jpg" />}
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8" style="padding:0">
+                        <div class="card card_t">
+                            <div class="header bgcardhead header_t">
+                                <label class="label_cardhead" id="cardheadPC">
+                                    VIỆC TÌM NGƯỜI THEO NGÀNH NGHỀ
+                                </label>
+                                <label class="label_cardhead" id="cardheadmobile">
+                                    THEO NGÀNH NGHỀ
+                                </label>
+                                <a href="/Tuyen-Dung/0/" style="position:absolute;right:20px; bottom:5px;color:white;font-weight:bold">
+                                    Xem thêm <i class="icon-long-arrow-right"></i>
+                                </a>
+                            </div>
+                            <div class="body" style="padding-bottom:0">
+                                <div class="row div_row_tintuc">
+                                    @Html.Action("TDbyNghanhNghe_PC", "Home")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="padding:0">
+                        <div class="card card_t">
+                            <div class="header bgcardhead header_t">
+                                <label class="label_cardhead">
+                                    CÔNG VIỆC CẤP QUẢN LÝ
+                                </label>
+                                <a href="/Tuyen-Dung/0/" style="position:absolute;right:20px; bottom:5px;color:white;font-weight:bold">
+                                     <i class="icon-long-arrow-right"></i>
+                                </a>
+                            </div>
+                            <div class="body" style="padding-bottom:0">
+                                <div class="row div_row_tintuc">
+                                    @Html.Action("LuxuryJob_PC", "Home")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12" style="padding:0">
+                        <div class="card card_t">
+                            <div class="header bgcardhead header_t">
+                                <label class="label_cardhead">
+                                    Hệ Thống WebSite Trực Thuộc Tỉnh
+                                </label>
+
+                            </div>
+                            @Html.Action("mlienket", "Home")
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="padding:0">
+                        <div class="card card_t">
+                            <div class="header bgcardhead header_t">
+                                <label class="label_cardhead">
+                                    Thông tin liên hệ
+                                </label>
+
+                            </div>
+                            <div class="body" style="padding-bottom:0">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                                <p>
+                                                    <i class="icon-map-marker" style="color:red"></i> <b>Địa chỉ</b>: @XString.DiaChi.
+
+                                                </p>
+                                                <p>
+                                                    <i class="icon-phone" style="color:red"></i> <b>Điện thoại</b>:  @XString.SDT
+
+                                                </p>
+                                                <p>
+                                                    <i class="glyphicon glyphicon-envelope  " style="color:red"></i> <b>Email</b>: @XString.EmailLienhe
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3756.0538345114956!2d108.98860997486925!3d11.570562488630667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3170d025d96543dd%3A0x392f7fb40c45ccb9!2zVHJ1bmcgVMOibSBE4buLY2ggVuG7pSBWaeG7h2MgTMOgbSBU4buJbmggTmluaCBUaHXhuq1uIChFTVBMT1lNRU5UIFNFUlZJQ0UgQ0VOVEVSIE5JTkggVEhVQU4gUFJPVklOQ0Up!5e1!3m2!1svi!2s!4v1713752260667!5m2!1svi!2s" frameborder="0" style="border:0;width:100%;height:250px" allowfullscreen loading="lazy"></iframe>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12">
+
+                                                @using (Html.BeginForm("GopY", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                {
+                                                    if (!Html.ValidationSummary().ToString().Contains(":none"))
+                                                    {
+                                                        <div class="alert alert-info alert-dismissable">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            @Html.ValidationSummary()
+                                                        </div>
+                                                    }
+                                                    <div id="home-send-message">
+
+                                                        <div class="form-group">
+                                                            <label for="name">@Common.Name</label>
+                                                            <input class="form-control" style="border-radius:0" id="customer_name" name="customer_name" type="text" value="" required />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="mobile">@Common.Phonenumber</label>
+                                                            <input class="form-control" style="border-radius:0" id="phone" name="phone" type="text" value="" required />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="email">Email</label>
+                                                            <input class="form-control" style="border-radius:0" id="email" name="email" type="text" value="" required />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="comment">@Common.Content</label>
+                                                            @if (Session["quyen"] == null)
+                                                            {
+                                                                <textarea placeholder="Bạn Phải đăng nhập tài khoản để sử dụng tính năng này !!!." class="form-control" style="border-radius:0" cols="20" id="msg_content" name="msg_content" rows="3" required></textarea>
+                                                            }
+                                                            else
+                                                            {
+                                                                <textarea class="form-control" style="border-radius:0" cols="20" id="msg_content" name="msg_content" rows="3" required></textarea>
+                                                            }
+
+                                                        </div>
+                                                        <button class="btn btn-info btn-width btn-send-msg" style="float: right; background-color: #006fc7 !important;border-radius:0"><i class="icon-envelope-alt"></i> &nbsp;Gửi tin góp ý</button>
+
+                                                    </div>
+                                                }
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" style="padding:0px">
+        @Html.Action("Slide_Right", "Home")
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var lazyloadImages = document.querySelectorAll("img.lazy");
+        var lazyloadThrottleTimeout;
+
+        function lazyload() {
+            if (lazyloadThrottleTimeout) {
+                clearTimeout(lazyloadThrottleTimeout);
+            }
+
+            lazyloadThrottleTimeout = setTimeout(function () {
+                var scrollTop = window.pageYOffset;
+                lazyloadImages.forEach(function (img) {
+                    if (img.offsetTop < (window.innerHeight + scrollTop)) {
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                    }
+                });
+                if (lazyloadImages.length == 0) {
+                    document.removeEventListener("scroll", lazyload);
+                    window.removeEventListener("resize", lazyload);
+                    window.removeEventListener("orientationChange", lazyload);
+                }
+            }, 20);
+        }
+
+        document.addEventListener("scroll", lazyload);
+        window.addEventListener("resize", lazyload);
+        window.addEventListener("orientationChange", lazyload);
+    });
+</script>
+
+
+

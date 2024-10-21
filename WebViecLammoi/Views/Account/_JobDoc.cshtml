@@ -1,0 +1,283 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.i18n
+@using WebViecLammoi.Utils
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<style>
+    .ds {
+        display: flex;
+        justify-content: space-between;
+        color: red;
+    }
+
+    .thongbao {
+        text-align: right;
+        color: blue;
+    }
+
+    .thongbao1 {
+        text-align: right;
+        color: blue;
+    }
+    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 13px;
+        padding-left: 10px;
+    }
+    .panel-body{
+        padding:5px;
+    }
+</style>
+<div id="hstv" class="tab-pane fade in active">
+    <div class="about-container">
+        <div id="wrapper">
+            <div id="page-wrapper">
+                <br />
+                <div class="row">
+                    <div class="col-xs-8 col-md-3">
+                        <span>
+                            <button class="btn btn-warning" style="margin-left:20px" onclick="location.href='@Url.Action("JobCreate", "Job")'"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp; @Common.NewFile</button>
+                        </span>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+
+                    <div class="col-xs-4 col-md-3">
+                        <button style="font-size:26px" id="XemSMS"><i class="glyphicon glyphicon-folder-close"></i></button><span style="color:red">(@ViewBag.TongdsSMS)</span>
+
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2)">
+                            <div class="panel-heading">
+                                <span style="color:brown;margin-left:10px;font-display:inherit">
+                                    @Session["ThongBao_DN_TD"]
+                                </span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>@Common.Title</th>
+                                                <th>@Common.CreatedDate</th>
+                                                <th>@Common.Status</th>
+                                                <th>VL hấp dẫn</th>
+                                                <th style="padding:0; margin:0; line-height:100%;text-align:center"> @Common.Edit_Del </th>
+                                                @*<th style="padding:0; text-align:center">Đăng ký sàn OnLine</th>*@
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (ViewBag.DSHSbyDN != null)
+                                            {
+                                                VLDB dbc = new VLDB();
+                                                foreach (DoanhNghiep_TuyenDung item in ViewBag.DSHSbyDN)
+                                                {
+                                                    var hienthi = item.TuyenDung_ID;
+                                                    var tieude = item.TieuDeTuyenDung;
+                                                    <tr class="kh_NOWEB">
+                                                        <td>@tieude</td>
+                                                        <td>@Html.FormatValue(item.NgayCapNhat, "{0:dd/MM/yyyy}")<span>_ @item.TuyenDung_ID</span></td>
+                                                        @if (item.TinhTrangHoSo == 2)
+                                                        {
+                                                            <td>@Common.WaitApprove</td>
+                                                        }
+                                                        else if (item.TinhTrangHoSo == 3)
+                                                        {
+                                                            if (item.NgayHetHan < DateTime.Now)
+                                                            {
+                                                                <td>@Common.Approve <span class="ds">_Đã Hết Hạn</span></td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="text-primary">@Common.Approve</td>
+                                                            }
+                                                        }
+                                                        else if (item.TinhTrangHoSo == 4)
+                                                        {
+                                                            <td class="ds">@Common.Unapprove</td>
+                                                        }
+                                                        else if (item.TinhTrangHoSo == 1)
+                                                        {
+                                                            <td class="text-warning" id="td_@item.TuyenDung_ID">
+                                                                <button class="btn btn-warning text-center" style="background-color:gray" id="btnmt_@item.TuyenDung_ID" onclick="guipheduyet(@item.TuyenDung_ID)"><span>Mới tạo</span></button>
+                                                                
+                                                            </td>
+                                                        }
+                                                        <td>
+                                                            @if (item.NoiBat == true)
+                                                            {
+                                                                if (item.NgayNoiBat < DateTime.Now)
+                                                                {
+                                                                    <span class="thongbao">VL hấp dẫn</span>
+                                                                    <span class="ds">_Đã hết hạn</span>
+                                                                }
+                                                                else
+                                                                { <span class="thongbao">VL hấp dẫn</span>}
+
+                                                            }
+                                                            else
+                                                            {<span>Không đăng ký</span>}
+
+
+                                                        </td>
+                                                        <td class="center" style="text-align:center">
+                                                            <a style="margin-bottom:3px" class="btn btn-danger" href="/Account/EditJobDoc/@item.TuyenDung_ID"><span class="glyphicon glyphicon-edit"></span></a>
+                                                            @if (item.TinhTrangHoSo == 2 || item.TinhTrangHoSo == 1)
+                                                            {
+                                                                <a class="btn btn-warning text-center" onclick="return confirm('Bạn muốn xóa hồ sơ @item.TuyenDung_ID ??')" href="/Account/DeleteJobDoc/@item.TuyenDung_ID"><span class="glyphicon glyphicon-trash"></span></a>
+                                                            }
+                                                            else
+                                                            {
+                                                                if (item.TinhTrangHoSo == 3)
+                                                                {
+                                                                    if (item.HienThiWeb == true)
+                                                                    {
+                                                                        <button class="btn btn-warning text-center" value="@item.TuyenDung_ID" id="HTWW_@item.TuyenDung_ID" style="background-color: #eea236" onclick="hienthiweb(@item.TuyenDung_ID)"><span>Click để tắt Web</span></button>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <button class="btn btn-warning text-center" value="@item.TuyenDung_ID" id="HTWW_@item.TuyenDung_ID" style="background-color:gray" onclick="hienthiweb(@item.TuyenDung_ID)"><span>Click để hiển thị Web</span></button>
+                                                                    }
+
+                                                                }
+                                                                else
+                                                                {<a class="btn btn-danger text-center">HS bị Hủy</a>}
+
+                                                            }
+
+
+                                                        </td>
+
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div class="thongbao"><span>Click nút "Mới tạo" để gửi phê duyệt"</span></div>
+                                    <div class="thongbao"><span>Bạn chỉ có thể Xóa hồ sơ ở trạng thái "Chờ Phê Duyệt hoặc Mới tạo"</span></div>
+                                    <div class="thongbao"><span>Bạn có thể update "Ngày Hết Hạn" để sử dụng lại hồ sơ "Đã hết hạn"</span></div>
+                                    <div class="thongbao1"><span>"Click tắt Web" nếu bạn đã tuyển đủ</span></div>
+                                    <div class="thongbao1"><span>Liên hệ trung tâm @XString.tinh nếu bạn muốn đăng ký "Việc Làm Hấp Dẫn"</span></div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--End Advanced Tables -->
+                    </div>
+                </div>
+                @* SMS to DM *@
+                <div class="row" id="SMS_toDN" style="display:none">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2)">
+                            <div class="panel-heading">
+                                <span style="color:blue;margin-left:10px;font-display:inherit">
+                                    Tin nhắn đến từ hệ thống. @Session["ThongBao_SMSDN"]
+                                </span>
+                                @if (ViewBag.TongdsSMS > 0)
+                                {
+                                    <span style="color:brown;margin-left:10px;font-display:inherit">
+
+                                        Có @ViewBag.TongdsSMS tin chưa xem
+                                    </span>
+                                }
+                                    
+                            </div>
+                            <div class="panel-body" style="padding:25px">
+                                @Html.Action("SMStoDN", "Job")
+
+                            </div>
+                        </div>
+                        <!--End Advanced Tables -->
+                    </div>
+                </div>
+            </div>
+            <!-- end page-wrapper -->
+
+        </div>
+    </div>
+</div>
+<script>
+    $("#XemSMS").click(function () {
+        var x = document.getElementById("SMS_toDN");
+        if (x.style.display === 'none') {
+            x.style.display = 'block';
+            document.getElementById("XemSMS").innerHTML = "<i class='glyphicon glyphicon-folder-open'></i>";
+        } else {
+            x.style.display = 'none';
+            document.getElementById("XemSMS").innerHTML = "<i class='glyphicon glyphicon-folder-close'></i>";
+        }
+    });
+    function guipheduyet(id) {
+        if (document.getElementById("btnmt_" + id).innerHTML === "<span>Mới tạo</span>") {
+            if (!confirm("Bạn Muốn gửi hồ sơ này phê duyệt ??")) {
+                return false;
+            } else {
+                $.ajax({
+                    url: "/Account/Guipheduyet",
+                    data: { tuyendungid: id },
+                    type: "POST",
+                    datatype: 'Json',
+                    success: function (res) {
+                        //$("#td_" + id).css("color", "#337ab7");
+                        //document.getElementById("td_" + id).innerHTML = "Chờ Phê Duyệt";
+                        location.reload();
+                    }, error: function (err) {
+                        console.log(err);
+                    }
+                });
+
+            }
+
+        }
+    }
+    function hienthiweb(id) {
+        if (document.getElementById("HTWW_" + id).innerHTML === "<span>Click để tắt Web</span>") {
+            if (!confirm("Bạn KHÔNG MUỐN người khác thấy hồ sơ này ??")) {
+                return false;
+            } else {
+                $.ajax({
+                    url: "/Account/thaydoitrangthai",
+                    data: { tuyendungid: id },
+                    type: "POST",
+                    datatype: 'Json',
+                    success: function (res) {
+                        $("#HTWW_" + id).css("background-color", "gray");
+                        document.getElementById("HTWW_" + id).innerHTML = "<span>Click để hiển thị Web</span>";
+
+                    }, error: function (err) {
+                        console.log(err);
+                    }
+                });
+
+            }
+
+        }
+        else {
+            if (!confirm("Bạn CHO PHÉP người khác thấy hồ sơ này ??")) {
+                return false;
+            } else {
+                $.ajax({
+                    url: "/Account/thaydoitrangthai",
+                    data: { tuyendungid: id },
+                    type: "POST",
+                    datatype: 'Json',
+                    success: function (res) {
+                        $("#HTWW_" + id).css("background-color", "#eea236");
+                        document.getElementById("HTWW_" + id).innerHTML = "<span>Click để tắt Web</span>";
+                    }, error: function (err) {
+                        console.log(err);
+                    }
+                });
+
+            }
+
+        }
+
+    }
+</script>
+

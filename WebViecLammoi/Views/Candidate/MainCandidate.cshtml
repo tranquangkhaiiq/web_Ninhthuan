@@ -1,0 +1,247 @@
+﻿@using WebViecLammoi.DAO
+@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@model IEnumerable<KhachHang_TimViecLam>
+@{
+    ViewBag.Title = "Tra cứu HSTV";
+    Layout = "~/Views/Shared/_MainLayout3.cshtml";
+}
+<style>
+    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+@@media screen and (max-width:530px) {
+    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+</style>
+<div class="row">
+    <div class="col-md-3" style=" padding-left: 10px; padding-right: 5px; ">
+
+        <div class="row" style="margin-left:10px">
+            <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 col-xl-12" style="padding:0">
+                <h3>Mức lương mong muốn</h3>
+
+                <label class="lbl_chbx" style="margin-bottom:10px">
+                    Dưới 10 triệu(@ViewBag.duoi10tr)
+                    <input type="checkbox" id="duoi10tr" value="@ViewBag.duoi10tr" name="Mucluong[1][]" />
+                    <span class="span_chbx"></span>
+                </label>
+                <label class="lbl_chbx" style="margin-bottom:10px">
+                    10 đến 20 triệu(@ViewBag.den20tr)
+                    <input type="checkbox" id="10den20tr" value="@ViewBag.den20tr" name="Mucluong[1][]" />
+                    <span class="span_chbx"></span>
+                </label>
+                <label class="lbl_chbx" style="margin-bottom:10px">
+                    >20 triệu(@ViewBag.hon20tr)
+                    <input type="checkbox" id="hon20tr" value="@ViewBag.hon20tr" name="Mucluong[1][]" />
+                    <span class="span_chbx"></span>
+                </label>
+                <label class="lbl_chbx" style="margin-bottom:10px">
+                    Thỏa thuận(@ViewBag.thoathuan)
+                    <input type="checkbox" id="thoathuan" value="@ViewBag.thoathuan" name="Mucluong[1][]" />
+                    <span class="span_chbx"></span>
+                </label>
+
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 col-xl-12" style="padding:0">
+                <h3>Tính chất công việc</h3>
+                <label class="lbl_chbx" style="margin-bottom:10px">
+                    Xem nhiều(@ViewBag.xemnhieu)
+                    <input type="checkbox" id="xemnhieu" value="@ViewBag.xemnhieu" name="Mucluong[1][]">
+                    <span class="span_chbx"></span>
+                </label>
+                <label class="lbl_chbx" style="margin-bottom:10px">
+                    Toàn thời gian(@ViewBag.toanthoigian)
+                    <input type="checkbox" id="toanthoigian" value="@ViewBag.toanthoigian" name="Mucluong[1][]">
+                    <span class="span_chbx"></span>
+                </label>
+                <label class="lbl_chbx" style="margin-bottom:10px">
+                    Bán thời gian(@ViewBag.banthoigian)
+                    <input type="checkbox" id="banthoigian" value="@ViewBag.banthoigian" name="Mucluong[1][]">
+                    <span class="span_chbx"></span>
+                </label>
+                <label class="lbl_chbx" style="margin-bottom:10px">
+                    Giờ hành chính(@ViewBag.giohanhchinh)
+                    <input type="checkbox" id="giohanhchinh" value="@ViewBag.giohanhchinh" name="Mucluong[1][]">
+                    <span class="span_chbx"></span>
+                </label>
+                <label class="lbl_chbx" style="margin-bottom:10px">
+                    Theo ca(@ViewBag.theoca)
+                    <input type="checkbox" id="theoca" value="@ViewBag.theoca" name="Mucluong[1][]">
+                    <span class="span_chbx"></span>
+                </label>
+                <label class="lbl_chbx" style="margin-bottom:10px">
+                    Khác(@ViewBag.khac)
+                    <input type="checkbox" id="khac" value="@ViewBag.khac" name="Mucluong[1][]">
+                    <span class="span_chbx"></span>
+                </label>
+                <label class="lbl_chbx" style="margin-bottom:10px">
+                    Hs tìm việc đã xem(@ViewBag.NTVDaXem)
+                    <input type="checkbox" id="NTVDaXem" value="@ViewBag.NTVDaXem" name="Mucluong[1][]">
+                    <span class="span_chbx"></span>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (New_small QCpanel in ViewBag.QC_QLTimViec)
+            {
+                var str = " ";
+                var title = QCpanel.Title.ToLower();
+                var path = XString.maplocal + "News_Img\\" + QCpanel.ImagePath;
+                if (QCpanel.Title.Length > 100)
+                {
+                    str = XString.ConvertToUnSign(QCpanel.Title.Substring(0, 100));
+                }
+                else
+                {
+                    str = XString.ConvertToUnSign(QCpanel.Title);
+                }
+                var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QCpanel.NewId;
+                <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-12" style="margin-top:5px">
+                    <a href="@url" title="QC_QLTimViec:@title">
+                        @if (File.Exists(path))
+                        {
+                            <img src="@XString.GetImgBase64("News_Img",QCpanel.ImagePath)" hidden />
+                            <img src="~/Content/Upload/News_Img/@QCpanel.ImagePath" style="width:100%;height:130px" />
+                        }
+                        else
+                        {<img src="~/Content/Upload/News_Img/NoPic.jpg" style="width:100%;height:130px" />}
+                    </a>
+                </div>
+            }
+            @for (int i = 0; i < ViewBag.QC_TimViecTT; i++)
+            {
+                <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-12" style="margin-top:5px">
+                    <a title="">
+                        <img src="~/Content/Upload/News_Img/200.jpg" style="width: 100%; height: 130px" />
+                    </a>
+                </div>
+            }
+        </div>
+        
+    </div>
+    <div class="col-md-9">
+        <div class="card card_t" style="border: 0">
+            <div class="header bgcardhead header_t">
+                <label class="label_cardhead">
+                    NGƯỜI TÌM VIỆC
+                </label>
+            </div>
+            <div class="body" style="padding-bottom:0; ">
+                <div class="row clearfix">
+                    <div class="col-md-4" style="margin-bottom:0px">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">person</i>
+                            </span>
+                            <div class="form-line">
+                                <input  onchange="mySearchNTV()" type="text" title="bấm enter để tìm kiếm" id="timkiem_ntv" class="form-control date" placeholder="Tìm ứng viên theo vị trí.">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5" style="margin-bottom:0px">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">person</i>
+                            </span>
+                            <div class="form-line">
+                                <select id="select_dc" class="form-control show-tick">
+                                    <option value="0" id="0">Tất cả địa điểm</option>
+                                    @foreach (DM_DiaChi dc in ViewBag.DMtg_ntv)
+                                    {
+                                        var tong = new NTV_HoSoXinViec_Dao().LinQ_NTV_Main("", dc.Id,null).Count();
+                                        <option value="@dc.Id" id="@tong">@dc.TenDiaChi</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    @if (Model.Count() > 0) { 
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            
+                            <span id="ThongBaoNTV"></span>
+                            <style>
+                                @@media only screen and (max-width: 960px) and (min-width: 550px) {
+                                    .div_card_hstv {
+                                        border: 1px solid #e5e5e5;
+                                        border-radius: 4px;
+                                        /*margin-bottom: 10px;*/
+                                        max-height: 660px;
+                                        padding: 10px;
+                                        width: 100%;
+                                        /*margin-right: 10px*/
+                                    }
+                                }
+                                @@media screen and (min-width: 960px) {
+                                    .div_card_hstv {
+                                        border: 1px solid #e5e5e5;
+                                        border-radius: 4px;
+                                        /*margin-bottom: 10px;*/
+                                        height: 192px;
+                                        padding: 10px;
+                                        width: 100%;
+                                        /*margin-right: 10px*/
+                                    }
+                                    
+                                }
+
+                                @@media screen and (max-width:550px) {
+                                    .div_card_hstv {
+                                        border: 1px solid #e5e5e5;
+                                        border-radius: 4px;
+                                        /*margin-bottom: 10px;*/
+                                        /*height: 185px;*/
+                                        padding: 10px;
+                                        width: 100%;
+                                        /*margin-right: 10px*/
+                                    }
+                                    
+                                }
+                            </style>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="hstv_tatca">
+                                    <div class="div_moinhat" style="border:0">
+                                        <div class="row" id="NTV_all">
+                                            @*/////////////////////////*@
+                                            @*@Html.Partial("CandidateList")*@
+
+                                        </div>
+                                        <div class="row">
+                                            <div id="demso" class="col-md-3 offset-md-4 col-sm-3 offset-xs-4 col-xs-3 col-xs-offset-4">
+
+
+                                                <a class="btn btn-primary btn-block m-t-20" style="line-height:30px;font-family:monospace;color:black">
+                                                    <input type="hidden" id="count_model_NTV" value="@Model.Count()" />
+                                                    <img id="loading" src="~/Content/img/loading.gif" /><span id="total_NTV"></span>/<span id="count_NTV">@Model.Count()</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

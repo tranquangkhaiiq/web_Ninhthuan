@@ -1,0 +1,63 @@
+﻿@using WebViecLammoi.i18n
+
+<div class="card card_t  " style="background:none;">
+    <div>
+        <div class="nav-side-menu">
+            <div class="header bgcardhead header_t" style=" border-bottom: 2px solid white !important;">
+                <label class="label_cardhead">
+                    @Common.Categories
+                </label>
+
+            </div>
+            <div class="body" style=" background-color: #006fc7; border-color: #006fc7; margin:-1px">
+                <style>
+                    .ul_danhmuc {
+                        list-style: none;
+                        padding-inline-start: 0px;
+                    }
+
+                        .ul_danhmuc li {
+                            border-bottom: 1px solid rgba(248, 248, 248, 0.17);
+                            padding-top: 8px;
+                            padding-bottom: 8px;
+                            transition: 0.5s;
+                        }
+
+                            .ul_danhmuc li:hover {
+                                border-bottom: 1px solid white;
+                            }
+
+                            .ul_danhmuc li .catergory {
+                                color: white;
+                                text-align: justify;
+                                font-weight: 600;
+                                text-decoration: none;
+                            }
+
+                            .ul_danhmuc li a i {
+                                margin-right: 10px;
+                            }
+                </style>
+                <ul class="ul_danhmuc menu-content" data-toggle="collapse" data-target="#menu-content">
+                    <li>
+                        <a href="#hstv" class="catergory">
+                            <i class="icon-caret-right"></i>&nbsp; @Common.YourFile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="catergory">
+                            <i class="icon-caret-right"></i>&nbsp; @Common.ManageCre (@ViewBag.TotalHSungtuyen,@ViewBag.TotalHSDaLuu)
+                            <img id="loadingTD" src="~/Content/img/loading.gif" hidden/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="catergory">
+                            <i class="icon-caret-right"></i>&nbsp; @Common.Account
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,423 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.i18n
+@using WebViecLammoi.Utils
+@model DoanhNghiep_TuyenDung
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="~/Content/js/summernote-vi-VN.js"></script>
+<script src="~/Content/js/summernote.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link href="~/Content/css/Info_Style.css" rel="stylesheet" />
+<style>
+    .panel-heading {
+        display: none;
+    }
+    .container {
+        padding-right: 22px;
+        padding-left: 0px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    @@media only screen and (max-width: 700px) {
+        .leftcontact {
+            width: 100%;
+            /*float: left;*/
+            border-right: none;
+            box-sizing: border-box;
+            padding: 0px 15px 0px 0px;
+        }
+
+        .rightcontact {
+            width: 100%;
+            /*float: right;*/
+            box-sizing: border-box;
+            padding: 0;
+        }
+        .container {
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+    }
+</style>
+<section style="background-image: url(/Content/img/map.png); background-attachment: fixed !important; background-size: cover !important; background-position: 50% 0 !important; ">
+    <div class="container">
+        <div class="row">
+            <div class="container text-center">
+                <h3 style="font-family: monospace; font-weight: lighter; color: #0094ff">@Common.ProfileInfo</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <form class="info_form" method="post">
+            @using (Html.BeginForm("JobCreate", "Job", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <h1 class="info_header">@Common.FillInfo</h1>
+                <div class="row">
+                    <div class="contentform">
+                        <div>
+                            <span class="help-block" style="font-family:monospace">@Html.ValidationSummary(false, "", new { @class = "text-danger" })</span>
+                        </div>
+
+
+                        <div class="leftcontact">
+
+                            <div class="form-group">
+                                <p>@Common.Title @Common.Recruitment (Hoạt động vs thuật toán tìm kiếm của web)<span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-file"></i></span>
+                                <input type="text" name="TieuDeTuyenDung" id="name" required />
+                                <div class="validation"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <p>@Common.Title2 <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                @Html.DropDownList("ChucDanh_ID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                <div class="validation"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <p>@Common.DescribeMore về công việc<span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-comment"></i></span>
+                                @Html.TextAreaFor(kh => kh.MoTaCongViec, new { @class = "form-control", @rows = 3 })
+                                <div class="validation"></div>
+                                <script>
+                                    $(document).ready(function () {
+                                        $('#MoTaCongViec').summernote({
+                                            lang: 'vi-VN',
+                                            height: '150',
+                                            width: '85%'
+                                        });
+                                    });
+                                </script>
+                                <div class="validation"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <p>@Common.Benefit <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-thumbs-up"></i></span>
+                                @Html.TextAreaFor(kh => kh.QuyenLoi, new { @class = "form-control", @row = 2 })
+                                <div class="validation"></div>
+                                <script>
+                                    $(document).ready(function () {
+                                        $('#QuyenLoi').summernote({
+                                            lang: 'vi-VN',
+                                            height: '100',
+                                            width: '85%'
+                                        });
+                                    });
+                                </script>
+                            </div>
+                            <div class="form-group">
+                                <p>Yêu cầu thêm về công việc:</p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-comment"></i></span>
+                                <input type="text" name="YeuCauCongViec" id="YeuCauCongViec" placeholder="Cty có yêu cầu gì không?:" />
+                                <div class="validation"></div>
+                            </div>
+                            <div class="form-group">
+                                <p>@Common.Salary <span>(0-->0 = thỏa thuận)</span></p>
+                                <div class="row">
+                                    <div class="col-md-6  col-xs-12">
+                                        <span class="icon-case"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                        <input type="number" name="LuongTu" id="LuongTu" placeholder="Lương từ(VND):" required />
+                                        <div class="validation"></div>
+                                    </div>
+                                    <div class="col-md-6  col-xs-12">
+                                        <span class="icon-case"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                        <input type="number" name="LuongDen" id="LuongDen" placeholder="Lương đến(VND):" required />
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <p>@Common.WorkingTime</p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-time"></i></span>
+                                @Html.DropDownList("ThoiGianLamViec_ID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                <div class="validation"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <p>Nơi làm việc Tỉnh <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-th-large"></i></span>
+                                @Html.DropDownList("NoiLamViec_TinhID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                <div class="validation"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <p>Nơi làm việc Huyện <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-th-large"></i></span>
+                                @Html.DropDownList("NoiLamViec_HuyenID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                <div class="validation"></div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <p>@Common.PlaceofReceipt <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-home"></i></span>
+                                <input value="@ViewBag.noinhanhoso" type="text" name="NoiNopHoSo" id="diachi" required />
+                                <div class="validation"></div>
+                            </div>
+                        </div>
+
+                        <div class="rightcontact">
+
+                            <div class="form-group">
+                                <p>@Common.Sex <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-search"></i></span>
+                                <select class="form-control" name="YeuCauGioiTinh" style="width: 75%; height: 40px">
+                                    <option value="0">Không yêu cầu</option>
+                                    <option value="1">Nam</option>
+                                    <option value="2">Nữ</option>
+                                </select>
+                                <div class="validation"></div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <p>@Common.Technicallevel <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-grain"></i></span>
+                                @Html.DropDownList("YeuCauTrinhDo_ID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                <div class="validation"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <p>@Common.Amount <span>*</span></p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input type="number" name="SoLuongTuyen" id="Number1" required />
+                                        
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <p> @Common.Experience <span>*</span></p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-bullhorn"></i></span>
+                                        <input type="number" name="SoNamKinhNghiem" id="Text1" required />
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-12">
+                                        <p>@Common.Age @Common.From <span>*</span></p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-check"></i></span>
+                                        <input type="number" name="YeuCauTuoiTu" id="Number2" required style="width: 50%" />
+                                        
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <p>@Common.Age @Common.To <span>*</span></p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-magnet"></i></span>
+                                        <input type="number" name="YeuCauTuoiDen" id="Number3" required style="width: 50%" />
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p>@Common.StartDate <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-calendar"></i></span>
+                                <input type="date" name="NgayNhanHoSo" id="ngaylv" required />
+                                <div class="validation"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p>Số tháng tồn tại hồ sơ <span>*</span></p>
+                                        <select class="form-control" id="thoigiantontai" style="width: 75%; height: 40px">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                        <div class="validation"></div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p>@Common.EndDay (dd/mm/yyyy)</p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        <input style="background-color:lightgray" readonly name="NgayHetHan" id="NgayHetHan" />
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6  col-xs-12">
+                                        <p>Yêu cầu @Common.Computerlevel 1</p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-compressed"></i></span>
+                                        @Html.DropDownList("NghiepVu1", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                        <div class="validation"></div>
+                                    </div>
+                                    <div class="col-md-6  col-xs-12">
+                                        <p>Yêu cầu @Common.Computerlevel 2</p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-compressed"></i></span>
+                                        @Html.DropDownList("NghiepVu11", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6  col-xs-12">
+                                        <p>Yêu cầu @Common.ForeignLanguage 1</p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-lamp"></i></span>
+                                        @Html.DropDownList("NghiepVu2", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                        <div class="validation"></div>
+                                    </div>
+                                    <div class="col-md-6  col-xs-12">
+                                        <p>Yêu cầu @Common.ForeignLanguage 2</p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-lamp"></i></span>
+                                        @Html.DropDownList("NghiepVu22", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <p>Yêu cầu khác</p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-flash"></i></span>
+                                @Html.DropDownList("NghiepVu3", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                <div class="validation"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <p>Yêu cầu ngành học</p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-cloud"></i></span>
+                                @Html.DropDownList("YeuCauNganh_ID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                <div class="validation"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <input id="TT_tinh" value="@XString.TinhId" hidden />
+                                <p>@Common.Profession<span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                @Html.DropDownList("YeuCauNghe_ID", new SelectList(string.Empty, "Value", "Text"), new { @style = "width: 75%; height: 41px" })
+                                <div class="validation"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    .btn-glyphicon {
+                        padding: 6px;
+                        background: #ffffff;
+                        margin-right: 4px;
+                    }
+
+                    .icon-btn {
+                        padding: 1px 15px 3px 2px;
+                        border-radius: 10px;
+                    }
+                </style>
+                <div class="row text-center">
+                    <div class="col-xs-7 col-md-6">
+                        <button type="submit" class="btn icon-btn btn-success"><span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>@Common.SaveJob</button>
+                        @*<a class="btn icon-btn btn-success" href="/Candidate/CandidateCreate"><span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Lưu &amp; Gửi Phê Duyệt </a>*@
+
+                    </div>
+                    <div class="col-xs-5 col-md-6">
+                        <a class="btn icon-btn btn-warning" href="/Quan-Ly-Tai-Khoan-DN"><span class="glyphicon btn-glyphicon glyphicon-chevron-left img-circle text-warning"></span>@Common.Back</a>
+                    </div>
+                </div>
+            }
+        </form>
+    </div>
+</section>
+
+<script>
+    $(function () {
+        var MaTinh = $('#TT_tinh').val();
+        $('#NoiLamViec_TinhID').change(function () {
+            $('#NoiLamViec_HuyenID').empty();
+            var MaTinh = $('#NoiLamViec_TinhID').val();
+            //alert(MaQuanHuyen.toString());
+            $.ajax({
+                url: "/Account/TamTru_Huyen_ID", // we are calling json method
+                data: { TamTru_Tinh_ID: MaTinh },
+                success: function (response) {
+                    $(response).each(function (i, e) {
+                        $("#NoiLamViec_HuyenID").append(
+                            $('<option/>')
+                                .attr('value', e.Id)
+                                .text(e.TenDiaChi)
+                        );
+                        // here we are adding option for Phuongxa
+                    });
+                },
+                error: function (ex) {
+                    alert('Lỗi load Quận/ huyện: ' + ex);
+
+                }
+            });
+        });
+    });
+    //XỬ LÝ LOAD NGHỀ THEO NGÀNH - CHUYÊN MÔN 1
+    $(function () {
+        var MaNganhNghe = 0;//truyền hằng số cho lần chạy đầu tiên
+        $.ajax({
+            url: "/Job/YeuCauNghe_ID_kh", // we are calling json method
+            data: { MaNghanh: MaNganhNghe },
+            success: function (response) {
+                $(response).each(function (i, e) {
+                    $("#YeuCauNghe_ID").append(
+                        $('<option/>')
+                            .attr('value', e.NgheLaoDong_ID)
+                            .text(e.TenNgheLaoDong)
+                    );
+                });
+            },
+            error: function (ex) {
+                alert('Lỗi load ngành nghề: ' + ex);
+            }
+        });
+    });
+
+    // XỬ LÝ LOAD NGHỀ THEO NGÀNH - KHI THAY ĐỔI NGÀNH
+    $(function () {
+        $('#YeuCauNganh_ID').change(function () {
+            $('#YeuCauNghe_ID').empty();
+            var MaNganhNghe = $('#YeuCauNganh_ID').val();
+            $.ajax({
+                url: "/Job/YeuCauNghe_ID_kh", // we are calling json method
+                data: { MaNghanh: MaNganhNghe },
+                success: function (response) {
+                    $(response).each(function (i, e) {
+                        $("#YeuCauNghe_ID").append(
+                            $('<option/>')
+                                .attr('value', e.NgheLaoDong_ID)
+                                .text(e.TenNgheLaoDong)
+                        );
+                        // here we are adding option for Phuongxa
+                    });
+                },
+                error: function (ex) {
+                    alert('Lỗi load ngành nghề: ' + ex);
+                }
+            });
+        });
+    });
+    $(function () {
+        //mặc định cộng 1 tháng
+        var date = new Date();
+        var newDate1 = new Date(date.setMonth(date.getMonth() + 1));
+        var daa = new Date(newDate1).toLocaleDateString("en-GB");
+        $("#NgayHetHan").val(daa);
+    });
+    $(function () {
+        $("#thoigiantontai").change(function () {
+            var num = $("#thoigiantontai").val();
+            var date = new Date();
+            var newDate1 = new Date(date.setMonth(date.getMonth() + parseInt(num)));
+            var daa = new Date(newDate1).toLocaleDateString("en-GB");
+            $("#NgayHetHan").val(daa);
+        });
+
+    });
+</script>

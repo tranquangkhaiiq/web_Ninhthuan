@@ -1,0 +1,211 @@
+﻿@using WebViecLammoi.DAO
+@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+
+@if (Session["quyen"] != null && Session["quyen"].ToString() == "TD")
+{
+    <div class="card card_t">
+        <div class="header bgcardhead header_t" style=" border-bottom: 2px solid white !important;">
+            <label class="label_cardhead">
+                Thông Báo
+            </label>
+
+        </div>
+        <div class="body" style="padding: 0; margin: -1px; font-weight: 500">
+            <p><span>&ensp;Hồ sơ đang online:&ensp;@ViewBag.Tonghoso_Online</span></p>
+            <p><span>&ensp;Hồ sơ chờ duyệt:&ensp;@ViewBag.TonghosoChoDuyet</span></p>
+            <p><span>&ensp;Hồ sơ đã duyệt:&ensp;@ViewBag.TonghosoDuyet</span></p>
+
+            <p><span>&ensp;Đã duyệt nhưng hết hạn:&ensp;@ViewBag.TonghosoDuyet_hethan</span></p>
+            <p><span>&ensp;Không hiển thị web:&ensp;@ViewBag.Tonghoso_NoWeb</span></p>
+            <p><span>&ensp;Hồ sơ bị hủy:&ensp;@ViewBag.TonghosoHuy</span></p>
+            <p><span>&ensp;Tổng hồ sơ:&ensp;@ViewBag.Tonghoso</span></p>
+            <p><span>&ensp;Tin chưa xem:&ensp;@ViewBag.Tinchuaxem</span></p>
+            <p><span>&ensp;NTV ứng tuyển:&ensp;@ViewBag.totalungtuyen</span></p>
+        </div>
+    </div>
+}
+@if (Session["quyen"] != null && Session["quyen"].ToString() == "NTV")
+{
+    <div class="card card_t">
+        <div class="header bgcardhead header_t" style=" border-bottom: 2px solid white !important;">
+            <label class="label_cardhead">
+                Thông Báo
+            </label>
+
+        </div>
+        <div class="body" style="padding: 0; margin: -1px; font-weight: 500">
+            <p><span>&ensp;Hồ sơ đang online:&ensp;@ViewBag.Tonghoso_Online</span></p>
+            <p><span>&ensp;Hồ sơ chờ duyệt:&ensp;@ViewBag.TonghosoChoDuyet</span></p>
+            <p><span>&ensp;Hồ sơ đã duyệt:&ensp;@ViewBag.TonghosoDuyet</span></p>
+
+            <p><span>&ensp;Đã duyệt nhưng hết hạn:&ensp;@ViewBag.TonghosoDuyet_hethan</span></p>
+            <p><span>&ensp;Không hiển thị web:&ensp;@ViewBag.Tonghoso_NoWeb</span></p>
+            <p><span>&ensp;Hồ sơ bị hủy:&ensp;@ViewBag.TonghosoHuy</span></p>
+            <p><span>&ensp;Tổng hồ sơ:&ensp;@ViewBag.Tonghoso</span></p>
+            <p><span>&ensp;Hồ sơ tự ứng tuyển:&ensp;@ViewBag.Tonghoso_ungtuyen</span></p>
+            
+        </div>
+    </div>
+}
+<div class="row" style="padding-left:5px;padding-right:5px">
+    <div class="card card_t">
+        <div class="header bgcardhead header_t" style=" border-bottom: 2px solid white !important;">
+            <label class="label_cardhead" title="QuangCaoTT_Slide">
+                Văn bản mới
+            </label>
+
+        </div>
+        <div class="body" style="padding: 5px 5px 5px 15px; margin: -1px">
+            <style>
+                .ul_vanbanmoi_t {
+                    list-style-type: none;
+                    text-align: justify;
+                    font-weight: bold;
+                    padding-inline-start: 0;
+                }
+
+                    .ul_vanbanmoi_t li a {
+                        color: #666;
+                        font-size: 12px;
+                        text-decoration: none;
+                    }
+
+                    .ul_vanbanmoi_t li:hover {
+                        cursor: pointer;
+                    }
+
+                        .ul_vanbanmoi_t li:hover a {
+                            cursor: pointer;
+                            color: #d65a01;
+                        }
+
+                    .ul_vanbanmoi_t li a i {
+                        color: #b70002;
+                        font-size: 60%;
+                    }
+
+                @@media screen and (max-width: 767px) {
+                    .tuyendungright {
+                        display: none;
+                    }
+                }
+            </style>
+            <marquee id="marquee_vbmoi" direction="up" style="height: 200px;  " onmouseover="this.stop();" onmouseout="this.start();" scrollamount="2">
+                @foreach (News item in ViewBag.QC_NewSlide)
+                {
+                    @Html.Raw(item.Content)
+                }
+
+            </marquee>
+            <script>
+                $(function () {
+                    $('#marquee_vbmoi').mouseover(function () {
+                        $('#marquee_vbmoi').attr('scrollamount', 0);
+                    }).mouseout(function () {
+                        $('#marquee_vbmoi').attr('scrollamount', 2);
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <style>
+        .p_quangcao {
+            padding: 5px;
+            margin: 0;
+        }
+
+            .p_quangcao img {
+                width: 100%;
+            }
+    </style>
+    <style>
+        .div_bodycardmini i {
+            color: #0072bc;
+        }
+
+        .div_bodycardmini {
+            word-wrap: break-word;
+        }
+    </style>
+
+    <div class="card card_t">
+        <div class="header bgcardhead header_t" style=" border-bottom: 2px solid white !important;">
+            <label class="label_cardhead">
+                LIÊN HỆ
+            </label>
+
+        </div>
+        <div class="body div_bodycardmini" style="padding: 10px 10px 10px 20px; margin: -1px">
+            <p>
+                <i class="icon-map-marker"></i> <b>Địa chỉ</b>: @XString.DiaChi
+            </p>
+            <p>
+                <i class="icon-phone"></i> <b>Điện thoại</b>: @XString.SDT
+            </p>
+            <p>
+                <i class="icon-envelope-alt"></i> <b>Email</b>: @XString.EmailLienhe
+            </p>
+        </div>
+    </div>
+    <div class="tuyendungright">
+        @foreach (New_small QC_Right in ViewBag.QC_Right)
+        {
+            var str = " ";
+            var title = QC_Right.Title.ToLower();
+            var path = Server.MapPath("~/Content/Upload/News_Img/" + QC_Right.ImagePath);
+            if (QC_Right.Title.Length > 100)
+            {
+                str = XString.ConvertToUnSign(QC_Right.Title.Substring(0, 100));
+            }
+            else
+            {
+                str = XString.ConvertToUnSign(QC_Right.Title);
+            }
+            var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC_Right.NewId;
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top:5px">
+                <a href="@url" title="QC_Right:@title">
+                    @if (File.Exists(path))
+                    {
+                        <img class="lazy" data-src="/Content/Upload/News_Img/@QC_Right.ImagePath" style="width:100%;height:120px" />
+                    }
+                    else
+                    {<img class="lazy" data-src="/Content/Upload/News_Img/NoPic.jpg" style="width:100%;height:120px" />}
+                </a>
+            </div>
+        }
+        @for (int i = 0; i < ViewBag.QC_RightTT; i++)
+        {
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top:5px">
+                <a href="" title="">
+                    <img class="lazy" data-src="/Content/Upload/News_Img/200.jpg" style="width: 100%; height: 130px" />
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+<div class="card card_t">
+    <div class="header bgcardhead header_t" style=" border-bottom: 2px solid white !important;">
+        <label class="label_cardhead">
+            Lượt truy cập
+        </label>
+
+    </div>
+    <div class="body div_bodycardmini" style="padding:10px 10px 10px 20px; margin: -1px">
+        <p>
+            Đang online: <a>@AppState["TotalOnlineUsers"]</a>
+        </p>
+        <p>
+            Hôm nay: <a>@AppState["Visitoday"]</a>
+        </p>
+        <p>
+            Hôm qua: <a>@AppState["VisiYesterday"]</a>
+        </p>
+        <p>
+            Tổng số lượt: <a>@AppState["Visitors"]</a>
+        </p>
+    </div>
+</div>

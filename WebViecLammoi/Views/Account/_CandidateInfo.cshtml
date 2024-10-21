@@ -1,0 +1,56 @@
+﻿@using WebViecLammoi.i18n
+@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+<link href="~/Content/css/w3.css" rel="stylesheet" />
+<div class="w3-row">
+    <div class="w4-half w3-blue-grey w3-container" style="margin-bottom:10px">
+        <div class="w3-center">
+            @foreach (KhachHang kh in ViewBag.NTV)
+            {
+                var nv = new Khachhang_trinhdo_nghiepvu_DAO();
+                var trinhdo = nv.Getlist_khachhangtrinhdo(kh.KH_ID);
+                var nghiepvu = nv.Getlist_khachhangNghiepVu(kh.KH_ID);
+                var ngoaingu = nv.GetList_KH_NgoaiNgu(kh.KH_ID);
+                var tinhoc = nv.GetList_KH_tinhoc(kh.KH_ID);
+                var hinh = XString.Cutstring(kh.Hinh);
+                var path = XString.maplocal + "Avatar_UV\\" + hinh;
+                <h2>@kh.HoTen</h2>
+                if (File.Exists(path))
+                {
+                    <img src="@XString.GetImgBase64("Avatar_UV",hinh)" style="display:none" />
+                }
+                <div class="w3-padding-64">
+                    <input value="@Common.Address: @kh.TamTru_DiaChi" style="width:90%; height: 40px !important" type="text" class="form-control" required>
+                    <input value="@Common.Phonenumber: @kh.DienThoai" style="width:90%; height: 40px !important" type="text" class="form-control" required>
+                    <input value="Email: @kh.Email" style="width:90%; height: 40px !important" type="text" class="form-control" required>
+                    <input value="@Common.DateofBirth: @Html.FormatValue(kh.NgaySinh, "{0:dd/MM/yyyy}")" style="width:90%; height: 40px !important" type="text" class="form-control" required>
+
+                    @if (trinhdo != null)
+                    {
+                        <input value="@trinhdo.DM_TrinhDoChuyenMons.TenChuyenMon: @trinhdo.DM_NgheLaoDongs.TenNgheLaoDong" style="width:90%; height: 40px !important" type="text" class="form-control" required>
+
+                    }
+
+                    @foreach (KhachHang_TimViec_TinHoc th in tinhoc)
+                    {
+                        <input value="@th.DM_NghiepVus.TenNghiepVu" style="width:90%; height: 40px !important" type="text" class="form-control" required>
+                    }
+                    @foreach (KhachHang_TimViec_NgoaiNgu_2022 nn in ngoaingu)
+                    {
+                        <input value="@nn.DM_NghiepVus.TenNghiepVu @nn.ChungChiNgoaiNgu" style="width:90%; height: 40px !important" type="text" class="form-control" required>
+
+                    }
+                    @foreach (KhachHang_NghiepVu nn in nghiepvu)
+                    {
+                        <input value="@nn.DM_NghiepVus.TenNghiepVu" style="width:90%; height: 40px !important" type="text" class="form-control" required>
+
+                    }
+                </div>
+            }
+            <a href="/Doi-Thong-Tin-NTV" class="btn btn-success">@Common.ChangeAccInfo</a>
+        </div>
+    </div>
+
+</div>
+

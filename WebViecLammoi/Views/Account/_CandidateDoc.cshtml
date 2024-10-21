@@ -1,0 +1,271 @@
+﻿@using WebViecLammoi.i18n
+@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@{
+    ViewBag.Title = "_CandidateDoc";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="~/Content/js/summernote-vi-VN.js"></script>
+<script src="~/Content/js/summernote.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link href="~/Content/css/AdTable_Style.css" rel="stylesheet" />
+
+<style>
+    .ds {
+        display: flex;
+        justify-content: space-between;
+        color: red;
+    }
+
+    .thongbao_SVL {
+        text-align: right;
+        color: brown;
+    }
+
+    .success:before {
+        Content: "Bạn chưa có hồ sơ xin việc nào!! Hãy TẠO MỚI 1 hồ sơ xin việc trước khi đăng kí !!!";
+        font-size: 20px;
+    }
+</style>
+<div id="hstv" class="tab-pane fade in active">
+    <div class="about-container">
+        <div id="wrapper">
+            <div id="page-wrapper">
+                <br />
+                <div class="row">
+                    <div class=" col-xs-8 col-md-3">
+                        <button class="btn btn-warning" style="margin-left:20px" onclick="location.href='@Url.Action("CandidateCreate", "Candidate")'"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp; @Common.NewFile</button>
+                    </div>
+                    <div class="col-xs-4 col-md-3">
+                        <button class="btn btn-warning" style="margin-left:20px" onclick="location.href='@Url.Action("_CreateCV", "Candidate")'">Tạo CV</button>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Advanced Tables -->
+                        <div class="thongbao_SVL">
+                            <p>@Session["ThongBao_KH_TimViec"]</p>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <span>Hồ sơ tìm việc của bạn</span>
+                            </div>
+                            <div class="panel-body">
+                                <b style="color:blue">
+                                    Thời gian tồn tại hồ sơ trên Website là 01 tháng kể từ ngày tạo.<br />
+                                    Khi hồ sơ hết hạn bạn có thể gia hạn thời gian bằng cách vào mục "Sửa"
+                                </b>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>@Common.Title</th>
+                                                <th>@Common.CreatedDate</th>
+                                                <th>Ngày cập nhật</th>
+                                                <th>@Common.Status</th>
+                                                <th>@Common.Edit_Del</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (ViewBag.DSHSbyNTV != null)
+                                            {
+                                                foreach (KhachHang_TimViecLam item in ViewBag.DSHSbyNTV)
+                                                {
+
+                                                    <tr>
+                                                        <td>@item.TenHoSo</td>
+                                                        <td>@Html.FormatValue(item.NgayTao, "{0:dd/MM/yyyy}") -  @item.TimViec_ID</td>
+                                                        <td>@Html.FormatValue(item.NgayCapNhat, "{0:dd/MM/yyyy}")</td>
+                                                        @if (item.TinhTrangPheDuyetHoSo_ID == 2)
+                                                        {
+                                                            <td>@Common.WaitApprove</td>
+                                                        }
+                                                        else if (item.TinhTrangPheDuyetHoSo_ID == 3 && item.NgayHoSoHetHan >= DateTime.Now)
+                                                        {
+                                                            <td class="text-primary">@Common.Approve</td>
+                                                        }
+                                                        else if (item.TinhTrangPheDuyetHoSo_ID == 3 && item.NgayHoSoHetHan < DateTime.Now)
+                                                        {
+                                                            <td class="text-primary">@Common.Approve _ <span class="ds">Đã hết hạn</span></td>
+                                                        }
+                                                        else if (item.TinhTrangPheDuyetHoSo_ID == 4)
+                                                        {
+                                                            <td><span class="text-danger">HS bị Hủy</span></td>
+                                                        }
+
+                                                        <td>
+                                                            <a class="btn btn-danger" href="/Account/EditCanDoc/@item.TimViec_ID"><span class="glyphicon glyphicon-edit"></span></a>
+                                                            @if (item.TinhTrangPheDuyetHoSo_ID == 2)
+                                                            {
+                                                                <a class="btn btn-warning text-center" onclick="return confirm('Bạn muốn xóa hồ sơ @item.TimViec_ID ??')" href="/Account/DeleteCanDoc/@item.TimViec_ID"><span class="glyphicon glyphicon-trash"></span></a>
+                                                            }
+                                                            else
+                                                            {
+                                                                if (item.TinhTrangPheDuyetHoSo_ID == 3)
+                                                                {
+                                                                    if (item.HienThiTrenWeb == true)
+                                                                    {
+                                                                        <button class="btn btn-warning text-center" value="@item.TimViec_ID" id="HTWW_@item.TimViec_ID" style="background-color: #eea236" onclick="hienthiweb(@item.TimViec_ID)"><span>Click để tắt Web</span></button>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <button class="btn btn-warning text-center" value="@item.TimViec_ID" id="HTWW_@item.TimViec_ID" style="background-color:gray" onclick="hienthiweb(@item.TimViec_ID)"><span>Click để hiển thị Web</span></button>
+                                                                    }
+
+                                                                }
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                                <b style="color:blue">
+                                    Bạn Không thể xóa hồ sơ đã duyệt, hoặc bị TT Hủy.<br />
+                                    Thời gian "Chờ Phê Duyệt" là 24h.<br />
+                                    "Click tắt web" nếu bạn đã có việc làm.
+                                </b>
+                            </div>
+                        </div>
+                        <!--End Advanced Tables -->
+                    </div>
+                </div>
+            </div>
+            <!-- end page-wrapper -->
+
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-12">
+        <!-- Advanced Tables -->
+        <div class="thongbao_SVL">
+            <p>@Session["ThongBao_KH_CV"]</p>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>Kinh nghiệm làm việc của bạn.</span>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Tên Cty</th>
+                                <th>Chức Vụ</th>
+                                <th>Thời Gian</th>
+                                <th>Công Việc Chính</th>
+                                <th>KN làm việc nước ngoài</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.DSknCV != null)
+                            {
+                                foreach (KhachHang_KinhNghiem_LamViec_2022 item in ViewBag.DSknCV)
+                                {
+
+                                    <tr>
+                                        <td>@item.TenCongTy</td>
+                                        <td>@XString.Truncate(item.ChucVu,20)</td>
+                                        <td>@item.TuThang - @item.DenThang</td>
+                                        <td>@Html.Raw(XString.Truncate(item.CongViecChinh,30))</td>
+                                        <td>@Html.Raw(XString.Truncate(@item.DaLamViecNuocNgoai,30))</td>
+                                        <td><a href="/Account/DeleteCVNTV/@item.KhachHang_KinhNghiem_LamViec_ID" class="btn btn-danger text-center" value="@item.KhachHang_KinhNghiem_LamViec_ID" 
+                                          id="CV_@item.KhachHang_KinhNghiem_LamViec_ID"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--End Advanced Tables -->
+    </div>
+</div>
+<div class="w3-row">
+    <button id="btnhtCV">Thêm kinh nghiệm làm việc bản thân (hoàn thiện CV)</button>
+    @*////////////////*@
+    <div class="col-lg-12" id="themkn" style="display:none">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="thongbao_SVL">
+                    <p>@Session["ThongBao_KH_CV"]</p>
+                </div>
+            </div>
+            <div class="panel-body">
+                @*//@Html.Action("ThemKinhNghiem", "Account")*@
+                @Html.Partial("_ThemKinhNghiem")
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    function hienthiweb(id) {
+
+        if (document.getElementById("HTWW_" + id).innerHTML === "<span>Click để tắt Web</span>") {
+            if (!confirm("Bạn KHÔNG MUỐN Nhà Tuyển Dụng thấy hồ sơ này ??")) {
+                return false;
+            } else {
+                $.ajax({
+                    url: "/Account/thaydoitrangthai_kh",
+                    data: { tuyendungid: id },
+                    type: "POST",
+                    datatype: 'Json',
+                    success: function (res) {
+                        $("#HTWW_" + id).css("background-color", "gray");
+                        document.getElementById("HTWW_" + id).innerHTML = "<span>Click để hiển thị Web</span>";
+
+                    }, error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        }
+        else {
+            if (!confirm("Bạn CHO PHÉP Nhà Tuyển Dụng thấy hồ sơ này ??")) {
+                return false;
+            } else {
+                $.ajax({
+                    url: "/Account/thaydoitrangthai_kh",
+                    data: { tuyendungid: id },
+                    type: "POST",
+                    datatype: 'Json',
+                    success: function (res) {
+                        $("#HTWW_" + id).css("background-color", "#eea236");
+                        document.getElementById("HTWW_" + id).innerHTML = "<span>Click để tắt Web</span>";
+                    }, error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        }
+    }
+    //
+    $("#success").click(function () {
+        $(".notify").toggleClass("activeee");
+        $("#notifyType").toggleClass("success");
+
+        setTimeout(function () {
+            $(".notify").removeClass("activeee");
+            $("#notifyType").removeClass("success");
+        }, 2000);
+    });
+    $("#btnhtCV").click(function () {
+        var x = document.getElementById("themkn");
+        if (x.style.display === 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+    });
+</script>
+

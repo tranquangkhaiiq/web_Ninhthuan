@@ -1,0 +1,84 @@
+﻿@using WebViecLammoi.i18n
+@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<link href="~/Content/css/dataTables.bootstrap.css" rel="stylesheet" />
+<link href="~/Content/css/AdTable_Style.css" rel="stylesheet" />
+<div class="row wrapper">
+    <div class="divide24"> </div>
+    <div class="col-sm-4">
+        @Html.Action("DocumentCategory", "Document")
+        <div class="divide16"> </div>
+
+        <div class="divide16"> </div>
+
+    </div>
+    <div class="col-sm-8">
+        @* @Html.Action("DocumentByCategory", "Document")*@
+
+        @helper Truncate(string input, int length)
+        {
+            if (input != null)
+            {
+                if (input.Length <= length)
+                {
+                    @input
+                }
+                else
+                {
+                    @input.Substring(0, length)<text>...</text>
+                }
+            }
+        }
+
+
+
+        <div class="panel-body">
+            <div class="panel panel-default" id="result">
+                <div class="panel-heading">
+                    @Session["TenLoaiTaiLieu"].ToString()
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>@Common.Abstract</th>
+                                    <th>@Common.Number</th>
+                                    <th>@Common.DateIssued</th>
+
+                                    <th>@Common.Download</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (VBPQ_TaiLieu t in Model)
+                                {
+                                    var path = XString.maplocal+ "Document\\" + t.Files;
+                                    <tr class="odd gradeX">
+                                        <td>@Truncate(t.TrichYeu, 200)</td>
+                                        <td><a href="~/Content/Upload/Document/@t.Files">@t.SoVanban</a></td>
+                                        <td>@Html.FormatValue(t.NgayBanHanh, "{0:dd/MM/yyyy}")</td>
+
+                                        <td class="text-center">
+                                            @if (File.Exists(path))
+                                            {
+                                                <a href="@XString.GetImgBase64("Document",t.Files)" hidden />
+                                                <a href="~/Content/Upload/Document/@t.Files">
+                                                    <i class="icon-download"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

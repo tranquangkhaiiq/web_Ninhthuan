@@ -1,0 +1,648 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Abbreviation" xml:space="preserve">
+    <value>Abbreviation Name</value>
+  </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="Abstract" xml:space="preserve">
+    <value>Abstract</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Administrativeformalities" xml:space="preserve">
+    <value>Administrative formalities</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="AmountPeople" xml:space="preserve">
+    <value>Amount Of Employer</value>
+  </data>
+  <data name="AppDate" xml:space="preserve">
+    <value>Application Date</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Benefit" xml:space="preserve">
+    <value>Benefit</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Candidate" xml:space="preserve">
+    <value>Candidates</value>
+  </data>
+  <data name="CanInfo" xml:space="preserve">
+    <value>CANDIDATE INFORMATION</value>
+  </data>
+  <data name="Captcha" xml:space="preserve">
+    <value>Captcha</value>
+  </data>
+  <data name="Catalog" xml:space="preserve">
+    <value>Catalog</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="Centre" xml:space="preserve">
+    <value>CENTRE OF</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="ChangeAccInfo" xml:space="preserve">
+    <value>Change Your Account Information</value>
+  </data>
+  <data name="Changecolor" xml:space="preserve">
+    <value>Set Background Color</value>
+  </data>
+  <data name="Changelocation" xml:space="preserve">
+    <value>Change Location</value>
+  </data>
+  <data name="CheckBHTNRecord" xml:space="preserve">
+    <value>Check The Status Of Unemployment Insurance Record</value>
+  </data>
+  <data name="Clip" xml:space="preserve">
+    <value>Clip</value>
+  </data>
+  <data name="CMNDorBHXH" xml:space="preserve">
+    <value>Enter ID Number Or Social Security Number To Check</value>
+  </data>
+  <data name="Codeofcandidate" xml:space="preserve">
+    <value>Candidate Id</value>
+  </data>
+  <data name="Codeofcompany" xml:space="preserve">
+    <value>Company Id</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="CompanyInfo" xml:space="preserve">
+    <value>COMPANY INFORMATION</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="Computerlevel" xml:space="preserve">
+    <value>Computer Level</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="ContactforInfo" xml:space="preserve">
+    <value>Contact Centre For Detail Information</value>
+  </data>
+  <data name="ContactInfo" xml:space="preserve">
+    <value>Contact Info</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="CurrentPlace" xml:space="preserve">
+    <value>Current Place</value>
+  </data>
+  <data name="DateIssued" xml:space="preserve">
+    <value>Date Issued</value>
+  </data>
+  <data name="DateNotice" xml:space="preserve">
+    <value>DATE NOTICE</value>
+  </data>
+  <data name="DateofBirth" xml:space="preserve">
+    <value>Date Of Birth</value>
+  </data>
+  <data name="Degree" xml:space="preserve">
+    <value>Degree</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Deputy" xml:space="preserve">
+    <value>Deputy</value>
+  </data>
+  <data name="DescribeMore" xml:space="preserve">
+    <value>Describe More</value>
+  </data>
+  <data name="DesireCareer" xml:space="preserve">
+    <value>Desire Career</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Duty" xml:space="preserve">
+    <value>Duty</value>
+  </data>
+  <data name="Edit_Del" xml:space="preserve">
+    <value>Edit/Delete</value>
+  </data>
+  <data name="Education" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="Educationallevel" xml:space="preserve">
+    <value>Educational level</value>
+  </data>
+  <data name="EndDay" xml:space="preserve">
+    <value>Expired Day</value>
+  </data>
+  <data name="EstablishedYear" xml:space="preserve">
+    <value>Established Year</value>
+  </data>
+  <data name="Experience" xml:space="preserve">
+    <value>Experience</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Fileofthiscandidate" xml:space="preserve">
+    <value>File Of This Candidate</value>
+  </data>
+  <data name="FillInfo" xml:space="preserve">
+    <value>Please Fill All The Information:</value>
+  </data>
+  <data name="FindRiteCan" xml:space="preserve">
+    <value>Find the Right Candidate for your Business</value>
+  </data>
+  <data name="FindRiteJob" xml:space="preserve">
+    <value>Find The Right Job For You</value>
+  </data>
+  <data name="ForeignLanguage" xml:space="preserve">
+    <value>Foreign Language Level</value>
+  </data>
+  <data name="Forget" xml:space="preserve">
+    <value>Forget</value>
+  </data>
+  <data name="ForgetPassTitle" xml:space="preserve">
+    <value>Input Your Username - You will receive your password via your registered email</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="HeadQuarter" xml:space="preserve">
+    <value>Headquarter</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Hotnews" xml:space="preserve">
+    <value>Hot news</value>
+  </data>
+  <data name="IDNum" xml:space="preserve">
+    <value>ID Number</value>
+  </data>
+  <data name="Img" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="InfoOfBHTN" xml:space="preserve">
+    <value>Information On Unemployment Insurance policies</value>
+  </data>
+  <data name="Infrastructures" xml:space="preserve">
+    <value>Infrastructures</value>
+  </data>
+  <data name="Introduction" xml:space="preserve">
+    <value>Introduction</value>
+  </data>
+  <data name="JobDescription" xml:space="preserve">
+    <value>Job Description</value>
+  </data>
+  <data name="JobRequirements" xml:space="preserve">
+    <value>Job Requirements</value>
+  </data>
+  <data name="Keyword" xml:space="preserve">
+    <value>Keyword</value>
+  </data>
+  <data name="LastestCandidate" xml:space="preserve">
+    <value>Lastest Candidates</value>
+  </data>
+  <data name="LeaveMess" xml:space="preserve">
+    <value>Please Leave Your Message.</value>
+  </data>
+  <data name="Legal_documents" xml:space="preserve">
+    <value>Legal Documents</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>List Of</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="ManageCan" xml:space="preserve">
+    <value>Candidate Management</value>
+  </data>
+  <data name="ManageCre" xml:space="preserve">
+    <value>Recruitment Management</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="MaritalStatus" xml:space="preserve">
+    <value>Marital Status</value>
+  </data>
+  <data name="Married" xml:space="preserve">
+    <value>Married</value>
+  </data>
+  <data name="MonthNum" xml:space="preserve">
+    <value>Month Number</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NameofCentre" xml:space="preserve">
+    <value>LABOUR SERVICES BINH DUONG PROVINCE</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>Create New Document</value>
+  </data>
+  <data name="NewPass" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="NewsOfBHTN" xml:space="preserve">
+    <value>News Of Unemployment Insurance</value>
+  </data>
+  <data name="Notification" xml:space="preserve">
+    <value>Notification</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="NumOfVisit" xml:space="preserve">
+    <value>Number Of Visit</value>
+  </data>
+  <data name="Occupation" xml:space="preserve">
+    <value>Occupation</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="Onlinejobfair" xml:space="preserve">
+    <value>Online job fair</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>Or</value>
+  </data>
+  <data name="Organigrama" xml:space="preserve">
+    <value>Organigrama</value>
+  </data>
+  <data name="OtherSkills" xml:space="preserve">
+    <value>Other Skills</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>PERSONAL INFORMATION</value>
+  </data>
+  <data name="Phonenumber" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
+  <data name="PlaceofReceipt" xml:space="preserve">
+    <value>Place Of Receipt</value>
+  </data>
+  <data name="Please" xml:space="preserve">
+    <value>Please</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Profession" xml:space="preserve">
+    <value>Profession</value>
+  </data>
+  <data name="ProfileInfo" xml:space="preserve">
+    <value>PROFILE INFORMATION</value>
+  </data>
+  <data name="Recruitment" xml:space="preserve">
+    <value>Recruitments</value>
+  </data>
+  <data name="RecruitmentInfo" xml:space="preserve">
+    <value>RECRUITMENT INFORMATION</value>
+  </data>
+  <data name="Recruitmentofthiscompany" xml:space="preserve">
+    <value>Recruitment of this company</value>
+  </data>
+  <data name="RecruitmentPosition" xml:space="preserve">
+    <value>Recruitment Position</value>
+  </data>
+  <data name="RegBHTN" xml:space="preserve">
+    <value>Registration Form For Unemployment Insurance</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Remember</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Repeat</value>
+  </data>
+  <data name="RequirementMore" xml:space="preserve">
+    <value>Requirement More</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result :</value>
+  </data>
+  <data name="Salary" xml:space="preserve">
+    <value>Salary</value>
+  </data>
+  <data name="SaveandSubmit" xml:space="preserve">
+    <value>Save and Send For Approval</value>
+  </data>
+  <data name="SaveCan" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SavedCan" xml:space="preserve">
+    <value>Saved Candidates</value>
+  </data>
+  <data name="SavedCre" xml:space="preserve">
+    <value>Saved Recruitments</value>
+  </data>
+  <data name="SaveInfo" xml:space="preserve">
+    <value>Save Information</value>
+  </data>
+  <data name="SaveJob" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchBy" xml:space="preserve">
+    <value>SearchBy</value>
+  </data>
+  <data name="SendPass" xml:space="preserve">
+    <value>Send Password</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Sex</value>
+  </data>
+  <data name="Single" xml:space="preserve">
+    <value>Single</value>
+  </data>
+  <data name="Skill" xml:space="preserve">
+    <value>Skills</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="StartingSalary" xml:space="preserve">
+    <value>Starting Salary</value>
+  </data>
+  <data name="Statistical" xml:space="preserve">
+    <value>Statistical</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StatusofRecords" xml:space="preserve">
+    <value>STATUS OF RECORDS</value>
+  </data>
+  <data name="Suitable_Can" xml:space="preserve">
+    <value>Suitable Candidates</value>
+  </data>
+  <data name="Suitable_Cre" xml:space="preserve">
+    <value>Suitable Recruitments</value>
+  </data>
+  <data name="Technicallevel" xml:space="preserve">
+    <value>Technical level</value>
+  </data>
+  <data name="Thedaycanstartwork" xml:space="preserve">
+    <value>The Day Can Start Work</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Title2" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Town" xml:space="preserve">
+    <value>Town</value>
+  </data>
+  <data name="Training" xml:space="preserve">
+    <value>Training</value>
+  </data>
+  <data name="TypeOfCompany" xml:space="preserve">
+    <value>Type Of Company</value>
+  </data>
+  <data name="Unapprove" xml:space="preserve">
+    <value>Unapprove</value>
+  </data>
+  <data name="Unemp_insurance" xml:space="preserve">
+    <value>Unemployment Insurance</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="User_Name" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="Views" xml:space="preserve">
+    <value>Views</value>
+  </data>
+  <data name="View_Del" xml:space="preserve">
+    <value>View/Delete</value>
+  </data>
+  <data name="WaitApprove" xml:space="preserve">
+    <value>Waiting for approved</value>
+  </data>
+  <data name="Ward" xml:space="preserve">
+    <value>Ward</value>
+  </data>
+  <data name="WheretoApply" xml:space="preserve">
+    <value>Where To Apply</value>
+  </data>
+  <data name="WheretoWork" xml:space="preserve">
+    <value>Where To Work</value>
+  </data>
+  <data name="Wish" xml:space="preserve">
+    <value>Expected</value>
+  </data>
+  <data name="WorkingTime" xml:space="preserve">
+    <value>Working Time</value>
+  </data>
+  <data name="Workonrequest" xml:space="preserve">
+    <value>Going to work on request</value>
+  </data>
+  <data name="YourFile" xml:space="preserve">
+    <value>Your Documents</value>
+  </data>
+  <data name="YourjobFile" xml:space="preserve">
+    <value>Your Recruitment Document</value>
+  </data>
+</root>

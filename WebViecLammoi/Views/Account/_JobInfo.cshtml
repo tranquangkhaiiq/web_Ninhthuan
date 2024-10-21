@@ -1,0 +1,44 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.i18n
+@using WebViecLammoi.DAO
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link href="~/Content/css/w3.css" rel="stylesheet" />
+<div class="w3-row">
+    <div class="w4-half w3-blue-grey w3-container" style="margin-bottom:10px">
+        <div class="w3-padding-small w3-center">
+            @foreach (DoanhNghiep dn in ViewBag.DoanhNghiep)
+            {
+                var dndn = new DN_DoanhNghiep_Dao();
+                var TenDN = dn.TenDoanhNghiep.ToUpper();
+                var DienThoai = dn.DienThoai;
+                var Email = dn.Email;
+                int Tinh = 12286;
+                int Huyen = 12286;
+                if (dn.Tinh_ID != null)
+                {
+                    Tinh = dn.Tinh_ID.Value;
+                }
+                if (dn.Huyen_ID != null)
+                {
+                    Huyen = dn.Huyen_ID.Value;
+                }
+                string tinh = dndn.GetDiaChiById(Tinh).TenDiaChi;
+                string huyen = dndn.GetDiaChiById(Huyen).TenDiaChi;
+                <h2>@TenDN</h2>
+                
+                    <div class="w3-padding-64">
+                        <input value="@Common.Address: @dn.DiaChi, @tinh, @huyen" style="width:90%; height: 40px !important" type="text" class="form-control" readonly>
+                        <input value="@Common.Phonenumber: @DienThoai" style="width:90%; height: 40px !important" type="text" class="form-control" readonly>
+                        <input value="Email: @Email" style="width:90%; height: 40px !important" type="text" class="form-control" readonly>
+
+                    </div>
+                <div class="w3-left-align w3-padding-large">
+
+                    <p>Sơ Lượt:@Html.Raw(dn.GioiThieu)</p>
+                    <p></p>
+                </div>
+            }
+            <a href="/Doi-Thong-Tin-DN" class="btn btn-success">@Common.ChangeAccInfo</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@using WebViecLammoi.DAO
+
+<div class="carousel-inner" style="padding-left:15px">
+    <div class="item active">
+        @foreach (New_small QC in ViewBag.TTNoiBat1)
+        {
+            var str = " ";
+            var title = QC.Title.ToLower();
+            var path = Server.MapPath("~/Content/Upload/News_Img/" + QC.ImagePath);
+            if (QC.Title.Length > 100)
+            {
+                str = XString.ConvertToUnSign(QC.Title.Substring(0, 100));
+            }
+            else
+            {
+                str = XString.ConvertToUnSign(QC.Title);
+            }
+            var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+            <a href="@url">
+
+                @if (File.Exists(path))
+                {
+
+                    <img src="~/Content/Upload/News_Img/@QC.ImagePath"/>
+                }
+                else
+                {<img src="~/Content/Upload/News_Img/NoPic.jpg"/>}
+
+                <h4 style="text-transform: capitalize">@title</h4>
+                <p>
+                    @QC.Summary
+                </p>
+            </a>
+        }
+    </div>
+    @foreach (New_small QC in ViewBag.TTNoiBat5)
+    {
+        var str = " ";
+        var title = QC.Title.ToLower();
+        var path = Server.MapPath("~/Content/Upload/News_Img/" + QC.ImagePath);
+        if (QC.Title.Length > 100)
+        {
+            str = XString.ConvertToUnSign(QC.Title.Substring(0, 100));
+        }
+        else
+        {
+            str = XString.ConvertToUnSign(QC.Title);
+        }
+        var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+        <div class="item">
+            <a href="@url">
+                @if (File.Exists(path))
+                {
+
+                    <img src="~/Content/Upload/News_Img/@QC.ImagePath" />
+                }
+                else
+                {<img src="~/Content/Upload/News_Img/NoPic.jpg" />}
+                <h4 style="text-transform: capitalize">@title</h4>
+                <p>
+                    @QC.Summary
+                </p>
+            </a>
+        </div>
+    }
+
+</div>
+

@@ -1,0 +1,9 @@
+#wowslider-container$GallerySuffix$ .ws_thumbs  a{
+	opacity: 0.5;
+	-webkit-transition: opacity 200ms ease-in-out;
+	transition: opacity 200ms ease-in-out;
+}
+
+#wowslider-container$GallerySuffix$ .ws_thumbs a.ws_selthumb{
+	opacity: 1;
+}

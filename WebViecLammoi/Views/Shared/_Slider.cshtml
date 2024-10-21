@@ -1,0 +1,373 @@
+﻿
+@using WebViecLammoi.i18n
+@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@using WebViecLammoi.DAO
+<script src="~/Content/NhutCC/owl.carousel.min.js"></script>
+
+<script src="~/Content/Tien/SliderNumber/js/number_slideshow.js"></script>
+<style>
+    #number_slideshow {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+        #number_slideshow ul {
+            border-radius: 5px;
+        }
+
+        #number_slideshow img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+
+    .carousel-indicators li {
+        background: none;
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        border: 0 !important;
+    }
+
+    .carousel-indicators .active {
+        background-color: #006fc7 !important;
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        border: 0 !important;
+    }
+    /*update 25/01*/
+    #myCarousel .carousel-inner .item img {
+        height: 350px;
+        width: 100%;
+    }
+
+    .khkh1 {
+        /*width: 79.5%;
+        float: left;*/
+        padding-right: 7px;
+    }
+
+    .khkh2 {
+        /*width: 20.5%;
+        float: left;*/
+        border-radius: 5px;
+        box-shadow: 0 2px 5px 1px rgba(0,0,0,0.25);
+    }
+
+        .khkh2 > img {
+            width: 100%;
+        }
+
+    .number_slideshow ul li {
+        border-radius: 50% !important;
+    }
+
+    @@media only screen and (max-width: 800px) and (min-width: 450px) {
+        .list-tinduoi {
+            display: none;
+        }
+    }
+
+    /*@@media screen and (max-width:600px) {
+        .khkh2 {
+            display: none;
+        }
+    }*/
+
+    @@media only screen and (max-width: 767px) and (min-width: 580px) {
+        .khkh1 {
+            overflow-y: auto;
+            height: 400px;
+        }
+    }
+
+    @@media screen and (max-width:576px) {
+        .khkh1 {
+            width: 100%;
+            float: left;
+        }
+
+        #myCarousel .carousel-inner .item img {
+            height: 250px;
+            width: 100%;
+        }
+
+        .khkh2 {
+            display: none;
+        }
+    }
+    /*update 25/01*/
+</style>
+<section>
+    <!-- Modal -->
+    @foreach (News HienModal in ViewBag.HienModal)
+    {
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog" style="left:0; width: 800px; height: 296px; margin-top: 100px !important; background-position: center center; background-repeat: no-repeat; background-size: cover;box-sizing:border-box ">
+
+                <!-- Modal content-->
+                <button type="button" class="close" style="z-index:100" data-dismiss="modal">&times;</button>
+                <div class="modal-content" style="overflow-y:hidden">
+                    <div class="modal-body" style="padding:0 !important">
+                        <div class="row text-center" style="margin:0">
+                            <a href="/Tin-Tuc/@HienModal.Summary">
+                                <img src="/Content/Upload/News_Img/@HienModal.ImagePath" style="width:100%;height:100%" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+
+    <div class="wrapper banner" style="border:none;margin:auto">
+        <div style="margin:auto 12px">
+            <div class="col-md-9 col-sm-9 col-xs-8 p-0 khkh1">
+                <div class="row m-0">
+                    <div class="col-md-7 col-sm-7 p-0" style="box-shadow: 0px 0px 2px -1px;">
+
+                        <div class="owl-carousel owl-theme carousel_Nh">
+                            @foreach (News QC in ViewBag.TTSL)
+                            {
+                                var str = " ";
+                                if (XString.EditString(QC.Title).Length > 200)
+                                {
+                                    str = XString.EditString(QC.Title.Substring(0, 200));
+                                }
+                                else
+                                {
+                                    str = XString.EditString(QC.Title);
+                                }
+                                var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+                                <div class="news_slide">
+                                    <img src="/Content/Upload/News_Img/@QC.ImagePath" />
+                                    <p class="news_slide_tit">
+
+                                        <a target="_blank" class="news_slide_tit" href="@url">@QC.Title</a><br />
+                                    </p>
+
+                                    <p class="news_slide_tomtat block-ellipsis">
+                                        @QC.Summary
+                                    </p>
+                                </div>
+                            }
+
+
+
+                        </div>
+
+                        <!--TIN TỨC DƯỚI SLIDE-->
+                        <div class="row m-0">
+                            <div class="list-tinduoi">
+                                @foreach (News QC in ViewBag.TTDSL)
+                                {
+                                    var str = " ";
+                                    if (XString.EditString(QC.Title).Length > 200)
+                                    {
+                                        str = XString.EditString(QC.Title.Substring(0, 200));
+                                    }
+                                    else
+                                    {
+                                        str = XString.EditString(QC.Title);
+                                    }
+                                    var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+                                    <a target="_blank" href="@url">
+                                        <div class="col-xs-3 tinduoi">
+                                            <div class="tinduoi_img">
+                                                <img src="/Content/Upload/News_Img/@QC.ImagePath" />
+                                            </div>
+                                            <div class="tinduoi_cont">
+                                                <p class="block-ellipsis2">
+                                                    @QC.Title
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                }
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-5 p-0">
+                        <div class="list-news-item">
+                            <div class="row m-0">
+                                <div class="col-md-12">
+                                    <div class="news_tit">
+                                        <a href="#">TIN MỚI</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            @foreach (News QC in ViewBag.TTM)
+                            {
+                                var str = " ";
+                                if (XString.EditString(QC.Title).Length > 200)
+                                {
+                                    str = XString.EditString(QC.Title.Substring(0, 200));
+                                }
+                                else
+                                {
+                                    str = XString.EditString(QC.Title);
+                                }
+                                var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+
+                                <div class="row news_item">
+                                    <div class="col-xs-4 col-md-4 news_item_img">
+                                        <img src="/Content/Upload/News_Img/@QC.ImagePath" />
+                                    </div>
+                                    <div class="col-xs-8 col-md-8 p-0 news_item_cont">
+                                        <a class="block-ellipsis" target="_blank" href="@url">@QC.Title</a>
+                                    </div>
+                                </div>
+
+
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-4 p-0 khkh2">
+                <div id="number_slideshow" class="number_slideshow">
+                    <ul>
+                        @foreach (New_small SL in ViewBag.QCTTDVVL)
+                        {
+                            var str = XString.EditString(SL.Title);
+                            var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + SL.NewId;
+                            <li><a href="@url"><img src="/Content/Upload/News_Img/@SL.ImagePath" alt="Thông tin 1" /> </a></li>
+                        }
+                        @foreach (New_small SL in ViewBag.QCTTDVVL1)
+                        {
+                            var str = XString.EditString(SL.Title);
+                            var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + SL.NewId;
+                            <li><a href="@url"><img src="/Content/Upload/News_Img/@SL.ImagePath" alt="Thông tin 1" /> </a></li>
+                        }
+                    </ul>
+                    <ul class="number_slideshow_nav">
+                        @foreach (New_small SL in ViewBag.QCTTDVVL)
+                        {
+                            <li><a>*</a></li>
+                        }
+                        @foreach (New_small SL in ViewBag.QCTTDVVL1)
+                        {
+                            <li><a>*</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+
+
+    <div class="wrapper" style="margin:auto">
+        <div class="dichvu" style="margin:auto 12px">
+            <div class="dichvu-item">
+                <a target="_blank" href="/Tin-Tuc/LỊCH-MỞ-CÁC-KHÓA-HỌC,TẬP-HUẤN-42379">
+                    <div class="dichvu-img">
+                        <img src="~/Content/NhutCC/img/lop%20hoc%20,%20tap%20huan.png" />
+                    </div>
+                </a>
+            </div>
+            <div class="dichvu-item">
+                <a target="_blank" href="/Tin-Tuc/HƯỚNG-DẪN-ĐĂNG-KÝ-SÀN-ONLINE-42421">
+                    <div class="dichvu-img">
+                        <img src="~/Content/NhutCC/img/huongdansanonline.png" />
+                    </div>
+                </a>
+            </div>
+            <div class="dichvu-item">
+
+                <a target="_blank" href="/Tin-Tuc/Lịch-tổ-chức-Sàn-giao-dịch-việc-làm-2019-42170">
+                    <div class="dichvu-img">
+                        <img src="~/Content/NhutCC/img/san.png" style="width:254px;height:60px"/>
+                    </div>
+                </a>
+            </div>
+            <div class="dichvu-item">
+                <a target="_blank" href="/Van-Ban">
+                    <div class="dichvu-img">
+                        <img src="~/Content/NhutCC/img/TAI%20BIEU%20MAU.png" style="width:254px;height:60px"/>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+<script language="javascript" type="text/javascript">
+    $(function () {
+        $("#number_slideshow").number_slideshow({
+            slideshow_autoplay: 'enable',//enable disable
+            slideshow_time_interval: 7000,
+            slideshow_window_background_color: "#fff",
+            slideshow_window_padding: '0',
+            slideshow_window_width: '100',
+            slideshow_window_height: '415',
+            slideshow_border_size: '0',
+            slideshow_transition_speed: 300, //'normal','slow','fast' or numeral
+            // slideshow_border_color: 'black',
+            slideshow_show_button: 'enable',//enable disable
+            slideshow_show_title: 'disable',//enable disable
+            slideshow_button_text_color: '#CCC',
+            slideshow_button_current_text_color: '#000',
+            slideshow_button_background_color: 'transparent',
+            slideshow_button_current_background_color: 'black',
+            slideshow_button_border_color: '#737070',
+            slideshow_loading_gif: "/Content/img/loading.gif",//loading pic, you can replace it.
+            slideshow_button_border_size: '2'
+        });
+    });
+
+</script>
+
+<script>
+    $(function () {
+        $("#CanMenu").click(function () {
+            @(Session["CanType"] = "");
+        });
+
+        $("#JobMenu").click(function () {
+            @(Session["JobType"] = "");
+        });
+    });
+
+
+
+    //SLIDE TIN TỨC
+    $('.carousel_Nh').owlCarousel({
+        loop: true,
+        margin: 10,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        nav: true,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 1
+            }
+        }
+    })
+    //END SLIDE TIN TỨC
+
+     //HIỆN MODAL KHI LOAD PAGE
+    $(window).load(function () {
+        $('#myModal').modal('show');
+     });
+</script>
+

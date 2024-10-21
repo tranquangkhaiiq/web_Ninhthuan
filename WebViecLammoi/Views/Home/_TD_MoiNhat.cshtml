@@ -1,0 +1,137 @@
+﻿@using WebViecLammoi.DAO
+@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+<div class="row div_row_tintuc">
+    <div class="col-md-12 div_tintuc_t" style="height:700px">
+        @foreach (DoanhNghiep_TuyenDung DNTD in ViewBag.LastestJob)
+        {
+            var dndn = new DN_DoanhNghiep_Dao();
+            var DN = dndn.GetDN_ByDNID(DNTD.DN_ID);
+            if (DN != null)
+            {
+                var kn = "";
+                var gioitinh = "";
+                if (DNTD.SoNamKinhNghiem == null || DNTD.SoNamKinhNghiem < 1)
+                {
+                    kn = "Không cần kinh nghiệm";
+                }
+                else
+                { kn = DNTD.SoNamKinhNghiem.ToString(); }
+                if (DNTD.YeuCauGioiTinh == 1)
+                {
+                    gioitinh = "giới tính nam";
+                }else if(DNTD.YeuCauGioiTinh == 2) {
+                    gioitinh = "giới tính nữ";
+                } else { gioitinh = "không yêu cầu giới tính"; }
+                var luong = " ";
+                if ((DNTD.LuongTu == 0 && DNTD.LuongDen == 0) || DNTD.LuongTu == null || DNTD.LuongDen == null)
+                {
+                    luong = "Lương thỏa thuận";
+                }
+                else if (DNTD.LuongTu > 500000)
+                {
+                    luong = @Html.FormatValue(DNTD.LuongTu, "{0:#,###.##}") + " đến " + @Html.FormatValue(DNTD.LuongDen, "{0:#,###.##}");
+                }
+                else
+                {
+                    luong = DNTD.LuongTu + " đến " + DNTD.LuongDen + " triệu";
+                }
+                var dm = new DanhMuc_Dao();
+                var Lg = DN.Logo;
+                //var cv = (Html.Raw(DNTD.MoTaCongViec).ToString()).Substring(0, 100);
+                var title = DN.TenDoanhNghiep.ToLower();
+                var logo = XString.Cutstring(Lg);
+                var path = XString.maplocal + "Logo_DN\\" + XString.Cutstring(logo);
+                var tg = dm.GetTGbyID(DNTD.ThoiGianLamViec_ID);
+                var DMchucdanh = dm.GetChucDanhbyID(DNTD.ChucDanh_ID);
+                var chucdanh = DMchucdanh != null ? DMchucdanh.TenChucDanh : "Không có";
+                var DMChuyenMon = dm.GetChuyenMonbyID(DNTD.YeuCauTrinhDo_ID);
+                var ChuyenMon = DMChuyenMon != null ? DMChuyenMon.TenChuyenMon : "Không yêu cầu";
+                var yeucaunghe = dm.GetNgheNTVbyID(DNTD.YeuCauNghe_ID);
+                int mkv = DNTD.NoiLamViec_HuyenID ==null? 12286: DNTD.NoiLamViec_HuyenID.Value;
+                string tendc = dndn.GetDiaChiById(mkv).TenDiaChi;
+                var tentieude = XString.Truncate(DNTD.TieuDeTuyenDung, 60);
+                var str = XString.ConvertToUnSign(tentieude);
+                var url = "/Tuyen-Dung/" + str + "-" + DNTD.TuyenDung_ID.ToString();
+                <div class="div_moinhat">
+                    <div class="row" style="margin:0">
+                        <div class="col-md-2" style="padding: 0; margin-bottom: 0">
+                            @if (File.Exists(path))
+                            {
+                                <img src="@XString.GetImgBase64("Logo_DN",logo)" class="img_avatar" hidden />
+                                <img data-src="/Content/Upload/Logo_DN/@logo" class="lazy img_avatar" />
+                            }
+                            else
+                            {<img data-src="/Content/Tien/icon3d/ctyicon.jpg" class="lazy img_avatar" />}
+                        </div>
+                        <div class="col-md-10" style="padding: 0;padding-left:10px; margin-bottom: 0">
+                            <a href="@url" style="color: #555">
+                                <h4 class="h4_tieude" style="margin-top:0px">
+                                    @DNTD.TieuDeTuyenDung.ToUpper() (@tg.TenThoiGianLamViec)
+                                </h4>
+                            </a>
+                           
+                            <h5 class="h5_name" style="text-transform:capitalize">
+                                @title
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row" style="margin:0; margin-top:5px">
+                        <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                            <p style="margin-bottom:5px">
+                                Tuyển @DNTD.SoLuongTuyen @chucdanh (@ChuyenMon), @kn.@gioitinh.ToLower()
+                                
+                                @Html.Raw(DNTD.QuyenLoi)
+                            </p>
+                            <p style="margin-bottom:0px">
+                                <a>
+                                    <i class="icon-usd"></i> @luong
+                                </a>
+                                <a style="margin-left:30px">
+                                    <i class="icon-map-marker"></i> @tendc
+                                </a>
+                                <a style="margin-left:30px">
+                                    <i class="icon-eye-open"></i> @DNTD.SoLuotXem lượt xem
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        @*<div class="div_moinhat">
+            <div class="row" style="margin:0">
+                <div class="col-md-2" style="padding: 0; margin-bottom: 0">
+                    <img class="img_avatar" src="~/Content/Tien/icon3d/ctyicon.jpg" />
+                </div>
+                <div class="col-md-10" style="padding: 0;padding-left:10px; margin-bottom: 0">
+                    <h4 class="h4_tieude">
+                        Nhân viên kinh doanh (Giờ hành chính)
+                    </h4>
+                    <h5 class="h5_name">
+                        Công ty TNHH MTV Sao Mai
+                    </h5>
+                </div>
+            </div>
+            <div class="row" style="margin:0; margin-top:5px">
+                <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                    <p style="margin-bottom:5px">
+                        Thiết lập các mục tiêu công việc, phân công, giao việc, hướng dẫn, giám sát việc thực hiện của các Phòng ban, bộ phận và cán bộ nhân viên.
+                    </p>
+                    <p style="margin-bottom:0px">
+                        <a>
+                            <i class="icon-usd"></i> 30.000.000
+                        </a>
+                        <a style="margin-left:30px">
+                            <i class="icon-map-marker"></i> Quận Nam Từ Liêm
+                        </a>
+                        <a style="margin-left:30px">
+                            <i class="icon-time"></i> Toàn thời gian
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>*@
+
+    </div>
+</div>

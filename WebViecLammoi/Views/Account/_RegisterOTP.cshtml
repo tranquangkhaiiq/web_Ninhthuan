@@ -1,0 +1,35 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.i18n
+@{
+    ViewBag.Title = "_RegisterOTP";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link href="~/Content/css/Login_Style.css" rel="stylesheet" />
+<div class="container" style="width: 100%;background-color: white; margin-top: 20px; border-radius: 4px 4px; box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.32);">
+
+    <div class="omb_login">
+        <h3 class="omb_authTitle " style="font-family:monospace"><a>Điền mã OTP gồm 6 con số nhận được từ gmail của bạn. </a></h3>
+        @using (Html.BeginForm("_RegisterOTP", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row omb_row-sm-offset-3" style="padding-bottom:20px">
+                <div class="col-xs-12 col-sm-6">
+                    <form class="omb_loginForm" action="" autocomplete="off" method="post">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <input type="email" class="form-control" name="Email" value="@ViewBag.Emailname" placeholder="Gmail" readonly>
+                        </div>
+                        <span style="font-weight:bold;color:red;">@ViewData["CheckOTP"]</span>
+                        <div class="input-group">
+                            <label>Mã OTP được gửi đến Email:</label>
+                            <input type="text" class="form-control" name="maOTP" placeholder="Điền Mã OTP trong 5 phút" required>
+                        </div>
+                        <button class="btn btn-lg btn-success btn-block" type="submit"><i class="fa fa-user-plus"></i> Đăng Ký</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

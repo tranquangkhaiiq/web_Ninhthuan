@@ -1,0 +1,335 @@
+﻿@*<!DOCTYPE html>*@
+<html>
+@{
+
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trung tâm Dịch vụ Việc làm Việt Nam" />
+    <meta name="geo.region" content="VN-DVVL" />
+    <meta name="geo.placename" content="Việt Nam" />
+    @*<meta name="geo.position" content="10.947626662420811, 106.65360739763939" />*@
+    @*<meta name="ICBM" content="10.947626662420811, 106.65360739763939" />*@
+    <meta name="robots" content="index, archive, follow, noodp">
+    <meta name="googlebot" content="index,archive,follow,noodp">
+    <meta name="msnbot" content="all,index,follow">
+    <meta name="keywords" content="việc làm, lao động, tuyển dụng, doanh nghiệp" />
+    <meta name="keywords" content="viec-lam,lao-dong,tuyen-dung,doanh-nghiep" />
+    <meta property="og:title" content="Trung tâm Dịch vụ Việc làm Việt Nam">
+    <title>Trung Tâm DVVL Ninh Thuận</title>
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Styles.Render("~/Content/AdminBSB-css")
+    <link href="~/Content/font-awesome/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- JQuery DataTable Css -->
+    <link href="~/Content/AdminBSB-cssjs/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- Light Gallery Plugin Css -->
+    <link href="~/Content/AdminBSB-cssjs/plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="~/Content/AdminBSB-cssjs/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="~/Content/Tien/css_t.css" rel="stylesheet" />
+    <link href="~/Content/owlcarousel/assets/owl.carousel.css" rel="stylesheet" />
+    <link href="~/Content/owlcarousel/assets/owl.theme.default.css" rel="stylesheet" />
+    <link href="~/Content/Tien/CardCss.css" rel="stylesheet" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/AdminBSB-js")
+    <style>
+        .div_noidungtintuc {
+            text-align: justify;
+            font-size: 16px;
+        }
+
+            .div_noidungtintuc p {
+                text-align: justify;
+            }
+
+            .div_noidungtintuc img {
+                max-width: 100%;
+                margin: auto;
+                display: block;
+            }
+    </style>
+    <style>
+        .bgnavbar {
+            background: rgb(0,111,199);
+            background: -moz-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+            background: -webkit-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+            background: linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#006fc7",endColorstr="#006fc7",GradientType=1);
+            margin: 0 !important;
+            color: white;
+            padding: 0 !important;
+            border-bottom: 1px solid #0404aa;
+        }
+
+        .navbar-default .navbar-nav > li {
+            text-align: center
+        }
+
+        .navbar-default .navbar-nav li a {
+            color: white !important;
+        }
+
+        .navbar-default .navbar-brand {
+            color: white !important;
+        }
+
+        .ul_menu > li {
+            background: url(/Content/Tien/bg-li-mainmenu.png) no-repeat left center;
+        }
+
+        .ul_menu li a {
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            padding: 12px;
+            text-transform: uppercase;
+        }
+
+        .ul_menu > li {
+            width: auto;
+            transition: 0.3s;
+        }
+
+        .navbar {
+            min-height: 0;
+        }
+
+        .navbar-brand {
+            height: auto;
+        }
+
+        .ul_menu li a:hover,
+        .ul_menu li a:focus {
+            font-weight: bold;
+        }
+
+        .ul_menu li:hover,
+        .ul_menu li:focus {
+            background-color: white;
+        }
+
+        .navbar-default .navbar-brand:hover,
+        .navbar-default .navbar-brand:focus {
+            color: white;
+        }
+
+        .ul_menu2 li {
+            border-top: 1px #f8f8f82b solid;
+            margin: 5px;
+        }
+
+        .title_user {
+            font-style: inherit;
+            font-weight:bold;
+        }
+        .container > .navbar-header {
+            margin-right: 0 !important;
+            margin-left: 0 !important;
+        }
+        /*@@media screen and (max-width:400px) {
+            .row-mb {
+                margin-right: -15px !important;
+                margin-left: -11px !important;
+            }
+        }*/
+        .row_mb {
+            margin-right: -3px !important;
+            margin-left: -3px !important;
+        }
+    </style>
+</head>
+<body style="background: url(/Content/Tien/body-bg6.png); ">
+    <div class="row_mb" style="width:100%">
+        <div class="row bgnavbar">
+            <div class="col-md-12" style="padding:0px">
+                @Html.Action("QLLoGo", "Home")
+            </div>
+
+        </div>
+
+
+        <div class="navbar navbar-default bgnavbar" style="border-radius: 0px; border-left: 0px; border-right: 0px; box-shadow: 0px 0px 6px #0000004d;  ">
+            <div class="container" style="padding:0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/Trang-Chu" style="padding: 8px 23px;font-size: 25px"><i class="icon-home"></i></a>
+                </div>
+                <div class="navbar-collapse collapse" style="color:white">
+                    @Html.Partial("_TopMenu")
+
+
+                </div>
+            </div>
+        </div>
+        <div class="container body-content" style="box-shadow: 0px 0px 6px #0000004d; background-color:white;padding-top:5px ">
+            <style>
+                .bgcardhead {
+                    background-color: rgb(0,111,199);
+                    background-image: url(/Content/Tien/bieutuong_w.svg),url(/Content/Tien/CardHeadImg.png);
+                    background-repeat: no-repeat;
+                    background-position: 0px 0px,right top;
+                    background-size: 30px 30px, auto;
+                }
+
+                .label_cardhead {
+                    color: white;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    color: #fff !important;
+                    margin-bottom: 0px;
+                    font-size: 14px;
+                }
+
+                .card_t {
+                    border: 1px solid #ddd;
+                    box-shadow: none;
+                    margin: 5px;
+                }
+
+                .header_t {
+                    padding: 10px 10px 10px 40px !important;
+                    margin: -1px;
+                    border-bottom: 1px solid #bd1701 !important;
+                }
+                #movetop {
+                    display: none;
+                    position: fixed;
+                    bottom: 5px;
+                    right: 20px;
+                    z-index: 99;
+                    font-size: 18px;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    color: #26243c;
+                    width: 37px;
+                    height: 37px;
+                    background: #FE79A2;
+                    padding: 0;
+                    line-height: 36px;
+                    border-radius: 35px;
+                    scroll-behavior: smooth;
+                    transition: 0.3s ease-out;
+                }
+            </style>
+            <div class="row">
+                <div class="col-md-12" style="padding-bottom: 20px; min-height: 660px">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <style>
+            .bgfooter {
+                background: rgb(0,111,199);
+                background: -moz-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+                background: -webkit-linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+                background: linear-gradient(180deg, rgba(0,111,199,1) 0%, rgba(0,114,181,1) 50%, rgba(0,111,199,1) 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#006fc7",endColorstr="#006fc7",GradientType=1);
+                margin: 0 !important;
+                color: white;
+                padding: 0 !important;
+                border-bottom: 1px solid #0404aa;
+            }
+        </style>
+        @Html.Partial("_Footer")
+        <script>
+            function kiemtra_mk() {
+                var paswordck = '';
+                paswordck = document.getElementById("PasswordCk").value;
+                var kq = checkPasswordStrength(paswordck)
+                
+                if (kq > 3) {
+                    if (document.getElementById("laymaotp").disabled === true) {
+                        document.getElementById("laymaotp").disabled = false;
+                    }
+                } else {
+                    if (document.getElementById("laymaotp").disabled === false) {
+                        document.getElementById("laymaotp").disabled = true;
+                    }
+                }
+                
+            }
+            function checkPasswordStrength(password) {
+                // Initialize variables
+                var strength = 0;
+                var tips = "";
+
+                // Check password length
+                if (password.length < 6) {
+                    tips += "Chưa đủ 6 ký tự. ";
+                } else {
+                    strength += 1;
+                }
+
+                // Check for mixed case
+                if (password.match(/[a-z]/) && password.match(/[A-Z]/)) {
+                    strength += 1;
+                } else {
+                    tips += "Dùng cả chử hoa và thường. ";
+                }
+
+                // Check for numbers
+                if (password.match(/\d/)) {
+                    strength += 1;
+                } else {
+                    tips += "Ít nhất 1 con số. ";
+                }
+
+                // Check for special characters
+                if (password.match(/[^a-zA-Z\d]/)) {
+                    strength += 1;
+                } else {
+                    tips += "Chưa có ký tự đặc biệt. ";
+                }
+
+                // Return results
+                var strengthElement = document.getElementById("passwordStrength");
+                if (strength < 2) {
+                    strengthElement.textContent = "Easy to guess: " + tips;
+                    strengthElement.style.color = "red";
+                } else if (strength === 2) {
+                    strengthElement.textContent = "Medium difficulty: " + tips;
+                    strengthElement.style.color = "orange";
+                } else if (strength === 3) {
+                    strengthElement.textContent = "Difficult: " + tips;
+                    strengthElement.style.color = "black";
+                } else {
+                    strengthElement.textContent = "Extremely difficult: " + tips;
+                    strengthElement.style.color = "green";
+                }
+                return strength;
+            }
+        </script>
+    </div>
+    
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="~/Content/AdminBSB-cssjs/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/Content/AdminBSB-cssjs/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/Content/AdminBSB-cssjs/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <!-- Light Gallery Plugin Js -->
+    <script src="~/Content/AdminBSB-cssjs/plugins/light-gallery/js/lightgallery-all.js"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="~/Content/AdminBSB-cssjs/plugins/node-waves/waves.js"></script>
+    <script src="~/Content/owlcarousel/owl.carousel.js"></script>
+    <script src="~/Content/Tien/number_slideshow.js"></script>
+    <script src="~/Content/AdminBSB-cssjs/js/pages/cards/basic.js"></script>
+    <script src="~/Content/js/summernote-vi-VN.js"></script>
+    <script src="~/Content/js/summernote.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

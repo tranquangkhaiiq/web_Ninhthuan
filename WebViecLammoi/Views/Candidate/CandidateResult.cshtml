@@ -1,0 +1,107 @@
+﻿@using WebViecLammoi.Models
+@model IEnumerable<KhachHang_TimViecLam>
+@using WebViecLammoi.Utils
+@using WebViecLammoi.DAO
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        VLDB dbcc = new VLDB();
+        <div>
+            @foreach (KhachHang_TimViecLam h in Model)
+            {
+                var HoTen = Khachhang_trinhdo_nghiepvu_DAO.GetName_TV(dbcc,"HoTen", @h.KH_ID);
+                var strHoTen = XString.EditString(HoTen);
+                var Khachhang_tr = Khachhang_trinhdo_nghiepvu_DAO.Getlist_khachhangtrinhdo_Single(dbcc, @h.KH_ID);
+                var strHinh = Khachhang_trinhdo_nghiepvu_DAO.GetName_TV(dbcc,"Hinh", @h.KH_ID);
+                var strGioiTinh = int.Parse(Khachhang_trinhdo_nghiepvu_DAO.GetName_TV(dbcc,"GioiTinh", @h.KH_ID));
+                var strTenDiaChi = Khachhang_trinhdo_nghiepvu_DAO.GetName_TV(dbcc,"TenDiaChi", @h.KH_ID);
+                var strTenNgheKD = Khachhang_trinhdo_nghiepvu_DAO.GetName_TV(dbcc,"TenNgheKD", @h.KH_ID);
+                var strTenChuyenMon = Khachhang_trinhdo_nghiepvu_DAO.GetName_TV(dbcc,"TenChuyenMon", @h.KH_ID);
+                var strNgaySinh = DateTime.Parse(Khachhang_trinhdo_nghiepvu_DAO.GetName_TV(dbcc,"NgaySinh", @h.KH_ID));
+                var url = "/Nguoi-Tim-Viec/" + strHoTen.Replace("/", "-") + "-" + h.TimViec_ID;
+                var tenhs = h.TenHoSo;
+                <div class="item-jobpost">
+                    <div class="row">
+                        <div class="col-md-10 col-sm-10 col-xs-8">
+                            <div class="col-md-6 col-sm-6">
+                                <h5>
+                                    <a class="Phu_header" href="@url" target="_blank">@tenhs</a>
+                                </h5>
+                                <ul class="list-inline">
+                                    <li>
+                                        <a class="Phu_header" href="@url" target="_blank">@HoTen</a>
+                                    </li>
+                                    <li>
+                                        @foreach (KhachHang_TrinhDo kh in Khachhang_tr)
+                                        {
+                                            <label class="label bg-green lighten-1">@strTenChuyenMon</label>
+                                        }
+                                    </li>
+                                </ul>
+                                <span><i class="fa fa-child m-r-10"></i>&nbsp;@(DateTime.UtcNow.Year - strNgaySinh.Year) tuổi</span><br />
+                                @if (strGioiTinh == 1)
+                                {
+                                    <span><i class="fa fa-mars m-r-10"></i>&nbsp;Nam</span><br />
+                                }
+                                else
+                                {
+                                    <span><i class="fa fa-venus m-r-10"></i>&nbsp;Nữ</span><br />
+                                }
+                                <span><i class="fa fa-eye"></i>&nbsp; @h.LuotXem lượt xem</span>
+                            </div>
+                            <div class="col-md-4 jobpost-location">
+                                <span><i class="fa fa-map-marker m-r-10"></i>&nbsp;@strTenDiaChi</span><br />
+                                @if (h.SoNamKinhNghiem == 0)
+                                {
+                                    <span><i class="fa fa-briefcase m-r-10"></i>&nbsp;Chưa có kinh nghiệm</span><br />
+                                }
+                                else if (h.SoNamKinhNghiem > 0)
+                                {
+                                    <span><i class="fa fa-briefcase m-r-10"></i>&nbsp;@h.SoNamKinhNghiem năm kinh nghiệm</span><br />
+                                }
+                                else
+                                { <span style="color:darkkhaki"><i class="fa fa-briefcase m-r-10"></i>&nbsp;Chưa update năm kinh nghiệm</span><br />}
+
+                                <span><i class="fa fa-calendar m-r-10"></i>&nbsp;@Html.FormatValue(h.NgayCapNhat, "{0:dd/MM/yyyy}")</span><br />
+                                <span><i class="fa fa-folder-open m-r-10"></i>&nbsp;Nghề mong muốn: @strTenNgheKD</span><br />
+                                @if (h.MucLuongMongMuonTu == 0 && h.MucLuongMongMuonDen == 0)
+                                {
+                                    <span><i class="fa fa-money m-r-10"></i>&nbsp;Lương mong muốn: </span><span class="label bg-green lighten-1">Thỏa thuận</span><br />
+                                }
+                                else if (h.MucLuongMongMuonTu > 100)
+                                {
+                                    <label class="label bg-green lighten-1">Lương từ @Html.FormatValue(h.MucLuongMongMuonTu, "{0:#,###.##}") đến @Html.FormatValue(h.MucLuongMongMuonDen, "{0:#,###.##}") </label>
+                                }
+                                else
+                                {
+                                    <span><i class="fa fa-money m-r-10"></i>&nbsp;Lương mong muốn: </span><span class="label bg-green lighten-1">@h.MucLuongMongMuonTu đến @h.MucLuongMongMuonDen (tr)</span><br />
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-4">
+                            <div class="col-md-2 col-sm-2 col-xs-4" style="margin-top:15%">
+                                @if (strHinh != "")
+                                {
+                                    var anh = XString.Cutstring(strHinh);
+                                    <img src="@XString.GetImgBase64("Avatar_UV",anh)" class="img_avatar" hidden />
+                                    <img src="~/Content/Upload/Avatar_UV/@anh" style="width: 80px" alt="" />
+                                }
+                                else if (strHinh == "" && strGioiTinh == 1)
+                                {
+                                    <img src="~/Content/Upload/Avatar_UV/AvataNam.jpg" style="width: 80px" alt="" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/Upload/Avatar_UV/AvataNu.jpg" style="width: 80px" alt="" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}
+
+

@@ -1,0 +1,111 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@model News
+@using WebViecLammoi.i18n
+@using WebViecLammoi.DAO
+
+@helper Truncate(string input, int length)
+{
+    if (input != null)
+    {
+        if (input.Length <= length)
+        {
+            @input
+        }
+        else
+        {
+            @input.Substring(0, length)<text>...</text>
+        }
+    }
+}
+<div class="row" style="border-bottom: 3px solid #006fc7; margin-left:10px;">
+    <div class="col-lg-12" style="padding:0">
+        <span class="title-part">
+            <h5 class="text-uppercase">TƯ VẤN</h5>
+        </span>
+    </div>
+</div>
+
+<div>
+    <div class="col-md-7 col-sm-7 col-xs-12" style="height:100%">
+        <div class="tuvan-news" style="height:100%">
+            @foreach (New_small QC in ViewBag.TBTT3313)
+            {
+                var str = " ";
+                if (XString.EditString(QC.Title).Length > 200)
+                {
+                    str = XString.EditString(QC.Title.Substring(0, 200));
+                }
+                else
+                {
+                    str = XString.EditString(QC.Title);
+                }
+                var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+                <a target="_blank" href="@url">
+                    <img src="/Content/Upload/News_Img/@QC.ImagePath" class="tuvan-news-img" />
+                </a>
+            }
+            @*<img class="tuvan-news-img" src="~/Content/img/tuvan.png"  />*@
+            <div class="tuvan-content">
+                @foreach (New_small QC in ViewBag.TBTT3313)
+                {
+                    var str = " ";
+                    if (XString.EditString(QC.Title).Length > 100)
+                    {
+                        str = XString.EditString(QC.Title.Substring(0, 100));
+                    }
+                    else
+                    {
+                        str = XString.EditString(QC.Title);
+                    }
+                    var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+                    <a class="tuvan-title" target="_blank" href="@url">@QC.Title</a>
+                    @*<p class="tuvan-des">@Truncate(QC.Summary, 200)</p>*@
+                    <div class="tuvan-item-time">
+                        <i class="fa fa-calendar">&nbsp; @Html.FormatValue(@QC.Createdate, "{0:dd/MM/yyyy}")</i>
+                        <i class="fa fa-eye">&nbsp; @QC.View</i>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 col-sm-5 col-xs-12">
+        @foreach (New_small QC in ViewBag.TBTT3313EN)
+        {
+            var str = " ";
+            if (XString.EditString(QC.Title).Length > 200)
+            {
+                str = XString.EditString(QC.Title.Substring(0, 200));
+            }
+            else
+            {
+                str = XString.EditString(QC.Title);
+            }
+            var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+            <div class="tuvan-item">
+                <div class="row">
+
+                    <div class="col-md-4 col-xs-4">
+                        <a target="_blank" href="@url">
+                            <img src="/Content/Upload/News_Img/@QC.ImagePath" style="height:100px;width:100%" />
+                        </a>
+                    </div>
+                    <div class="col-md-8 col-xs-8">
+                        <a class="tuvan-item-title" target="_blank" href="@url">
+                            @QC.Title
+                        </a>
+                        <p class="tuvan-item-des">
+                            @Truncate(QC.Summary, 200)
+                        </p>
+                        <div class="tuvan-item-time">
+                            <i class="fa fa-calendar">&nbsp; @Html.FormatValue(@QC.Createdate, "{0:dd/MM/yyyy}")</i>
+                            <i class="fa fa-eye">&nbsp; @QC.View</i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+    <div class="clear-both"></div>
+</div>

@@ -1,0 +1,9 @@
+
+* html #wowslider-container$GallerySuffix$ .ws_shadow{/*ie6*/
+	background:none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader( src='$ImgPath$/bg.png', sizingMethod='scale');
+}
+*+html #wowslider-container$GallerySuffix$ .ws_shadow{/*ie7*/
+	background:none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader( src='$ImgPath$/bg.png', sizingMethod='scale');
+}

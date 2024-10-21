@@ -1,0 +1,30 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@model IEnumerable<News>
+<div class="news-popular " style="background:none;">
+    <div>
+        <div class="nav-side-menu">
+            <div class="brand">Tin Mới Nhất</div>
+            @foreach (News n in Model)
+            {
+                var str = XString.ConvertToUnSign(n.Title);
+                var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + n.NewId;
+                <div class="form-group ">
+                    <div class="col-sm-4 news-popular-img">
+                        <img src="@XString.GetImgBase64("News_Img",n.ImagePath)" hidden/>
+                        
+                        <a href="@url"><img src="~/Content/Upload/News_Img/@n.ImagePath"/></a>
+                    </div>
+                    <div class="col-sm-8 news-popular-des">
+                        <p> <a href="@url"> @n.Title </a> </p>
+                        <p class="news-info">
+                            <i class="fa fa-calendar"> </i> @Html.FormatValue(n.Createdate, "{0:dd/MM/yyyy}") &nbsp;/&nbsp;
+                            <i class="fa fa-eye"> </i> @n.View
+                        </p>
+                    </div>
+                </div>
+                <div class="divide16"> </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,356 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.i18n
+@using WebViecLammoi.Utils
+@using WebViecLammoi.DAO
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<style>
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+        color: #fff;
+        background-color: #337ab7 !important;
+    }
+
+    .div_moinhat {
+        border: 1px solid rgb(200, 200, 200);
+        border-radius: 3px;
+        padding: 10px;
+        margin-bottom: 10px
+    }
+
+    .div_row_tintuc {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    .div_tintuc_t {
+        height: 175px;
+        overflow-x: hidden !important;
+    }
+
+    .img_avatar {
+        width: 100%;
+        border: 1px solid rgb(200, 200, 200);
+        border-radius: 3px;
+        padding: 5px
+    }
+    .img_sp {
+        max-height: 150px;
+    }
+    .div_tintuc_t::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+    }
+
+    .div_tintuc_t::-webkit-scrollbar {
+        width: 5px;
+        background-color: #F5F5F5;
+    }
+
+    .div_tintuc_t::-webkit-scrollbar-thumb {
+        background-color: #0ae;
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.5, transparent), to(transparent));
+    }
+
+    .h4_tieude {
+        color: var(--d-1,#2a2c31);
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: italic;
+        font-weight: bold;
+        line-height: normal;
+    }
+
+    .h5_name {
+        color: var(--cl-1,#183883);
+        font-family: Roboto;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+</style>
+<div style="background-color:white;margin-top:20px">
+
+    <ul class="nav nav-pills ">
+        <li class="active"><a id="kh0" data-toggle="pill" href="#ungtuyen">Ứng viên tự Ứng Tuyển</a></li>
+        <li><a id="kh1" data-toggle="pill" href="#phuhop">@Common.Suitable_Can</a></li>
+        <li><a id="kh2" data-toggle="pill" href="#menu2">@Common.SavedCan</a></li>
+    </ul>
+    <div id="ungtuyen" class="kh0 active" style="display: block">
+        <div class="table-responsive" style="margin-top:20px;">
+            <div class="body" style="padding-bottom:0">
+
+                <div class="row div_row_tintuc">
+                    <div class="col-md-12 div_tintuc_t" style="height:700px">
+
+                        <p><span>***</span>Nơi đây người tìm việc nhìn thấy quí cty qua "hồ sơ tuyển dụng". Và họ tự ứng tuyển bản thân.</p>
+                        <p><span>***</span>Quí cty có thể tự liên lạc với họ, hoặc <span style="background-color: #ff6a00">"Hủy ứng viên"</span> khỏi danh sách nếu bạn muốn "Từ Chối".</p>
+                        @foreach (DoanhNghiep_UngTuyen ut in ViewBag.HSungtuyen)
+                        {
+                            var tth = ""; var ngng = ""; int stt = 0;
+                            var strid = ut.KH_ID+""+ut.TuyenDung_ID;
+                            var nv = new Khachhang_trinhdo_nghiepvu_DAO();
+                            var tv_ntv = new NTV_HoSoXinViec_Dao();
+                            var NTV = new NTV_KhachHang_Dao().GetNTV_ByKHID(ut.KH_ID);
+                            var trinhdo = nv.Getlist_khachhangtrinhdo(ut.KH_ID);
+                            var tinhoc = nv.GetList_KH_tinhoc(ut.KH_ID);
+                            var ngoaingu = nv.GetList_KH_NgoaiNgu(ut.KH_ID);
+                            var timviec = tv_ntv.GetListTimViecbyKHID_conhan(ut.KH_ID);
+                            var hinh = XString.Cutstring(NTV.Hinh);
+                            var tuyendung = new DN_HoSoTuyenDung_Dao().GetList_byTuyendungID(ut.TuyenDung_ID);
+                            
+                            var path = XString.maplocal + "Avatar_UV\\" + hinh;
+                            var path1 = XString.maplocal + "Document\\" + ut.File_CVUngTuyen;
+                            foreach (KhachHang_TimViec_NgoaiNgu_2022 nn in ngoaingu)
+                            {
+                                ngng = ngng + nn.DM_NghiepVus.TenNghiepVu + " ;";
+                            }
+                            foreach (KhachHang_TimViec_TinHoc th in tinhoc)
+                            {
+                                tth = tth + @th.DM_NghiepVus.TenNghiepVu + " ;";
+                            }
+                            if (NTV != null)
+                            {
+                                <div class="div_moinhat">
+                                    <div class="row" style="margin:0">
+                                        <div class="col-md-2" style="padding: 0;text-align:left">
+                                            <input id="utKH_ID" value="@ut.KH_ID" hidden/>
+                                            <input id="utTuyenDung_ID" value="@ut.TuyenDung_ID" hidden/>
+                                            <button class="btn" style="background-color: #ff6a00" id="HTWW_@strid.ToString()" onclick="HuyUngVien(@strid.ToString())"><span>Hủy ứng viên</span></button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @if (ut.File_CVUngTuyen != null && ut.File_CVUngTuyen != "")
+                                            {
+                                                if (File.Exists(path1))
+                                                {
+                                                    <a href="@XString.GetImgBase64("Document",ut.File_CVUngTuyen)" style="font-size:large" hidden/>
+                                                    <a href="~/Content/Upload/Document/@ut.File_CVUngTuyen" style="font-size:large"><i class="glyphicon glyphicon-download-alt"></i></a>
+                                                    <span>CV ứng viên</span>
+                                                }
+
+                                            }
+
+                                        </div>
+                                        <div class="col-md-4" style="padding: 0; margin-bottom: 0;text-align:right">
+                                            <h5 class="h5_name">
+                                                Các hồ sơ khác của ứng viên
+                                            </h5>
+                                        </div>
+
+                                    </div>
+                                    <div class="row" style="margin:0">
+                                        <div class="col-md-2" style="padding: 0; margin-bottom: 0">
+                                            @if (File.Exists(path))
+                                            {
+                                                <img src="@XString.GetImgBase64("Avatar_UV",hinh)" class="img_avatar" hidden/>
+                                                <img src="~/Content/Upload/Avatar_UV/@hinh" class="img_avatar" />
+                                            }
+                                            else
+                                            { <img src="~/Content/Tien/icon3d/NguoiTimViecIcon.png" class="img_avatar" />}
+                                        </div>
+                                        <div class="col-md-6" style="padding: 0;padding-left:10px; margin-bottom: 0">
+
+                                            <h4 class="h4_tieude">
+                                                <span>Tôi tên:&#160;</span> @NTV.HoTen
+                                            </h4>
+                                            @if(trinhdo != null)
+                                            {
+                                                <h5 class="h5_name">
+                                                    <i class="icon-briefcase"></i>
+                                                    <b>@trinhdo.DM_TrinhDoChuyenMons.TenChuyenMon</b><span>(@trinhdo.DM_NgheLaoDongs.TenNgheLaoDong)</span>
+                                                </h5>
+                                            }
+                                            @if (tth != "")
+                                            {
+                                                <h5 class="h5_name">
+                                                    <b>Thành thạo:&#160;</b><span>@tth</span>
+                                                </h5>
+                                            }
+                                            @if (ngng != "")
+                                            {
+                                                <h5 class="h5_name">
+                                                    <b>Ngoại Ngữ:&#160;</b><span>@ngng</span>
+                                                </h5>
+                                            }
+                                            <h5 class="h5_name"><b>Ứng tuyển hồ sơ: </b> @tuyendung.TieuDeTuyenDung</h5>
+                                        </div>
+                                        <div class="col-md-4" style="padding: 0; margin-bottom: 0; max-height: 140px; overflow-x: hidden !important;text-align:right">
+                                            @foreach (KhachHang_TimViecLam tvl in timviec)
+                                            {
+                                            stt = stt + 1;
+                                                <h4 class="h4_tieude">
+                                                    <span>@stt</span><span>/</span>
+                                                    <a href="#"><span style="margin-right:5px">@tvl.TenHoSo</span></a>
+
+                                                </h4>
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin:0; margin-top:5px">
+                                        <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                                            <p style="margin-bottom:5px">
+                                                <span>@ut.smsNTVtoDN</span>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="phuhop" class="kh1" style="display:none">
+        <div class="table-responsive" style="margin-top:20px;">
+            <p><span>***</span>Ứng viên do hệ thống tự động chọn giúp quí cty.</p>
+            <p><span>***</span>Hệ thống tự động chọn dựa trên những hồ sơ mà quí cty đã được duyệt.</p>
+            <table class="table table-hover table-striped" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2)">
+                <thead>
+                    <tr style="background-color: #efce05; color: white">
+                        <th>@Common.Title</th>
+                        <th>Mã HS</th>
+                        <th>@Common.Name</th>
+                        <th>@Common.CreatedDate</th>
+                        <th>@Common.Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (KhachHang_TimViecLam Item in ViewBag.HSPhuHop)
+                    {
+                        var NTV = new NTV_KhachHang_Dao().GetNTV_ByKHID(Item.KH_ID);
+                        var str = XString.ConvertToUnSign(NTV.HoTen);
+                        var url = "/Nguoi-Tim-Viec/" + str.Replace("/", "-") + "-" + Item.TimViec_ID;
+                        if (NTV != null)
+                        {
+                            <tr>
+                                <td>@Item.TenHoSo.Trim()</td>
+                                <td>@Item.TimViec_ID</td>
+                                <td>@NTV.HoTen</td>
+                                <td>@Html.FormatValue(Item.NgayTao, "{0:dd/MM/yyyy}")</td>
+                                <td>
+                                    <a class="btn btn-success" href="@url" target="_blank"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="menu2" class="kh2" style="display:none">
+        <div class="table-responsive" style="margin-top:20px;">
+            <p><span>***</span>Ứng viên do quí cty tự lưu để xem sau.</p>
+            <table class="table table-hover table-striped" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2)">
+                <thead>
+                    <tr style="background-color: #efce05; color: white">
+                        <th>@Common.Title</th>
+                        <th>@Common.Codeofcandidate</th>
+                        <th>@Common.CreatedDate</th>
+                        <th>@Common.View_Del</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (PHU_HSTV_Luu Item in ViewBag.HSDaLuu)
+                    {
+                        //không lấy được tên NTV
+                        var tenhs = Item.TenHoSo;
+                        var str = XString.ConvertToUnSign(tenhs);
+                        var url = "/Nguoi-Tim-Viec/" + str.Replace("/", "-") + "-" + Item.HSTV_Id;
+                        <tr>
+                            <td>@Item.TenHoSo</td>
+                            <td>@Item.NTV_Id</td>
+                            <td>@Html.FormatValue(Item.NgayTao, "{0:dd/MM/yyyy}")</td>
+                            <td>
+                                <a class="btn btn-success" target="_blank" href="@url"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <a class="btn btn-danger" href="/Account/DeleteCandidateSave/@Item.Id"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<script>
+    $('#kh0').click(function () {
+        $('.kh0').css("display", "block");
+        $('.kh1').css("display", "none");
+        $('.kh2').css("display", "none");
+    });
+    $('#kh1').click(function () {
+        $('.kh0').css("display", "none");
+        $('.kh1').css("display", "block");
+        $('.kh2').css("display", "none");
+    });
+    $('#kh2').click(function () {
+        $('.kh0').css("display", "none");
+        $('.kh1').css("display", "none");
+        $('.kh2').css("display", "block");
+    });
+    function HuyUngVien(id) {
+        if (document.getElementById("HTWW_" + id).innerHTML === "<span>Hủy ứng viên</span>") {
+            if (!confirm("Bạn KHÔNG MUỐN nhìn thấy ứng viên này ??")) {
+                return false;
+            } else {
+                var khid = $('#utKH_ID').val() ;
+                var tdid = $('#utTuyenDung_ID').val();
+                $("#HTWW_" + id).css("background-color", "gray");
+                document.getElementById("HTWW_" + id).innerHTML = "<span>Đã hủy ứng viên</span>";
+                $.ajax({
+                    url: "/Account/DN_tuchoiungvien",
+                    data: { KH_ID: khid, tuyendung_ID: tdid, tuchoi:1 },
+                    type: "POST",
+                    datatype: 'Json',
+                    success: function (res) {
+                        if (res == 'OK') {
+                            $("#HTWW_" + id).css("background-color", "gray");
+                            document.getElementById("HTWW_" + id).innerHTML = "<span>Đã hủy ứng viên</span>";
+                        } else {
+                            $("#HTWW_" + id).css("background-color", "gray");
+                            document.getElementById("HTWW_" + id).innerHTML = "<span>Có Lỗi Hủy !!!</span>";
+                        }
+                        
+
+                    }, error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        } else {
+            if (!confirm("Bạn không muốn Hủy ứng viên này ??")) {
+                return false;
+            } else {
+                var khid = $('#utKH_ID').val();
+                var tdid = $('#utTuyenDung_ID').val();
+                $.ajax({
+                    url: "/Account/DN_tuchoiungvien",
+                    data: { KH_ID: khid, tuyendung_ID: tdid, tuchoi: 2 },
+                    type: "POST",
+                    datatype: 'Json',
+                    success: function (res) {
+                        if (res == 'OK') {
+                            $("#HTWW_" + id).css("background-color", "#ff6a00");
+                            document.getElementById("HTWW_" + id).innerHTML = "<span>Hủy ứng viên</span>";
+                        } else {
+                            $("#HTWW_" + id).css("background-color", "#ff6a00");
+                            document.getElementById("HTWW_" + id).innerHTML = "<span>Có lỗi khôi phục !!!</span>";
+                        }
+                        
+                    }, error: function (err) {
+                        console.log(err);
+                    }
+                });
+
+            }
+        }
+    };
+</script>

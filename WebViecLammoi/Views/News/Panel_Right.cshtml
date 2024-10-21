@@ -1,0 +1,104 @@
+﻿<style>
+    .a_tintuc {
+        color: #383838;
+        text-decoration: none;
+        font-size: 90%;
+    }
+
+        .a_tintuc img {
+            border: 1px solid #ccc;
+            width: 100%;
+            padding: 3px;
+        }
+
+        .a_tintuc h4 {
+            font-weight: bold;
+            color: #006fc7;
+            margin-top: 3px;
+        }
+
+        .a_tintuc p {
+            margin-bottom: 5px
+        }
+
+        .a_tintuc div.row {
+            margin: 0;
+        }
+
+        .a_tintuc div.col-md-5 {
+            margin: 0;
+            padding: 10px;
+        }
+
+        .a_tintuc div.col-md-7 {
+            margin: 0;
+            padding: 10px;
+            text-align: justify;
+        }
+</style>
+@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+<div class="col-md-12" style=" padding-left: 10px; padding-right: 5px; ">
+    <div class="row" style="margin:0">
+        <div class="col-md-12" style="padding:0">
+
+            <div class="card card_t  ">
+                <div class="header bgcardhead header_t" style=" border-bottom: 2px solid white !important;">
+                    <label class="label_cardhead">
+                        Danh mục tin tức
+                    </label>
+
+                </div>
+                @Html.Partial("DM_News")
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <h4>Tin nổi bật</h4>
+    <div class="row" style="margin:0">
+        <div class="col-md-12" style="padding:0">
+            <style>
+                .a_tintuc div {
+                    margin-bottom: 10px !important;
+                }
+            </style>
+            @foreach (New_small kh in ViewBag.TTNoiBat10)
+            {
+                var str = " ";
+                var title = kh.Title.ToLower();
+                var path = Server.MapPath("~/Content/Upload/News_Img/" + kh.ImagePath);
+                if (kh.Title.Length > 100)
+                {
+                    str = XString.ConvertToUnSign(kh.Title.Substring(0, 100));
+                }
+                else { str = XString.ConvertToUnSign(kh.Title); }
+
+                var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + kh.NewId;
+                <a class="a_tintuc" href="@url">
+                    <div class="row" style=" background-color: #f9f9f9 !important; padding-left: 10px;">
+
+                        <div class="col-md-7" style="padding-left:0;padding-right:0">
+                            <h4 style="font-size:14px;text-transform:capitalize">
+                                @title
+                            </h4>
+
+                        </div>
+                        <div class="col-md-5">
+                            @if (File.Exists(path))
+                            {
+
+                                <img src="~/Content/Upload/News_Img/@kh.ImagePath" />
+                            }
+                            else
+                            {<img src="~/Content/Upload/News_Img/NoPic.jpg" />}
+                        </div>
+                    </div>
+                </a>
+            }
+
+
+        </div>
+    </div>
+</div>

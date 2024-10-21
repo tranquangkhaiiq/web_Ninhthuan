@@ -1,0 +1,371 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+<div class="carousel-inner">
+    <div class="item active" style="margin-left:5px">
+        @foreach (KhachHang_TimViecLam timviec in ViewBag.CandidateXemNhieu_Active)
+        {
+            var NTV = new NTV_KhachHang_Dao().GetNTV_ByKHID(timviec.KH_ID);
+            if (NTV != null)
+            {
+                var nv = new Khachhang_trinhdo_nghiepvu_DAO();
+                var dm = new DanhMuc_Dao();
+                var tuoi = DateTime.Now.Year - NTV.NgaySinh.Year;
+                var trinhdo = nv.Getlist_khachhangtrinhdo(timviec.KH_ID);
+                var nghiepvu = nv.Getlist_khachhangNghiepVu(timviec.KH_ID);
+                var ngoaingu = nv.GetList_KH_NgoaiNgu(timviec.KH_ID);
+                var tinhoc = nv.GetList_KH_tinhoc(timviec.KH_ID);
+
+                var chucdanh = dm.GetChucDanhbyID(timviec.ChucDanhMongMuon);
+                var NgheMM = dm.GetNgheNTVbyID(timviec.NgheMongMuon_ID);
+                int mkv = timviec.NoiLamViecMongMuon_ID.Value;
+                var hinh = XString.Cutstring(NTV.Hinh);
+                var path = XString.maplocal+ "Avatar_UV\\" + hinh;
+                string tendc = new DN_DoanhNghiep_Dao().GetDiaChiById(mkv).TenDiaChi;
+                var strHoTen = XString.ConvertToUnSign(NTV.HoTen);
+                var url = "/Nguoi-Tim-Viec/" + strHoTen + "-" + timviec.TimViec_ID;
+                <div class="row" style="margin:0">
+                    <div class="col-md-2" style="padding: 0; margin-bottom: 0">
+                        @if (File.Exists(path))
+                        {
+                            <img src="@XString.GetImgBase64("Avatar_UV",hinh)" class="img_avatar" hidden />
+                            <img src="~/Content/Upload/Avatar_UV/@hinh" class="img_avatar"/>
+                        }
+                        else
+                        { <img src="~/Content/Tien/icon3d/NguoiTimViecIcon.png" class="img_avatar" />}
+                    </div>
+                    <div class="col-md-10 div_tieude" style="margin-top:5px;padding-left:5px;height:100px">
+                        <a href="@url" style="color: #555">
+                            <h4>
+                                @NTV.HoTen
+                            </h4>
+                        </a>
+                        <h6>
+                            @timviec.TenHoSo
+                        </h6>
+                        <p>
+                            <a>
+                                <i class="icon-calendar"></i> @tuoi tuổi
+                            </a>
+                            <a style="margin-left:30px">
+                                <i class="icon-map-marker"></i> @tendc.
+                            </a>
+                        </p>
+                        <p>
+                            <a>
+                                <i class="icon-eye-open"></i> @timviec.LuotXem lượt xem
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" style="margin:0">
+                    <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+
+                        <h4 class="h4_thongtin">Thông tin chung</h4>
+                        <hr class="hr_thongtin" />
+
+                    </div>
+                    <div class="row" style="margin:0">
+                        <div class="col-md-12 div_tintuc_t" style="padding: 8px; margin-bottom: 0; height:265px">
+                            <div class="div_thongtin">
+                                <div class="col-md-6 " style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-keyboard"></i> Kỹ năng CNTT:
+                                        </p>
+                                        <p>
+                                            @foreach (KhachHang_TimViec_TinHoc th in tinhoc)
+                                            {
+
+                                                <span>@th.DM_NghiepVus.TenNghiepVu &nbsp;</span>
+                                            }
+                                        </p>
+                                            <hr />
+                                        </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-book"></i> Trình độ:
+                                        </p>
+                                        @if (trinhdo != null)
+                                        {
+                                            <p>
+                                                <span>@trinhdo.DM_TrinhDoChuyenMons.TenChuyenMon</span><span>:</span><span>(@trinhdo.DM_NgheLaoDongs.TenNgheLaoDong)</span>
+                                            </p>
+                                        }
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6" style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-font"></i> Ngoại ngữ:
+                                        </p>
+                                        <p>
+                                            @foreach (KhachHang_TimViec_NgoaiNgu_2022 nn in ngoaingu)
+                                            {
+
+                                                <span>@nn.DM_NghiepVus.TenNghiepVu &nbsp;</span>
+
+                                            }
+                                        </p>
+                                            <hr />
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-user-md"></i> Kinh Nghiệm:
+                                        </p>
+                                        <p>
+                                            @if (timviec.SoNamKinhNghiem != null && timviec.SoNamKinhNghiem > 0)
+                                            {
+                                                <b>@timviec.SoNamKinhNghiem năm</b>
+                                            }
+                                            else
+                                            {<b>Không có</b>}
+
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                                    <h4 class="h4_thongtin">Nhu cầu tìm việc</h4>
+                                    <hr class="hr_thongtin" />
+
+                                </div>
+                                <div class="col-md-6" style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-credit-card"></i> Chức danh:
+                                        </p>
+                                        <p>
+                                            @if (chucdanh != null)
+                                            {
+                                                <b>@chucdanh.TenChucDanh</b>
+                                            }
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-briefcase"></i> Ngành nghề:
+                                        </p>
+                                        <p>
+                                            @if (NgheMM != null)
+                                            {
+                                                <span>@NgheMM.TenNgheLaoDong</span>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+
+                                    <h4 class="h4_thongtin">Kinh nghiệm bản thân:</h4>
+                                    <hr class="hr_thongtin" />
+                                </div>
+                                @if (@timviec.MoTaKinhNghiemLamViec != null && timviec.MoTaKinhNghiemLamViec.Length > 0)
+                                {
+
+                                    <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                                        <p>
+                                            @Html.Raw(@timviec.MoTaKinhNghiemLamViec)
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            }
+        }
+    </div>
+    
+    @foreach (KhachHang_TimViecLam timviec in ViewBag.CandidateXemNhieu)
+    {
+        var NTV = new NTV_KhachHang_Dao().GetNTV_ByKHID(timviec.KH_ID);
+        if (NTV != null)
+        {
+            var nv = new Khachhang_trinhdo_nghiepvu_DAO();
+            var dm = new DanhMuc_Dao();
+            var tuoi = DateTime.Now.Year - NTV.NgaySinh.Year;
+            var trinhdo = nv.Getlist_khachhangtrinhdo(timviec.KH_ID);
+            var nghiepvu = nv.Getlist_khachhangNghiepVu(timviec.KH_ID);
+            var ngoaingu = nv.GetList_KH_NgoaiNgu(timviec.KH_ID);
+            var tinhoc = nv.GetList_KH_tinhoc(timviec.KH_ID);
+
+            var chucdanh = dm.GetChucDanhbyID(timviec.ChucDanhMongMuon);
+            var NghanhMM = dm.GetNghanhKDbyID(timviec.NganhMongMuon_ID);
+            var NgheMM = dm.GetNgheKDbyID(timviec.NgheMongMuon_ID);
+            int mkv = timviec.NoiLamViecMongMuon_ID.Value;
+            var hinh = XString.Cutstring(NTV.Hinh);
+            var path = XString.maplocal+ "Avatar_UV\\" + hinh;
+            string tendc = new DN_DoanhNghiep_Dao().GetDiaChiById(mkv).TenDiaChi;
+            var strHoTen = XString.ConvertToUnSign(NTV.HoTen);
+            var url = "/Nguoi-Tim-Viec/" + strHoTen + "-" + timviec.TimViec_ID;
+            <div class="item" style="margin-left:5px">
+                <div class="row" style="margin:0">
+                    <div class="col-md-2" style="padding: 0; margin-bottom: 0">
+                        @if (File.Exists(path))
+                        {
+                            <img src="@XString.GetImgBase64("Avatar_UV",hinh)" class="img_avatar" hidden/>
+                            <img data-src="/Content/Upload/Avatar_UV/@hinh" class="lazy img_avatar" />
+                        }
+                        else
+                        { <img data-src="/Content/Tien/icon3d/NguoiTimViecIcon.png" class="lazy img_avatar" />}
+                    </div>
+                    <div class="col-md-10 div_tieude" style="margin-top:5px;padding-left:5px;height:100px">
+                        <a href="@url" style="color: #555">
+                            <h4>
+                                @NTV.HoTen
+                            </h4>
+                        </a>
+                        <h6>
+                            @timviec.TenHoSo
+                        </h6>
+                        <p>
+                            <a>
+                                <i class="icon-calendar"></i> @tuoi tuổi
+                            </a>
+                            <a style="margin-left:30px">
+                                <i class="icon-map-marker"></i> @tendc.
+                            </a>
+                        </p>
+                        <p>
+                            <a>
+                                <i class="icon-eye-open"></i> @timviec.LuotXem lượt xem
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" style="margin:0">
+                    <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+
+                        <h4 class="h4_thongtin">Thông tin chung</h4>
+                        <hr class="hr_thongtin" />
+
+                    </div>
+                    <div class="row" style="margin:0">
+                        <div class="col-md-12 div_tintuc_t" style="padding: 8px; margin-bottom: 0; height:265px">
+                            <div class="div_thongtin">
+                                <div class="col-md-6 " style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-keyboard"></i> Kỹ năng CNTT:
+                                        </p>
+                                        <p>
+                                            @foreach (KhachHang_TimViec_TinHoc th in tinhoc)
+                                            {
+                                                <span>@th.DM_NghiepVus.TenNghiepVu &nbsp;</span>
+                                            }
+                                        </p>
+                                        <hr />
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-book"></i> Trình độ:
+                                        </p>
+                                        @if (trinhdo != null)
+                                        {
+                                            <p>
+                                                <span>@trinhdo.DM_TrinhDoChuyenMons.TenChuyenMon</span><span>:</span><span>(@trinhdo.DM_NgheLaoDongs.TenNgheLaoDong)</span>
+                                            </p>
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6" style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-font"></i> Ngoại ngữ:
+                                        </p>
+                                        <p>
+                                            @foreach (KhachHang_TimViec_NgoaiNgu_2022 nn in ngoaingu)
+                                            {
+
+                                                <span>@nn.DM_NghiepVus.TenNghiepVu &nbsp;</span>
+
+                                            }
+                                        </p>
+                                            <hr />
+                                        </div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-user-md"></i> Kinh Nghiệm:
+                                        </p>
+                                        <p>
+                                            @if (timviec.SoNamKinhNghiem != null && timviec.SoNamKinhNghiem > 0)
+                                            {
+                                                <b>@timviec.SoNamKinhNghiem năm</b>
+                                            }
+                                            else
+                                            {<b>Không có</b>}
+
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                                    <h4 class="h4_thongtin">Nhu cầu tìm việc</h4>
+                                    <hr class="hr_thongtin" />
+
+                                </div>
+                                <div class="col-md-6" style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-credit-card"></i> Chức danh:
+                                        </p>
+                                        <p>
+                                            @if (chucdanh != null)
+                                            {
+                                                <b>@chucdanh.TenChucDanh</b>
+                                            }
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0; margin-bottom: 0">
+                                    <div>
+                                        <p>
+                                            <i class="icon-briefcase"></i> Ngành nghề:
+                                        </p>
+                                        <p>
+                                            @if (NgheMM != null)
+                                            {
+                                                <span>@NgheMM.TenNgheKD</span>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+
+                                    <h4 class="h4_thongtin ">Kinh nghiệm bản thân:</h4>
+                                    <hr class="hr_thongtin" />
+                                </div>
+                                @if (@timviec.MoTaKinhNghiemLamViec != null && timviec.MoTaKinhNghiemLamViec.Length > 0)
+                                {
+
+                                    <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                                        <p>
+                                            @Html.Raw(@timviec.MoTaKinhNghiemLamViec)
+                                        </p>
+                                        @*<hr class="hr_thongtin" />*@
+                                    </div>
+                                }
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+                }
+                }
+
+        </div>
+

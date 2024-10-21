@@ -1,0 +1,107 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+@foreach (KhachHang_TimViecLam timviec in ViewBag.TimViec_list)
+{
+    var NTV = new NTV_KhachHang_Dao().GetNTV_ByKHID(timviec.KH_ID);
+    var dm = new DanhMuc_Dao();
+
+    if (NTV != null)
+    {
+        var luong = " ";
+        if ((timviec.MucLuongMongMuonTu == 0 && timviec.MucLuongMongMuonDen == 0) || timviec.MucLuongMongMuonTu == null || timviec.MucLuongMongMuonDen == null)
+        {
+            luong = "Lương thỏa thuận";
+        }
+        else if (timviec.MucLuongMongMuonTu > 100)
+        {
+            luong = @Html.FormatValue(timviec.MucLuongMongMuonTu, "{0:#,###.##}") + " đến " + @Html.FormatValue(timviec.MucLuongMongMuonDen, "{0:#,###.##}");
+        }
+        else
+        {
+            luong = timviec.MucLuongMongMuonTu + " đến " + timviec.MucLuongMongMuonDen + " triệu";
+        }
+        var strHoTen = XString.ConvertToUnSign(NTV.HoTen);
+        var nv = new Khachhang_trinhdo_nghiepvu_DAO();
+        var tg = dm.GetTGbyID(timviec.ThoiGianLamViecMongMuon);
+        var title = XString.Truncate(timviec.TenHoSo, 50);
+        var hinh = XString.Cutstring(NTV.Hinh);
+        var trinhdo = nv.Getlist_khachhangtrinhdo(NTV.KH_ID);
+        int mkv = timviec.NoiLamViecMongMuon_ID==null? 12286: timviec.NoiLamViecMongMuon_ID.Value;
+        string tendc = new DN_DoanhNghiep_Dao().GetDiaChiById(mkv).TenDiaChi;
+        var path = XString.maplocal+ "Avatar_UV\\" + hinh;
+
+        var url = "/Nguoi-Tim-Viec/" + strHoTen + "-" + timviec.TimViec_ID;
+        <a href="@url">
+            <div class="col-md-6 col-xs-12">
+                <div class="div_card_hstv">
+
+                    <div class="col-md-2" style="padding: 0; margin-bottom: 0">
+                        @if (File.Exists(path))
+                        {
+                            <img src="@XString.GetImgBase64("Avatar_UV",hinh)" class="img_avatar" hidden/>
+                            <img src="~/Content/Upload/Avatar_UV/@hinh" class="img_avatar" />
+                        }
+                        else
+                        { <img src="~/Content/Tien/icon3d/NguoiTimViecIcon.png" class="img_avatar" />}
+                    </div>
+                    <div class="col-md-10" style="padding: 0;padding-left:10px; margin-bottom: 0">
+                        <h4 class="h4_tieude" style="margin-top:0">
+                            @title.ToUpper()
+                            <span>
+                                (@tg.TenThoiGianLamViec)
+                            </span>
+                        </h4>
+                        <h5 class="h5_name" style="text-transform: capitalize">
+                            @NTV.HoTen
+                        </h5>
+                    </div>
+
+
+                    <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                        <p style="margin-bottom:5px; color:#555">
+                            <i class="icon-briefcase"></i> Trình độ CMKT:
+                            @if (trinhdo != null)
+                            {
+                                <b>@trinhdo.DM_TrinhDoChuyenMons.TenChuyenMon</b><span>(@trinhdo.DM_NgheLaoDongs.TenNgheLaoDong)</span>
+                            }
+                        </p>
+                        <p style="margin-bottom:5px">
+                            <span>
+                                <i class="material-icons" style="font-size:14px">visibility </i> Lượt Xem: @timviec.LuotXem
+                            </span>
+                            
+                            <span style="margin-left:25px">
+                                <i class="icon-map-marker"></i>  @tendc
+                            </span>
+                        </p>
+                        <p style="margin-bottom: 5px; color: #007ad9;">
+                            @if (timviec.SoNamKinhNghiem == null || timviec.SoNamKinhNghiem <= 0)
+                            {
+                                <span style="margin-right:20px">
+                                    <i class="material-icons" style="font-size:14px">favorite </i> Kinh nghiệm: Chưa có
+                                </span>
+                            }
+                            else
+                            {
+                                <span style="margin-right:20px">
+                                    <i class="material-icons" style="font-size:14px">favorite </i> Kinh nghiệm: @timviec.SoNamKinhNghiem năm
+                                </span>
+                            }
+                            <a>
+                                <i class="icon-usd"></i> @luong
+                            </a>
+
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </a>
+    }
+
+}
+
+
+
+

@@ -1,0 +1,218 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+@model KhachHang
+<link href="~/Content/CVTimViec.css" rel="stylesheet" />
+
+@if(Model != null)
+{
+    var nv = new Khachhang_trinhdo_nghiepvu_DAO();
+    var ntv = new DN_DoanhNghiep_Dao();
+    var dm = new DanhMuc_Dao();
+    var trinhdo = nv.Getlist_khachhangtrinhdo(Model.KH_ID);
+    var hinh = XString.Cutstring(Model.Hinh);
+    var path = XString.maplocal + "Avatar_UV\\" + hinh;
+    var dowmain = XString.dowmain;
+    string Tinh = ntv.GetDiaChiById(Model.TamTru_Tinh_ID.Value).TenDiaChi;
+    string Huyen = ntv.GetDiaChiById(Model.TamTru_Huyen_ID.Value).TenDiaChi;
+    string Xa = ntv.GetDiaChiById(Model.TamTru_Xa_ID.Value).TenDiaChi;
+    var nghiepvu = nv.Getlist_khachhangNghiepVu(Model.KH_ID);
+    var ngoaingu = nv.GetList_KH_NgoaiNgu(Model.KH_ID);
+    var tinhoc = nv.GetList_KH_tinhoc(Model.KH_ID);
+    var kinhnghiem = dm.GetListKNbyKHID(Model.KH_ID);
+<body>
+    <div class="container">
+        @using (Html.BeginForm("Export", "Candidate", FormMethod.Post))
+        {
+            <input type="text" id="GridHtml" name="GridHtml" hidden />
+            <input onclick="myfff()" type="submit" id="btnSubmit" value="Export to Word" />
+        }
+        <div id="Grid">
+            <div id="doc2" class="yui-t7">
+                <div id="inner">
+
+                    <div id="hd">
+                        <div class="yui-gc">
+                            <div class="yui-u first">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @if (File.Exists(path))
+                                                {
+                                                    <img src= "@dowmain/Content/Upload/Avatar_UV/@hinh"/>
+                                                }
+                                            </th>
+                                            <th>
+                                                <h1>@Model.HoTen</h1>
+                                                @if (trinhdo != null)
+                                                {
+                                                     <h2><span>@trinhdo.DM_TrinhDoChuyenMons.TenChuyenMon</span><span>(@trinhdo.DM_NgheLaoDongs.TenNgheLaoDong)</span></h2>
+                                                }
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+                                </table>
+                            </div>
+
+                            <div class="yui-u">
+                                <div class="contact-info">
+                                    <h3>Email: @Model.Email</h3>
+                                    
+                                    <h3>Địa Chỉ: @Tinh , @Huyen , @Xa , @Model.TamTru_DiaChi</h3>
+                                </div><!--// .contact-info -->
+                            </div>
+                        </div><!--// .yui-gc -->
+                    </div><!--// hd -->
+
+                    <div id="bd">
+                        <div id="yui-main">
+                            <div class="yui-b">
+
+                                <div class="yui-gf">
+                                    <div class="yui-u first">
+                                        <h2>Giới thiệu bản thân</h2>
+                                    </div>
+                                    <div class="yui-u">
+                                        <p class="enlarge">
+                                            <span>Tôi tên @Model.HoTen , sinh ngày @Html.FormatValue(Model.NgaySinh, "{0:dd/MM/yyyy}")</span>
+                                            @if (Model.TinhTrangHonNhan != null)
+                                            {
+                                                if (Model.TinhTrangHonNhan == 1)
+                                                {
+                                                    <span>, hiện vẫn còn độc thân. </span>
+                                                }
+                                                if (Model.TinhTrangHonNhan == 2)
+                                                {
+                                                    <span>, đã lập gia đình. </span>
+                                                }
+                                            }
+                                        </p>
+                                        <p class="enlarge">
+                                            <span>Địa chỉ thường trú : @Model.TamTru_DiaChi , @Xa , @Huyen , @Tinh  </span>
+                                            <span> . Mong muốn làm việc cho quí công ty.</span>
+                                        </p>
+                                            
+                                        
+                                    </div>
+                                </div><!--// .yui-gf -->
+
+                                <div class="yui-gf">
+                                    <div class="yui-u first">
+                                        <h2>Kỹ năng</h2>
+                                    </div>
+                                    <div class="yui-u">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th><h2>Tin Học</h2></th>
+                                                    <th><h2>Ngoại Ngữ</h2></th>
+                                                    <th><h2>Bằng cấp khác</h2></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:30%;text-align:center">
+                                                        @foreach (KhachHang_TimViec_TinHoc th in tinhoc)
+                                                        {
+                                                            <p>@th.DM_NghiepVus.TenNghiepVu &nbsp;</p>
+                                                        }
+                                                    </td>
+                                                    <td style="width: 30%; text-align: center">
+                                                        @foreach (KhachHang_TimViec_NgoaiNgu_2022 nn in ngoaingu)
+                                                        {
+                                                            <p>@nn.DM_NghiepVus.TenNghiepVu &nbsp;</p>
+                                                        }
+                                                    </td>
+                                                    <td style="width: 30%; text-align: center">
+                                                        @foreach (KhachHang_NghiepVu khnv in nghiepvu)
+                                                        {
+                                                            <p>
+                                                                @khnv.DM_NghiepVus.TenNghiepVu
+                                                            </p>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div><!--// .yui-gf -->
+
+                                <div class="yui-gf">
+
+                                    <div class="yui-u first">
+                                        <h2>Kinh nghiệm làm việc</h2>
+                                    </div><!--// .yui-u -->
+
+                                    <div class="yui-u">
+                                        @if (kinhnghiem.Count > 0)
+                                        {
+                                            foreach (KhachHang_KinhNghiem_LamViec_2022 kn in kinhnghiem)
+                                            {
+                                                <div class="job">
+                                                    <h2>Cty:@kn.TenCongTy</h2>
+                                                    <h3>@kn.ChucVu</h3>
+                                                    <h4>@kn.TuThang - @kn.DenThang</h4>
+                                                    <p>@kn.CongViecChinh</p>
+                                                    <p>Từng Làm việc ở nước ngoài: @kn.DaLamViecNuocNgoai</p>
+                                                </div>
+                                            }
+                                        }
+                                        else { 
+                                            <h3>Chưa có kinh nghiệm.</h3>
+                                        }
+
+                                    </div><!--// .yui-u -->
+                                </div><!--// .yui-gf -->
+
+
+                                <div class="yui-gf last">
+                                    <div class="yui-u first">
+                                        <h2>Bằng cấp</h2>
+                                    </div>
+                                    <div class="yui-u">
+                                        @if (trinhdo != null)
+                                        {
+                                            <h3><span>Tốt nghiệp @trinhdo.DM_TrinhDoChuyenMons.TenChuyenMon</span><span>(trường:...)</span></h3>
+                                            <h3><span>Khoa @trinhdo.DM_NgheLaoDongs.TenNgheLaoDong</span></h3> 
+                                        }
+
+                                    </div>
+                                </div><!--// .yui-gf -->
+
+
+                            </div><!--// .yui-b -->
+                        </div><!--// yui-main -->
+                    </div><!--// bd -->
+
+                    <div id="ft">
+                        <p>@Model.HoTen &mdash; <a href="mailto:@Model.Email">@Model.Email</a> &mdash; @Model.DienThoai</p>
+                    </div><!--// footer -->
+
+                </div><!-- // inner -->
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+            }
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    function myfff() {
+        document.getElementById("GridHtml").value = $("#Grid").html();
+        //val($("#Grid").html());
+    }
+    
+</script>
+
+
+
+

@@ -1,0 +1,100 @@
+﻿@using WebViecLammoi.Models
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<style>
+    .about-container p img{
+        width:100% !important;
+    }
+</style>
+<div class="row wrapper">
+    <div class="divide24"></div>
+    <div class="col-md-2" style="padding:0 0px 0 5px !important">
+        
+        <div class="card card_t  " style="background:none;">
+            <div>
+                <div class="nav-side-menu">
+                    <div class="header bgcardhead header_t" style=" border-bottom: 2px solid white !important;">
+                        <label class="label_cardhead">
+                            @WebViecLammoi.i18n.Common.Introduction
+                        </label>
+
+                    </div>
+                    <div class="body" style=" background-color: #006fc7; border-color: #006fc7; margin:-1px">
+                        <style>
+                            .ul_danhmuc {
+                                list-style: none;
+                                padding-inline-start: 0px;
+                            }
+
+                                .ul_danhmuc li {
+                                    border-bottom: 1px solid rgba(248, 248, 248, 0.17);
+                                    padding-top: 8px;
+                                    padding-bottom: 8px;
+                                    transition: 0.5s;
+                                }
+
+                                    .ul_danhmuc li:hover {
+                                        border-bottom: 1px solid white;
+                                    }
+
+                                    .ul_danhmuc li .catergory {
+                                        color: white;
+                                        text-align: justify;
+                                        font-weight: 600;
+                                        text-decoration: none;
+                                    }
+
+                                    .ul_danhmuc li a i {
+                                        margin-right: 10px;
+                                    }
+                        </style>
+                        <ul class="ul_danhmuc menu-content" data-toggle="collapse" data-target="#menu-content">
+                            <li class="active">
+                                <a href="#gioithieutt"  data-toggle="pill" class="catergory">
+                                    <i class="icon-caret-right"></i>&nbsp; @WebViecLammoi.i18n.Common.AboutUs
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#lichsuht"  data-toggle="pill" class="catergory">
+                                    <i class="icon-caret-right"></i>&nbsp; @WebViecLammoi.i18n.Common.History
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#cosovc"  data-toggle="pill" class="catergory">
+                                    <i class="icon-caret-right"></i>&nbsp; @WebViecLammoi.i18n.Common.Organigrama
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divide16"></div>
+    </div>
+    <div class="col-md-10">
+        <div class="tab-content" style="display:block !important">
+            <div id="gioithieutt" class="tab-pane fade in active">
+                <div class="about-container">
+                    @foreach (m_gioithieu g in ViewBag.GioiThieu)
+                    {
+                            @Html.Raw(g.noidung)
+                    }
+                </div>
+            </div>
+            <div id="lichsuht" class="tab-pane fade in ">
+                <div class="about-container">
+                    @foreach (m_gioithieu g in ViewBag.LichSu)
+                    {@Html.Raw(g.noidung)}
+                </div>
+            </div>
+            <div id="cosovc" class="tab-pane fade in ">
+                <div class="about-container">
+                    @foreach (m_gioithieu g in ViewBag.CSVC)
+                    {@Html.Raw(g.noidung)}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

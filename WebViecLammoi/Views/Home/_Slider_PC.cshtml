@@ -1,0 +1,207 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@using WebViecLammoi.DAO
+<style>
+    .number_slideshow {
+        display: none;
+    }
+
+        .number_slideshow ul li {
+            list-style: none;
+        }
+
+    .ul_number_slideshow li {
+        position: absolute;
+        text-align: justify;
+    }
+
+    .ul_number_slideshow img {
+        min-height: 200px;
+        max-height: 240px;
+        width: 100%;
+    }
+
+    .number_slideshow ul li a {
+        text-decoration: none;
+        color: #333;
+    }
+
+        .number_slideshow ul li a h4 {
+            font-weight: bold;
+            color: #0072bc;
+        }
+
+        .number_slideshow ul li a p {
+            font-size: 90%;
+        }
+
+    .number_slideshow_nav li:hover {
+        cursor: pointer;
+    }
+
+        .number_slideshow_nav li:hover > a {
+            color: #ff3535 !important;
+            font-weight: bold;
+        }
+
+    .number_slideshow_nav li {
+        text-align: justify;
+        font-size: 90%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+        .number_slideshow_nav li a i {
+            font-weight: bold;
+        }
+</style>
+<div id="number_slideshow" class="number_slideshow" style="width:100%;height:auto">
+    <div class="row" style="margin:0">
+        <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7" style="padding: 0; margin-bottom: 0">
+            <ul class="ul_number_slideshow">
+                <li>
+
+                    @foreach (New_small QC in ViewBag.TTNoiBat1)
+                    {
+                        var str = " ";
+                        var title = QC.Title.ToLower();
+                        var path = XString.maplocal+ "News_Img\\"+ QC.ImagePath;
+                        if (QC.Title.Length > 100)
+                        {
+                            str = XString.ConvertToUnSign(QC.Title.Substring(0, 100));
+                        }
+                        else
+                        {
+                            str = XString.ConvertToUnSign(QC.Title);
+                        }
+                        var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+
+                        <a href="@url">
+
+                            @if (File.Exists(path))
+                            {
+                                <img src="@XString.GetImgBase64("News_Img", QC.ImagePath)" hidden/>
+                                <img src="~/Content/Upload/News_Img/@QC.ImagePath" />
+                            }
+                            else
+                            {<img src="~/Content/Upload/News_Img/noimgSmall.jpg" />}
+
+                            <h4 style="text-transform: capitalize">@title</h4>
+                            <p>
+                                @Html.Raw(QC.Summary)
+                            </p>
+                        </a>
+                    }
+                </li>
+                @foreach (New_small QC in ViewBag.TTNoiBat5)
+                {
+                    var str = " ";
+                    var title = QC.Title.ToLower();
+                    var path = XString.maplocal + "News_Img\\" + QC.ImagePath;
+                    if (QC.Title.Length > 100)
+                    {
+                        str = XString.ConvertToUnSign(QC.Title.Substring(0, 100));
+                    }
+                    else { str = XString.ConvertToUnSign(QC.Title); }
+
+                    var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+                    <li>
+                        <a href="@url">
+                            @if (File.Exists(path))
+                            {
+                                <img src="@XString.GetImgBase64("News_Img", QC.ImagePath)" hidden/>
+                                <img src="~/Content/Upload/News_Img/@QC.ImagePath" />
+                            }
+                            else
+                            {<img src="~/Content/Upload/News_Img/NoPic.jpg" />}
+                            <h4 style="text-transform: capitalize">@title</h4>
+                            <p>
+                                @Html.Raw(QC.Summary)
+                            </p>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 div_tintuc_t" style="padding-left:0;height:320px">
+            <ul class="number_slideshow_nav ul_tintuc_t">
+                <li>
+                    @foreach (New_small QC in ViewBag.TTNoiBat1)
+                    {
+                        var str = " ";
+                        var title = QC.Title.ToLower();
+                        if (QC.Title.Length > 100)
+                        {
+                            str = XString.ConvertToUnSign(QC.Title.Substring(0, 100));
+                        }
+                        else
+                        {
+                            str = XString.ConvertToUnSign(QC.Title);
+                        }
+                        var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+                        <a href="@url" style=" text-transform: capitalize">
+                            <i class="icon-double-angle-right"></i>@title
+                        </a>
+                    }
+                </li>
+                @foreach (New_small QC in ViewBag.TTNoiBat5)
+                {
+                    var str = " ";
+                    var title = QC.Title.ToLower();
+                    if (QC.Title.Length > 100)
+                    {
+                        str = XString.ConvertToUnSign(QC.Title.Substring(0, 100));
+                    }
+                    else
+                    {
+                        str = XString.ConvertToUnSign(QC.Title);
+                    }
+                    var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + QC.NewId;
+                    <li>
+                        <a href="@url" style=" text-transform: capitalize">
+                            <i class="icon-double-angle-right"></i>@title
+                        </a>
+                    </li>
+                }
+                @*<li>
+                        <a href="#">
+                            <i class="icon-double-angle-right"></i> Xe buýt lao khỏi cầu ở Nam Phi, 45 người thiệt mạng
+                        </a>
+                    </li>*@
+
+            </ul>
+            <div style="clear: both"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    
+    $(function () {
+        
+        $("#number_slideshow").number_slideshow({
+            slideshow_autoplay: 'enable',//enable disable
+            slideshow_time_interval: 4000,
+            slideshow_window_background_color: "#fff",
+            slideshow_window_padding: '0',
+            //slideshow_window_width: '400',
+            //slideshow_window_height: '400',
+            slideshow_border_size: '0',
+            slideshow_transition_speed: 500, //'normal','slow','fast' or numeral
+            slideshow_border_color: '',
+            slideshow_show_button: 'enable',//enable disable
+            slideshow_show_title: 'disable',//enable disable
+            slideshow_button_text_color: '#0072bc',
+            slideshow_button_current_text_color: 'red',
+            slideshow_button_background_color: 'none',
+            slideshow_button_current_background_color: 'none',
+            slideshow_button_border_color: '#000',
+            slideshow_loading_gif: '',//loading pic, you can replace it.
+            slideshow_button_border_size: '0'
+
+        });
+    });
+</script>
+

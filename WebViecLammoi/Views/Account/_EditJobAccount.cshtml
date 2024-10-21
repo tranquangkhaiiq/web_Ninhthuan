@@ -1,0 +1,380 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@using WebViecLammoi.i18n
+@model DoanhNghiep
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="~/Content/js/summernote-vi-VN.js"></script>
+<script src="~/Content/js/summernote.min.js"></script>
+<link href="~/Content/css/Info_Style.css" rel="stylesheet" />
+<style>
+    .panel-heading {
+        display: none;
+    }
+    @@media only screen and (max-width: 700px) {
+        
+        .leftcontact {
+            width: 100%;
+            /*float: left;*/
+            border-right: none;
+            box-sizing: border-box;
+            padding: 0px 15px 0px 0px;
+        }
+
+        .rightcontact {
+            width: 100%;
+            /*float: right;*/
+            box-sizing: border-box;
+            padding: 0;
+        }
+        .container {
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+    }
+</style>
+<section style="background-image: url(/Content/img/map.png); background-attachment: fixed !important; background-size: cover !important; background-position: 50% 0 !important; ">
+    <div class="container">
+        <div class="row">
+            <div class="container text-center">
+                <h3 style="font-family: monospace; font-weight: lighter; color: #0094ff">@Common.CompanyInfo</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    @using (Html.BeginForm("_EditJobAccount", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        var logo = XString.Cutstring(Model.Logo);
+        var TenDoanhNghiep = Model.TenDoanhNghiep;
+        var TenNgan = Model.TenNgan;
+        var DienThoai = Model.DienThoai;
+        var Email = Model.Email;
+        var NguoiDaiDien_DienThoai = Model.NguoiDaiDien_DienThoai;
+        var path = XString.maplocal + "Logo_DN\\" + logo;
+        <fieldset id="fom12" class="info_form">
+            <span class="help-block" style="font-family:monospace">@Html.ValidationSummary(false, "", new { @class = "text-danger" })</span>
+            <div class="container">
+
+                <h1 class="info_header">Thông tin Doanh Nghiệp</h1>
+
+                <div class="contentform">
+                    <div id="sendmessage">Your message has been sent successfully. Thank you. </div>
+
+
+                    <div class="leftcontact">
+                        @Html.HiddenFor(m => m.DN_ID)
+                        @Html.HiddenFor(m => m.NguoiTao)
+                        @Html.HiddenFor(m => m.NgayTao)
+                        <div class="form-group">
+                            <p>@Common.CompanyName (Hoạt động vs thuật toán tìm kiếm của web)<span>*</span></p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-bullhorn"></i></span>
+                            <span>
+                                <input value="@TenDoanhNghiep" style="height: 42px !important" type="text" class="form-control" name="TenDoanhNghiep_kh" required>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <p>@Common.Abbreviation </p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-list-alt"></i></span>
+                            <span>
+                                <input value="@TenNgan" style="height: 42px !important" type="text" class="form-control" name="TenNgan_kh" required>
+                            </span>
+                            <div class="validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <p>@Common.EstablishedYear </p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-calendar"></i></span>
+                            @Html.TextBoxFor(kh => kh.NgayThanhLap, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @required = true, @style = " height: 40px" })
+                        </div>
+                        <div class="form-group">
+                            <p>@Common.Phonenumber <span>Cty *</span></p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-phone"></i></span>
+                            <input value="@DienThoai" style="height: 42px !important" type="text" class="form-control" name="DienThoai_kh" required>
+                        </div>
+                        <div class="form-group">
+                            <p>@Common.Deputy </p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-credit-card"></i></span>
+                            @Html.TextBoxFor(kh => kh.NguoiDaiDien, new { @class = "form-control", style = "height: 42px", @required = "required", @type = "text" })
+                        </div>
+
+                        <div>
+                            <p>Chức vụ @Common.Deputy</p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-home"></i></span>
+                            @Html.DropDownList("ChucVu", null, new { @class = "form-control", @style = "width: 75%; height: 41px" })
+                        </div>
+
+                        <div class="form-group">
+                            <p>Số điện thoại @Common.Deputy<span>*</span></p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-phone"></i></span>
+                            <input value="@NguoiDaiDien_DienThoai" style="height: 42px !important" type="text" class="form-control" name="NguoiDaiDien_DienThoai_kh" required>
+                        </div>
+                        <div class="form-group">
+                            <p>E-mail để liên hệ<span>*</span></p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <input value="@Email" style="height: 42px !important" type="text" class="form-control" name="Email_kh" required>
+                        </div>
+
+                        <div class="form-group">
+                            <p>Website cty</p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-globe"></i></span>
+                            @Html.TextBoxFor(kh => kh.Website, new { @class = "form-control", style = "height: 42px", @type = "text" })
+
+                        </div>
+                        <div class="form-group">
+                            <p>@Common.Introduction sơ lượt cty của bạn </p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-comment"></i></span>
+                            @Html.TextAreaFor(kh => kh.GioiThieu, new { @class = "form-control", @row = 4 })
+                            <script>
+                                $(document).ready(function () {
+                                    $('#GioiThieu').summernote({
+                                        lang: 'vi-VN',
+                                        height: '200',
+                                        width: '85%'
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </div>
+
+                    <div class="rightcontact">
+                        <div class="form-group">
+                            <p><label>Chọn tỉnh/thành phố</label>, @Common.CurrentPlace</p>
+                            <div>
+                                <span class="icon-case"><i class="glyphicon glyphicon-home"></i></span>
+                                @Html.DropDownList("Tinh_ID", null, new { @class = "form-control", @style = "width: 75%; height: 41px" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>@Common.Town </label>
+                            <div class="form-group">
+                                <span class="icon-case"><i class="glyphicon glyphicon-home"></i></span>
+                                @Html.DropDownList("Huyen_ID", null, new { @class = "form-control", @style = "width: 75%; height: 41px" })
+                            </div>
+                            <br />
+                            <label>@Common.Ward </label>
+                            <div class="form-group">
+                                <span class="icon-case"><i class="glyphicon glyphicon-home"></i></span>
+                                @Html.DropDownList("Xa_ID", null, new { @class = "form-control", @style = "width: 75%; height: 41px" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p>@Common.Address (Cụ thể số nhà, tên đường, phường xã ,...Để Google map có thể hoạt động)<span>*</span></p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-home"></i></span>
+                            @Html.TextBoxFor(kh => kh.DiaChi, new { @class = "form-control", style = "height: 42px", @required = "required", @type = "text" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <p>Logo <span>(Giúp bạn nổi bật và chuyên nghiệp hơn)</span></p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-import"></i></span>
+                            <div class="image-upload">
+                                <input id="file-input" name="Logo1" type="file" style="width: 75%; height: 41px" />
+                                @Html.HiddenFor(kh => kh.Logo)
+                            </div>
+                            <p id="thongbaosite" style="color:red; display:none">File quá lớn !!!</p>
+                        </div>
+                        <script>
+                            $('#file-input').bind('change', function () {
+                                //this.files[0].size gets the size of your file.
+                                var size = this.files[0].size;
+                                const file = Math.round((size / 1024));
+                                if (file >= 5200) {
+                                    $("#thongbaosite").css('display', 'block');
+                                    document.getElementById('btnLuu').disabled = true;
+                                } else {
+                                    $("#thongbaosite").css('display', 'none')
+                                    document.getElementById('btnLuu').disabled = false;
+                                }
+                            });
+                        </script>
+                        <div class="form-group col-sm-6">
+                            @if (File.Exists(path))
+                            {
+                                <img src="@XString.GetImgBase64("Logo_DN",logo)" hidden>
+                                <img class="img-responsive img-thumbnail" src="~/Content/Upload/Logo_DN/@logo" style="max-width:300px;max-height:150px">
+                            }
+
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <p>@Common.TypeOfCompany</p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-bishop"></i></span>
+                                @Html.DropDownList("LoaiHinhDoanhNghiep_ID", null, new { @class = "form-control", @style = "width: 75%; height: 41px" })
+                            </div>
+                            <div class="validation"></div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <p>Khu công nghiệp</p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-bullhorn"></i></span>
+                                @Html.DropDownList("KhuCongNghiep_ID", null, new { @class = "form-control", @style = "width: 75%; height: 41px" })
+                            </div>
+                            <div class="validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ngành:<span>*</span></label>
+                            <div>
+                                <span class="icon-case"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                @Html.DropDownList("NganhKD_ID", null, new { @class = "form-control", @style = "width: 75%; height: 41px" })
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label>Nghề:<span>*</span></label>
+                            <div>
+                                <span class="icon-case"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                @Html.DropDownList("NgheKD_ID", null, new { @class = "form-control", @style = "width: 75%; height: 41px" })
+                            </div>
+                            <div class="validation"></div>
+                        </div>
+                        <div class="form-group">
+                            <p>@Common.AmountPeople </p>
+                            <span class="icon-case"><i class="glyphicon glyphicon-folder-open"></i></span>
+                            @Html.TextBoxFor(kh => kh.SoLaoDong, new { @class = "form-control", style = "height: 42px", @required = "required", @type = "number" })
+
+                        </div>
+                    </div>
+                    </div>
+                <button id="btnLuu" type="submit" class="bouton-contact">@Common.SaveInfo</button>
+            </div>
+        </fieldset>
+    }
+</section>
+<script type="text/javascript">
+
+    // LOAD XÃ/PHƯỜNG KHI THAY ĐỔI HUYỆN
+    $(function () {
+        $('#Huyen_ID').change(function () {
+            $('#Xa_ID').empty();
+            var MaQuanHuyen = $('#Huyen_ID').val();
+            $.ajax({
+                url: "/Account/Xa_ID", // we are calling json method
+                data: { Huyen_ID: MaQuanHuyen },
+                success: function (response) {
+                    $(response).each(function (i, e) {
+                        $("#Xa_ID").append(
+                            $('<option/>')
+                                .attr('value', e.Id)
+                                .text(e.TenDiaChi)
+                        );
+                        // here we are adding option for Phuongxa
+                    });
+                },
+                error: function (ex) {
+                    alert('Lỗi load phường xã: ' + ex);
+                }
+            });
+        });
+    });
+
+
+    //LOAD QUẬN/HUYỆN CHO LẦN CHẠY ĐẦU TIÊN
+    $(function () {
+        $('#Tinh_ID').change(function () {
+            $('#Huyen_ID').empty();
+            var MaTinh = $('#Tinh_ID').val();
+            $.ajax({
+                url: "/Account/Huyen_ID", // we are calling json method
+                data: { Tinh_ID: MaTinh },
+                success: function (response) {
+                    $(response).each(function (i, e) {
+                        $("#Huyen_ID").append(
+                            $('<option/>')
+                                .attr('value', e.Id)
+                                .text(e.TenDiaChi)
+                        );
+                        // here we are adding option for Phuongxa
+                    });
+                },
+                error: function (ex) {
+                    alert('Lỗi load Quận/ huyện: ' + ex);
+
+                }
+            });
+
+
+
+
+            //LOAD XÃ/PHƯỜNG KHI THAY ĐỔI TỈNH --> QUẬN/HUYỆN THAY ĐỔI --> XÃ/PHƯỜNG THAY ĐỔI THEO - NHỰT
+            $(function () {
+                $('#Xa_ID').empty();
+                var MaQuanHuyen = $('#Huyen_ID').val();
+                $.ajax({
+                    url: "/Account/Xa_ID", // we are calling json method
+                    data: { Huyen_ID: MaQuanHuyen },
+                    success: function (response) {
+                        $(response).each(function (i, e) {
+                            $("#Xa_ID").append(
+                                $('<option/>')
+                                    .attr('value', e.Id)
+                                    .text(e.TenDiaChi)
+                            );
+                            // here we are adding option for Phuongxa
+                        });
+                    },
+                    error: function (ex) {
+                        //alert('Lỗi load phường xã khi có đã load quận huyện: ' + ex);
+                        var abc = $('#Huyen_ID').val();
+                        $(function () {
+                            $('#Xa_ID').empty();
+                            $.ajax({
+                                url: "/Account/Xa_ID", // we are calling json method
+                                data: { Huyen_ID: abc },
+                                success: function (response) {
+                                    $(response).each(function (i, e) {
+                                        $("#Xa_ID").append(
+                                            $('<option/>')
+                                                .attr('value', e.Id)
+                                                .text(e.TenDiaChi)
+                                        );
+                                        // here we are adding option for Phuongxa
+                                    });
+                                },
+                                error: function (ex) {
+                                    alert('Lỗi load phường xã ( lúc này đã load quận huyện): ' + ex);
+                                }
+                            });
+
+
+                        });
+                    }
+                });
+
+            });
+        });
+    });
+
+    // XỬ LÝ LOAD NGHỀ THEO NGÀNH - KHI THAY ĐỔI NGÀNH
+    $(function () {
+        $('#NganhKD_ID').change(function () {
+            $('#NgheKD_ID').empty();
+            var MaNganhNghe = $('#NganhKD_ID').val();
+            $.ajax({
+                url: "/Account/NgheKD_ID", // we are calling json method
+                data: { NganhKD_ID: MaNganhNghe },
+                success: function (response) {
+                    $(response).each(function (i, e) {
+                        $("#NgheKD_ID").append(
+                            $('<option/>')
+                                .attr('value', e.NgheKD_ID)
+                                .text(e.TenNgheKD)
+                        );
+                        // here we are adding option for Phuongxa
+                    });
+                },
+                error: function (ex) {
+                    alert('Lỗi load ngành nghề: ' + ex);
+                }
+            });
+        });
+    });
+
+</script>
+

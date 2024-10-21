@@ -1,0 +1,68 @@
+﻿<ul class="nav navbar-nav ul_menu">
+
+
+
+    <li><a href="/Candidate/MainCandidate">Người tìm việc</a></li>
+
+    <li><a href="/Tuyen-Dung/0/">Việc tìm người</a></li>
+    <li class="dropdown">
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Tin tức <i class="icon-caret-down" style="padding-left:5px"></i></a>
+        <ul class="dropdown-menu bgnavbar ul_menu2">
+            <li><a href="/Tin-Tuc/1/3309">Thông tin thị trường lao động</a></li>
+            <li><a href="/Tin-Tuc/1/3303">Sàn giao dịch việc làm</a></li>
+            <li><a href="/Tin-Tuc/1/3302">Thông báo của Trung tâm</a></li>
+            <li><a href="/Tin-Tuc/1/3681">Lao động việc làm</a></li>
+            <li><a href="/Tin-Tuc/1/3315">Hướng dẫn sử dụng web</a></li>
+        </ul>
+    </li>
+
+    @if (Session["emailFace"] != null)
+    {
+        if (Session["quyen"] != null && Session["quyen"].ToString() == "NTV")
+        {
+            <li><a href="/Quan-Ly-Tai-Khoan-NTV" class="title_user">@Session["emailFace"]</a></li>
+            <li><a href="/Candidate/CandidateCreate" class="title_user">Tạo hồ sơ tìm tiệc</a></li>
+            <li><a href="/Account/Logoff" class="title_user">Đăng Xuất</a></li>
+        }
+        else if (Session["quyen"] != null && Session["quyen"].ToString() == "TD")
+        {
+            <li><a href="/Quan-Ly-Tai-Khoan-DN" class="title_user">@Session["emailFace"]</a></li>
+
+
+            <li><a href="/Job/JobCreate" class="title_user">Tạo hồ sơ tuyển dụng</a></li>
+
+
+            <li><a href="/Account/Logoff" class="title_user">Đăng Xuất</a></li>
+        }
+        else
+        {
+            <li><a href="/Van-Ban">Văn bản pháp luật</a></li>
+            <li><a href="/Gioi-Thieu">Giới thiệu trung tâm</a></li>
+            
+            <li><a href="/Dang-Nhap" class="title_user">Đăng nhập</a></li>
+            <li><a href="/Dang-Ky" class="title_user">Đăng ký</a></li>
+        }
+    }
+    else if (Session["quyen"] != null && Session["quyen"].ToString() == "NTV")
+    {
+        <li><a href="/Quan-Ly-Tai-Khoan-NTV" class="title_user">@Session["User"]</a></li>
+        @*<li><a href="/Candidate/CandidateCreate" class="title_user">Tạo hồ sơ tìm tiệc</a></li>*@
+        <li><a href="/Doi-Pass" class="title_user">Đổi Mật Khẩu</a></li>
+        <li><a href="/Account/Logoff" class="title_user">Đăng Xuất</a></li>
+    }
+    else if (Session["quyen"] != null && Session["quyen"].ToString() == "TD")
+    {
+        <li><a href="/Quan-Ly-Tai-Khoan-DN" class="title_user">@Session["User"]</a></li>
+        @*<li><a href="/Job/JobCreate" class="title_user">Tạo hồ sơ tuyển dụng</a></li>*@
+        <li><a href="/Doi-Pass" class="title_user">Đổi Mật Khẩu</a></li>
+        <li><a href="/Account/Logoff" class="title_user">Đăng Xuất</a></li>
+    }
+    else
+    {
+        <li><a href="/Van-Ban">Văn bản pháp luật</a></li>
+        <li><a href="/Gioi-Thieu">Giới thiệu trung tâm</a></li>
+        
+        <li><a href="/Dang-Nhap" class="title_user">Đăng nhập</a></li>
+        <li><a href="/Dang-Ky" class="title_user">Đăng ký</a></li>
+    }
+</ul>

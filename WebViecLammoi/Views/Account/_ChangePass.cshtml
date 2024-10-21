@@ -1,0 +1,37 @@
+﻿@using WebViecLammoi.i18n
+@{
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link href="~/Content/css/Login_Style.css" rel="stylesheet" />
+<div class="container" style="width:100%;background-color: white; margin-top: 20px; border-radius: 4px 4px; box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.32);">
+
+    <div class="omb_login">
+        <h3 class="omb_authTitle " style="font-family:monospace">@Common.Change @Common.Password</h3>
+        @using (Html.BeginForm("_ChangePass", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row omb_row-sm-offset-3" style="padding-bottom:20px">
+                <div class="col-xs-12 col-sm-6">
+                    <form class="omb_loginForm" action="" autocomplete="off" method="POST">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input type="password" class="form-control" name="old_password" placeholder="@Common.Password" required>
+                        </div>
+                        <span class="help-block"></span>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-new-window"></i></span>
+                            <input type="password" class="form-control" name="new_password" placeholder="@Common.NewPass" required>
+                        </div>
+                        <span class="help-block"></span>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-repeat"></i></span>
+                            <input type="password" class="form-control" name="new_password2" placeholder="@Common.Repeat @Common.NewPass" required>
+                        </div>
+                        <span class="help-block" style="font-family:monospace">@Html.ValidationSummary(false, "", new { @class = "text-danger" })</span>
+                        <button class="btn btn-lg btn-danger btn-block" type="submit"><i class="glyphicon glyphicon-lock"></i> @Common.Change @Common.Password</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>

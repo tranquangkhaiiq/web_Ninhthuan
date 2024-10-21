@@ -1,0 +1,234 @@
+﻿@using WebViecLammoi.i18n
+@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@using WebViecLammoi.DAO
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<style>
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+        color: #fff;
+        background-color: #337ab7 !important;
+    }
+</style>
+<div style="background-color:white">
+    <ul class="nav nav-pills ">
+        <li class="active"><a id="kh0" data-toggle="pill" href="#ungtuyen">Công Việc Đã Ứng Tuyển</a></li>
+        <li><a id="kh1" data-toggle="pill" href="#phuhop">Hồ Sơ Phù Hợp</a></li>
+        <li><a id="kh2" data-toggle="pill" href="#menu2">Hồ Sơ Đã Lưu</a></li>
+
+    </ul>
+
+    <div id="ungtuyen" class="kh0 active" style="display: block">
+        <div class="table-responsive" style="margin-top:20px;">
+            <p><span>***</span>Đây là những hồ sơ do bạn đã tự mình ứng tuyển</p>
+            <p>***Cty có 3 trạng thái "Chưa Xem" "Đã Xem" hoặc "Từ Chối"</p>
+            <p><span>***</span>Bạn có thể tự mình <span style="background-color: #ff6a00">"Ngưng ứng tuyển"</span> nếu không muốn tiếp tục ứng tuyển.</p>
+            <p><span>***</span>Click <span style="background-color: #ff6a00">"Ngưng ứng tuyển"</span> để loại bỏ hồ sơ khỏi danh sách.</p>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr style="background-color: #efce05;color:white">
+                        <th>@Common.Title hồ sơ</th>
+                        <th>Ngày ứng tuyển</th>
+                        <th>Trạng thái Cty</th>
+                        <th>Trạng thái của bạn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DoanhNghiep_UngTuyen ut in ViewBag.HSungtuyen)
+                    {
+                        var strid = ut.KH_ID + "" + ut.TuyenDung_ID;
+                        var tuyendung = new DN_HoSoTuyenDung_Dao();
+                        var td = tuyendung.GetList_byTuyendungID(ut.TuyenDung_ID);
+
+
+                        if (td != null)
+                        {
+                            var str = XString.ConvertToUnSign(td.TieuDeTuyenDung);
+                            var url = "/Tuyen-Dung/" + str + "-" + ut.TuyenDung_ID.ToString();
+                            <tr>
+                                <td>
+                                    <a href="@url">
+                                        @td.TieuDeTuyenDung
+                                    </a>
+                                </td>
+                                <td>
+                                    <input id="utKHID" value="@ut.KH_ID" hidden />
+                                    <input id="utTuyenDungID" value="@ut.TuyenDung_ID" hidden />
+                                    @Html.FormatValue(ut.NgayUngTuyen, "{0:dd/MM/yyyy}")
+                                </td>
+                                @if (ut.DN_TuChoi == "Từ chối")
+                                {
+                                    <td><span style="background-color: #ff6a00">@ut.DN_TuChoi</span></td>
+                                }
+                                else if (ut.DN_Daxem == false)
+                                {
+                                    <td>Chưa Xem</td>
+                                }
+                                else if (ut.DN_Daxem == true)
+                                {
+                                    <td>Đã Xem</td>
+                                }
+                                @if (ut.NTV_TrangThaiUngTuyen)
+                                {
+                                    <td><button class="btn" style="background-color: #ff6a00" id="HTWW_@strid.ToString()" onclick="NgungUngTuyen(@strid.ToString())">Click để Ngưng Ứng Tuyển</button></td>
+                                }
+                                else
+                                {
+                                    <td><button class="btn">Click để ứng tuyển</button></td>
+                                }
+
+                            </tr>
+                        }
+
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="phuhop" class="kh1" style="display:none">
+        <div class="table-responsive" style="margin-top:20px;">
+            <p><span>***</span>Hồ sơ tuyển dụng do hệ thống tự động chọn giúp bạn.</p>
+            <p><span>***</span>Hệ thống lựa chọn dựa trên những hồ sơ được duyệt của bạn.</p>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr style="background-color: #efce05;color:white">
+                        <td>@Common.Title</td>
+                        <td>Mã hồ sơ</td>
+                        <td>Tên Cty</td>
+                        <td>@Common.CreatedDate</td>
+                        <td>@Common.Detail</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DoanhNghiep_TuyenDung Item in ViewBag.VLPhuHop)
+                    {
+                        var tieude = Item.TieuDeTuyenDung;
+                        var str = XString.ConvertToUnSign(Item.TieuDeTuyenDung);
+
+                        var url = "/Tuyen-Dung/" + str.Replace("/", "-") + "-" + Item.TuyenDung_ID;
+                        var dndn = new DN_DoanhNghiep_Dao();
+                        var DN = dndn.GetDN_ByDNID(Item.DN_ID);
+                        if (DN != null)
+                        {
+                            <tr>
+                                <td>@tieude</td>
+                                <td>@Item.TuyenDung_ID</td>
+                                <td>@DN.TenDoanhNghiep</td>
+                                <td>@Html.FormatValue(Item.NgayTao, "{0:dd/MM/yyyy}")</td>
+                                <td>
+                                    <a class="btn btn-success" target="_blank" href="@url"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="menu2" class="kh2" style="display:none">
+        <div class="table-responsive" style="margin-top:20px;">
+            <p><span>***</span>Hồ sơ tuyển dụng do chính bạn đã lưu.</p>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr style="background-color: #efce05; color: white">
+                        <th>@Common.Title</th>
+                        <th>@Common.Codeofcompany</th>
+                        <th>@Common.CreatedDate</th>
+                        <th>@Common.View_Del</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (PHU_HSTD_Luu Item in ViewBag.HSDaLuu)
+                    {
+                        //không lấy được tên cty --> không tạo url
+                        var tenhs = Item.TenHoSo.Trim();
+                        <tr>
+                            <td>@tenhs</td>
+                            <td>@Item.DN_Id</td>
+                            <td>@Html.FormatValue(Item.NgayTao, "{0:dd/MM/yyyy}")</td>
+                            <td>
+                                <a class="btn btn-success" target="_blank" href="/Job/JobDetail/@Item.HSTD_Id"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <a class="btn btn-danger" href="/Account/DeleteJobSave/@Item.Id"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<script>
+    $('#kh0').click(function () {
+        $('.kh0').css("display", "block");
+        $('.kh1').css("display", "none");
+        $('.kh2').css("display", "none");
+    });
+    $('#kh1').click(function () {
+        $('.kh0').css("display", "none");
+        $('.kh1').css("display", "block");
+        $('.kh2').css("display", "none");
+    });
+    $('#kh2').click(function () {
+        $('.kh0').css("display", "none");
+        $('.kh1').css("display", "none");
+        $('.kh2').css("display", "block");
+    });
+    function NgungUngTuyen(id) {
+        if (document.getElementById("HTWW_" + id).innerHTML === "Click để Ngưng Ứng Tuyển") {
+
+            if (!confirm("Bạn MUỐN ngưng ứng tuyển vị trí này ??")) {
+                return false;
+            } else {
+                var khid = $('#utKHID').val();
+                var tdid = $('#utTuyenDungID').val();
+                
+                $.ajax({
+                    url: "/Account/ungvien_tuchoiDN",
+                    data: { KH_ID: khid, tuyendung_ID: tdid, TrangThaiUngTuyenNTV: 0 },
+                    type: "POST",
+                    datatype: 'Json',
+                    success: function (res) {
+                        if (res == 'OK') {
+                            $("#HTWW_" + id).css("background-color", "gray");
+                            document.getElementById("HTWW_" + id).innerHTML = "Đã ngưng ứng tuyển";
+                        } else {
+                            $("#HTWW_" + id).css("background-color", "gray");
+                            document.getElementById("HTWW_" + id).innerHTML = "Có Lỗi ngưng ứng tuyển !!!";
+                        }
+                    }, error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        } else {
+            if (!confirm("Bạn muốn vẫn muốn ứng tuyển vị trí này ??")) {
+                return false;
+            } else {
+                var khid = $('#utKHID').val();
+                var tdid = $('#utTuyenDungID').val();
+                
+                $.ajax({
+                    url: "/Account/ungvien_tuchoiDN",
+                    data: { KH_ID: khid, tuyendung_ID: tdid, TrangThaiUngTuyenNTV: 1 },
+                    type: "POST",
+                    datatype: 'Json',
+                    success: function (res) {
+                        if (res == 'OK') {
+                            $("#HTWW_" + id).css("background-color", "#ff6a00");
+                            document.getElementById("HTWW_" + id).innerHTML = "Click để Ngưng Ứng Tuyển";
+                        } else {
+                            $("#HTWW_" + id).css("background-color", "gray");
+                            document.getElementById("HTWW_" + id).innerHTML = "Có Lỗi ứng tuyển !!!";
+                        }
+
+                    }, error: function (err) {
+                        console.log(err);
+                    }
+                });
+
+            }
+        }
+    };
+</script>

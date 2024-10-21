@@ -1,0 +1,89 @@
+﻿
+<div class="card card_t  ">
+    <div class="header bgcardhead header_t" style=" border-bottom: 2px solid white !important;">
+        <label class="label_cardhead">
+            Danh mục
+        </label>
+
+    </div>
+    <div class="body" style=" background-color: #006fc7; border-color: #006fc7; margin:-1px;height:380px">
+        <style>
+            .ul_danhmuc {
+                list-style: none;
+                padding-inline-start: 0px;
+            }
+
+                .ul_danhmuc li {
+                    border-bottom: 1px solid rgba(248, 248, 248, 0.17);
+                    padding-top: 8px;
+                    padding-bottom: 8px;
+                    transition: 0.5s;
+                }
+
+                    .ul_danhmuc li:hover {
+                        border-bottom: 1px solid white;
+                    }
+
+                    .ul_danhmuc li a {
+                        color: white;
+                        text-align: justify;
+                        font-size: 120%;
+                        text-decoration: none;
+                    }
+
+                        .ul_danhmuc li a i {
+                            margin-right: 10px;
+                        }
+        </style>
+        <ul class="ul_danhmuc">
+            <li>
+                <a href="/Gioi-Thieu">
+                    <i class="icon-caret-right"></i>&nbsp; Giới thiệu trung tâm
+                </a>
+            </li>
+            <li>
+                <a href="/Tin-Tuc/1/3315">
+                    <i class="icon-caret-right"></i>&nbsp; Hướng dẫn sử dụng
+                </a>
+            </li>
+            <li>
+                <a href="/Tin-Tuc/1/3309">
+                    <i class="icon-caret-right"></i>&nbsp; Thị trường lao động
+                </a>
+            </li>
+            <li>
+                <a href="/Tin-Tuc/1/3303">
+                    <i class="icon-caret-right"></i>&nbsp; Sàn giao dịch việc làm
+                </a>
+            </li>
+            <li>
+                <a href="/Tin-Tuc/1/3302">
+                    <i class="icon-caret-right"></i>&nbsp; Thông báo trung tâm
+                </a>
+            </li>
+            <li>
+                <a href="/Tin-Tuc/1/3681">
+                    <i class="icon-caret-right"></i>&nbsp; Lao động việc làm
+                </a>
+            </li>
+            <li>
+                <a href="/Van-Ban">
+                    <i class="icon-caret-right"></i>&nbsp;  Văn bản
+                </a>
+            </li>
+            <li>
+                <a onclick="scrollDown()">
+                    <i class="icon-caret-right"></i>&nbsp; Liên hệ góp ý
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    function scrollDown() {
+        window.scroll({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+</script>

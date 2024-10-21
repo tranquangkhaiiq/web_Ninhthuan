@@ -1,0 +1,476 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.Utils
+@using WebViecLammoi.i18n
+@model KhachHang_TimViecLam
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="~/Content/js/summernote-vi-VN.js"></script>
+<script src="~/Content/js/summernote.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link href="~/Content/css/Info_Style.css" rel="stylesheet" />
+<style>
+    .panel-heading {
+        display: none;
+    }
+    .container {
+        padding-right: 22px;
+        padding-left: 0px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    @@media only screen and (max-width: 700px) {
+        .leftcontact {
+            width: 100%;
+            /*float: left;*/
+            border-right: none;
+            box-sizing: border-box;
+            padding: 0px 15px 0px 0px;
+        }
+
+        .rightcontact {
+            width: 100%;
+            /*float: right;*/
+            box-sizing: border-box;
+            padding: 0;
+        }
+        .container {
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+    }
+</style>
+<section style="background-image: url(/Content/img/map.png); background-attachment: fixed !important; background-size: cover !important; background-position: 50% 0 !important; ">
+    <div class="container">
+        <div class="row">
+            <div class="container text-center">
+                <h3 style="font-weight: lighter; color: #0094ff">@Common.ProfileInfo</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+
+
+    @using (Html.BeginForm("UpdateCanFile", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        var TenHoSo = Model.TenHoSo;
+        <fieldset class="info_form">
+            <div class="container">
+
+                <form class="info_form" method="post">
+                    <h1 class="info_header">@Common.FillInfo</h1>
+                    <div class="row">
+                        <div class="contentform">
+                            <div id="sendmessage">Your message has been sent successfully. Thank you. </div>
+
+
+                            <div class="leftcontact">
+                                @Html.HiddenFor(m => m.TimViec_ID)
+                                @Html.HiddenFor(m => m.KH_ID)
+                                @Html.HiddenFor(m => m.LoaiTimViecLam_ID)
+                                @Html.HiddenFor(m => m.HocNghe_ID)
+                                @Html.HiddenFor(m => m.BHTN_ID)
+                                @Html.HiddenFor(m => m.MongMuonKhac)
+                                @Html.HiddenFor(m => m.MucLuongCu)
+                                @Html.HiddenFor(m => m.LyDoNghiViec_ID)
+                                @Html.HiddenFor(m => m.CongTyNghiViec_ID)
+
+                                @Html.HiddenFor(m => m.TyLeHoSoHoanThanh)
+                                @Html.HiddenFor(m => m.DiemHoSo)
+                                @Html.HiddenFor(m => m.LuotXem)
+                                @Html.HiddenFor(m => m.KichHoat)
+                                @Html.HiddenFor(m => m.TinhTrangPheDuyetHoSo_ID)
+                                @Html.HiddenFor(m => m.NguoiTao)
+                                @Html.HiddenFor(m => m.NguoiCapNhat)
+                                @Html.HiddenFor(m => m.ChiNhanh_ID)
+                                @Html.HiddenFor(m => m.NoiBat)
+                                @Html.HiddenFor(m => m.LoaiHinhDNMongMuon_ID)
+
+                                @Html.HiddenFor(m => m.NgayDangKy)
+                                @Html.HiddenFor(m => m.TinhTrangPheDuyetHoSo_ID)
+                                @Html.HiddenFor(m => m.HienThiTrenWeb)
+                                @Html.HiddenFor(m => m.NgayHoSoHetHan)
+                                @Html.HiddenFor(m => m.NguoiTao)
+                                @Html.HiddenFor(m => m.NgayTao)
+                                @Html.HiddenFor(m => m.LuotXem)
+
+                                <div class="form-group">
+                                    <p>Vị Trí Công Việc <span>*</span></p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-adjust"></i></span>
+                                    <input value="@TenHoSo" style="height: 41px !important" type="text" class="form-control" name="TenHoSo_kh" required>
+                                    <div class="validation"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <p>@Common.Title2</p>
+                                    <span class="icon-case "><i class="glyphicon glyphicon-briefcase"></i></span>
+                                    <select class="form-control" name="ChucDanhMongMuon" style="width: 75%; height: 40px">
+                                        @foreach (DM_ChucDanh h in ViewBag.ChucDanhMongMuon)
+                                        {
+                                            if (Model.ChucDanhMongMuon == h.ChucDanh_ID)
+                                            {
+                                                <option value="@h.ChucDanh_ID" selected>@h.TenChucDanh</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@h.ChucDanh_ID">@h.TenChucDanh</option>
+                                            }
+                                        }
+                                    </select>
+                                    <div class="validation"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-12">
+                                        <p>Mức lương mong muốn từ </p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-bitcoin"></i></span>
+                                        <input type="number" value="@Model.MucLuongMongMuonTu" name="MucLuongMongMuonTu" required />
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <p>Đến</p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-bitcoin"></i></span>
+                                        <input type="number" value="@Model.MucLuongMongMuonDen" name="MucLuongMongMuonDen" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <p> @Common.Experience <span>*</span></p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-bullhorn"></i></span>
+                                    <input type="number" value="@Model.SoNamKinhNghiem" name="SoNamKinhNghiem" required />
+                                </div>
+                                <div class="form-group">
+                                    <p>@Common.Thedaycanstartwork <span>*</span></p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    @Html.TextBoxFor(x => x.NgayCoTheLamViec, "{0:yyyy-MM-dd}", new { @class = "form-control", style = "width: 75%; height: 42px", @type = "date", @required = true })
+                                    <div class="validation"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <p>@Common.WheretoWork </p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-map-marker"></i></span>
+                                    @Html.DropDownList("NoiLamViecMongMuon_ID", null, new { @class = "form-control", style = "width: 75%; height: 42px" })
+
+                                    <div class="validation"></div>
+                                </div>
+                                @*Mới đính kèm CV*@
+                                <div class="form-group">
+                                    <p>Chọn lại CV_nếu muốn (giới hạn 5MB) <span></span></p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-info-sign"></i></span>
+                                    <input type="file" name="CVdinhkem" id="CVdinhkem" />
+                                    <p id="thongbaosite" style="color:red; display:none">File quá lớn !!!</p>
+                                    @Html.TextBoxFor(kh => kh.KhaNangNoiTroi, new { @class = "form-control", @readonly = "readonly", @style = " height: 30px" })
+                                    <div class="validation"></div>
+                                </div>
+                                <script>
+                                    $('#CVdinhkem').bind('change', function () {
+                                        //this.files[0].size gets the size of your file.
+                                        var size = this.files[0].size;
+                                        const file = Math.round((size / 1024));
+                                        if (file >= 5200) {
+                                            $("#thongbaosite").css('display', 'block');
+                                            document.getElementById('btnLuu').disabled = true;
+                                        } else {
+                                            $("#thongbaosite").css('display', 'none')
+                                            document.getElementById('btnLuu').disabled = false;
+                                        }
+                                    });
+                                </script>
+                                <div class="form-group">
+                                    <p>@Common.WorkingTime </p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-map-marker"></i></span>
+                                    @Html.DropDownList("ThoiGianLamViecMongMuon", null, new { @class = "form-control", style = "width: 75%; height: 42px" })
+
+                                    <div class="validation"></div>
+                                </div>
+                            </div>
+
+                            <div class="rightcontact">
+                                
+                                <div class="form-group">
+                                    <p>Ngành mong muốn <span>*</span></p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-folder-open"></i></span>
+                                    @Html.DropDownList("NganhMongMuon_ID", null, new { @class = "form-control", style = "width: 75%; height: 42px" })
+                                    <div class="validation"></div>
+                                </div>
+                                <div class="form-group">
+                                    <p>Nghề mm 1<span>*</span></p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-folder-open"></i></span>
+                                    @Html.DropDownList("NgheMongMuon_ID", null, new { @class = "form-control", style = "width: 70%; height: 41px" })
+                                </div>
+                                <input id="nghemm2" value="@ViewBag.NgheMongMuon_22ID" hidden/>
+                                <input id="tennghemm2" value="@ViewBag.Tengnhemm22" hidden/>
+                                <div class="form-group">
+                                    <p>Nghề mm 2</p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-folder-open"></i></span>
+                                    @Html.DropDownList("NgheMongMuon_2ID", new SelectList(string.Empty, "Value", "Text"), new { @style = "width: 70%; height: 41px" })
+                                </div>
+                                <input id="nghemm3" value="@ViewBag.NgheMongMuon_33ID" hidden/>
+                                <input id="tennghemm3" value="@ViewBag.Tengnhemm33" hidden/>
+                                <div class="form-group">
+                                    <p>Nghề mm 3</p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-folder-open"></i></span>
+                                    @Html.DropDownList("NgheMongMuon_3ID", new SelectList(string.Empty, "Value", "Text"), new { @style = "width: 70%; height: 41px" })
+
+                                </div>
+                                <div class="form-group">
+                                    <p>@Common.Workonrequest </p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-magnet"></i></span>
+                                    <select class="form-control" name="dicongtac" style="width: 75%; height: 40px">
+                                        @if (Model.CoTheDiCongTac == false)
+                                        {
+                                            <option value="0" selected>Không</option>
+                                            <option value="1">Có</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="0">Không</option>
+                                            <option value="1" selected>Có</option>
+                                        }
+                                    </select>
+                                    <div class="validation"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <p>Tự giới thiệu bản thân. </p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-comment"></i></span>
+                                    @Html.TextAreaFor(nh => nh.MoTaKinhNghiemLamViec, new { @class = "form-control", @rows = 3 })
+
+                                    <div class="validation"></div>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('#MoTaKinhNghiemLamViec').summernote({
+                                                lang: 'vi-VN',
+                                                height: '150',
+                                                width: '85%',
+                                                placeholder: 'Giới thiệu điểm mạnh bản thân, mục tiêu phát triển nghề nghiệp ...'
+                                            });
+                                        });
+                                    </script>
+                                    <div class="validation"></div>
+                                </div>
+                                @if (DateTime.Now >= Model.NgayHoSoHetHan)
+                                {
+
+                                    <div class="form-group">
+                                        <p>Thời gian hồ sơ tồn tại </p>
+                                        <select class="form-control" name="ThoiGianHoSoTonTai" style="width: 75%; height: 40px">
+                                            <option value="1">01 tháng</option>
+                                            <option value="2">02 tháng</option>
+                                            <option value="3">03 tháng</option>
+                                        </select>
+                                        <div class="validation"></div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <select class="form-control" name="ThoiGianHoSoTonTai" style="display:none; width: 75%; height: 40px">
+                                        <option value="0">0 tháng</option>
+                                    </select>
+                                    <div class="form-group">
+                                        <p>@Common.EndDay</p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-time"></i></span>
+                                        @Html.TextBoxFor(kh => kh.NgayHoSoHetHan, "{0:dd/MM/yyyy}", new { @class = "form-control", @readonly = "readonly", style = "height: 42px" })
+                                    </div>
+                                }
+                                <div class="form-group">
+                                    <label>Thứ tự hiển thị web dựa vào Ngày Cập Nhật</label>
+                                    <label>Khi bạn bấm lưu, Ngày Cập Nhật sẻ là ngày hiện tại</label>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="help-block">@Html.ValidationSummary()</span>
+                    </div>
+                    <style>
+                        .btn-glyphicon {
+                            padding: 6px;
+                            background: #ffffff;
+                            margin-right: 4px;
+                        }
+
+                        .icon-btn {
+                            padding: 1px 15px 3px 2px;
+                            border-radius: 10px;
+                        }
+                    </style>
+                    <div class="row text-center">
+                        @*<div class="col-md-4"><a class="btn icon-btn btn-primary" href="#"><span class="glyphicon btn-glyphicon glyphicon-floppy-disk img-circle text-primary"></span>Lưu Tuyển Dụng</a></div>*@
+                        <div class="col-xs-7 col-md-6">
+                            @if (Model.TinhTrangPheDuyetHoSo_ID != 4)
+                            {
+                                <button type="submit" id="btnLuu" class="btn icon-btn btn-success"><span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Lưu hồ sơ</button>
+                                <script>
+                                    $(function () {
+                                        $("#btnLuu").click(function () {
+                                            this.form.action = "/Account/UpdateCanFile";
+                                        });
+                                    });
+                                </script>
+                            }
+                        </div>
+                        <div class="col-xs-5 col-md-6">
+                            <a class="btn icon-btn btn-warning" href="/Quan-Ly-Tai-Khoan-NTV"><span class="glyphicon btn-glyphicon glyphicon-chevron-left img-circle text-warning"></span>@Common.Back</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+    }
+
+    </section>
+
+<script>
+    ////  XỬ LÝ LOAD NGÀNH NGHỀ
+    //$(function () {
+    //    $('#NganhMongMuon_ID').change(function () {
+    //        $('#NgheMongMuon_ID').empty();
+    //        var MaQuanHuyen = $('#NganhMongMuon_ID').val();
+    //        //alert(MaQuanHuyen.toString());
+    //        $.ajax({
+    //            url: "/Candidate/NgheMongMuon_ID", // we are calling json method
+    //            data: { NganhMongMuon_ID: MaQuanHuyen },
+    //            success: function (response) {
+    //                // states contains the JSON list
+    //                // of states passed from the controller
+    //                $(response).each(function (i, e) {
+    //                    $("#NgheMongMuon_ID").append(
+    //                        $('<option />')
+    //                            .attr('value', e.NgheLaoDong_ID)
+    //                            .text(e.TenNgheLaoDong)
+    //                    );
+    //                });
+    //            },
+    //            error: function (ex) {
+    //                alert('Lỗi load ngành nghề: ' + ex);
+    //            }
+    //        });
+    //    });
+    //});
+    //  XỬ LÝ LOAD NGÀNH NGHỀ
+    $(function () {
+        var MaQuanHuyen = $("#NganhMongMuon_ID").val();//truyền hằng số cho lần chạy đầu tiên
+        var nghemm2 = $("#nghemm2").val();
+        var tennghemm2 = $("#tennghemm2").val();
+        var nghemm3 = $("#nghemm3").val();
+        var tennghemm3 = $("#tennghemm3").val();
+        $.ajax({
+            url: "/Candidate/NgheMongMuon_edit", // we are calling json method
+            data: { NganhMongMuon_ID: MaQuanHuyen, nghemm: nghemm2 },
+            success: function (response) {
+                if (nghemm2 === '0' || nghemm2==='') {
+                    $("#NgheMongMuon_2ID").append(
+                        $('<option/>')
+                            .attr('value', 0)
+                            .text('Không chọn')
+                    );
+                } else {
+                    $("#NgheMongMuon_2ID").append(
+                        $('<option/>')
+                            .attr('value', nghemm2)
+                            .text(tennghemm2)
+                    );
+                    $("#NgheMongMuon_2ID").append(
+                        $('<option/>')
+                            .attr('value', 0)
+                            .text('Không chọn')
+                    );
+                }
+                
+            $(response).each(function (i, e) {
+                
+                $("#NgheMongMuon_2ID").append(
+                    $('<option/>')
+                        .attr('value', e.NgheLaoDong_ID)
+                        .text(e.TenNgheLaoDong)
+                );
+            });
+            },
+        error: function (ex) {
+            alert('Lỗi load ngành nghề: ' + ex);
+            }
+        });
+        $.ajax({
+            url: "/Candidate/NgheMongMuon_edit", // we are calling json method
+            data: { NganhMongMuon_ID: MaQuanHuyen, nghemm: nghemm3 },
+            success: function (response) {
+                
+                if (nghemm3 === '0' || nghemm3 === '') {
+                    $("#NgheMongMuon_3ID").append(
+                        $('<option/>')
+                            .attr('value', 0)
+                            .text('Không chọn')
+                    );
+                } else {
+                    $("#NgheMongMuon_3ID").append(
+                        $('<option/>')
+                            .attr('value', nghemm3)
+                            .text(tennghemm3)
+                    );
+                    $("#NgheMongMuon_3ID").append(
+                        $('<option/>')
+                            .attr('value', 0)
+                            .text('Không chọn')
+                    );
+                }
+                $(response).each(function (i, e) {
+                    $("#NgheMongMuon_3ID").append(
+                        $('<option/>')
+                            .attr('value', e.NgheLaoDong_ID)
+                            .text(e.TenNgheLaoDong)
+                    );
+                });
+            },
+            error: function (ex) {
+                alert('Lỗi load ngành nghề: ' + ex);
+            }
+        });
+    });
+
+
+        // LOAD NGHỀ KHI NGÀNH THAY ĐỔI
+        $(function () {
+            $('#NganhMongMuon_ID').change(function () {
+                $('#NgheMongMuon_ID').empty();
+                $('#NgheMongMuon_2ID').empty();
+                $('#NgheMongMuon_3ID').empty();
+                var MaQuanHuyen = $('#NganhMongMuon_ID').val();
+
+                $.ajax({
+                    url: "/Candidate/NgheMongMuon_ID", // we are calling json method
+                    data: { NganhMongMuon_ID: MaQuanHuyen },
+                    success: function (response) {
+                        $("#NgheMongMuon_2ID").append(
+                            $('<option/>')
+                                .attr('value', 0)
+                                .text('Không chọn')
+                        );
+                        $("#NgheMongMuon_3ID").append(
+                            $('<option/>')
+                                .attr('value', 0)
+                                .text('Không chọn')
+                        );
+                        $(response).each(function (i, e) {
+                            $("#NgheMongMuon_ID").append(
+                                $('<option/>')
+                                    .attr('value', e.NgheLaoDong_ID)
+                                    .text(e.TenNgheLaoDong)
+                            );
+                            $("#NgheMongMuon_2ID").append(
+                                $('<option/>')
+                                    .attr('value', e.NgheLaoDong_ID)
+                                    .text(e.TenNgheLaoDong)
+                            );
+                            $("#NgheMongMuon_3ID").append(
+                                $('<option/>')
+                                    .attr('value', e.NgheLaoDong_ID)
+                                    .text(e.TenNgheLaoDong)
+                            );
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Lỗi load ngành nghề: ' + ex);
+                    }
+                });
+            });
+    });
+</script>

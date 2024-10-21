@@ -1,0 +1,111 @@
+
+#wowslider-container$GallerySuffix$ .ws_images {
+	box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
+	-webkit-transition: box-shadow .5s cubic-bezier(.4,0,.2,1);
+	transition: box-shadow .5s cubic-bezier(.4,0,.2,1);
+}
+#wowslider-container$GallerySuffix$ .ws_images:hover {
+	box-shadow: 0px 17px 50px rgba(0, 0, 0, 0.19);
+}
+#wowslider-container$GallerySuffix$ .ws_bullets { 
+	padding: 10px; 
+}
+#wowslider-container$GallerySuffix$ .ws_bullets a { 
+	position: relative;
+    text-shadow: none;
+    color: transparent;
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin: 3px 3px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+}
+
+#wowslider-container$GallerySuffix$ .ws_bullets a.ws_selbull {
+	border: 2px solid;
+	border-color: $TemplateColor$;
+}
+
+#wowslider-container$GallerySuffix$ a.ws_next,
+#wowslider-container$GallerySuffix$ a.ws_prev {
+	font: 2.6em "ws-ctrl-mfglabs";
+	width: 2.6em;
+	height: 2.6em;
+	margin-top:-1.3em;
+}
+
+#wowslider-container$GallerySuffix$ a.ws_next,
+#wowslider-container$GallerySuffix$ a.ws_prev,
+#wowslider-container$GallerySuffix$ .ws_playpause {
+	position:absolute;
+	top:50%;
+	z-index:60;
+	color: #FFFFFF;
+	overflow: hidden;
+	border-radius: 50%;
+    border: 3px solid;
+    border-color: $TemplateColor$;
+	background-color: rgba(0,0,0,0.2);
+}
+
+#wowslider-container$GallerySuffix$ a.ws_next,
+#wowslider-container$GallerySuffix$ a.ws_prev,
+#wowslider-container$GallerySuffix$ .ws_playpause {
+	-webkit-transition: background-color 0.3s ease 0s;					
+	-moz-transition: background-color 0.3s ease 0s;
+	transition: background-color 0.3s ease 0s;	  					  					
+}	
+#wowslider-container$GallerySuffix$ a.ws_next:hover,
+#wowslider-container$GallerySuffix$ a.ws_prev:hover,
+#wowslider-container$GallerySuffix$ .ws_playpause:hover {
+	background-color: rgba(0,0,0,0.5);
+}
+
+#wowslider-container$GallerySuffix$ a.ws_next {
+	right: 0.5em;
+}
+#wowslider-container$GallerySuffix$ a.ws_prev {
+	left: 0.5em;
+}
+#wowslider-container$GallerySuffix$ a.ws_next:after,
+#wowslider-container$GallerySuffix$ a.ws_prev:after {
+	display: block;
+	text-align: center;
+	line-height: 2.6em;	
+	line-height: 2.8em\9; /* ie9 hack */
+}
+/* IE10+ hacks */
+_:-ms-input-placeholder, :root #wowslider-container$GallerySuffix$ a.ws_next:after {line-height: 2.8em;}
+_:-ms-input-placeholder, :root #wowslider-container$GallerySuffix$ a.ws_prev:after {line-height: 2.8em;}
+#wowslider-container$GallerySuffix$ a.ws_next:after{
+	content:'\e801';
+}
+#wowslider-container$GallerySuffix$ a.ws_prev:after{
+	content:'\e800';
+}
+
+/*playpause*/
+#wowslider-container$GallerySuffix$ .ws_playpause {
+	font: 2.6em "ws-ctrl-mfglabs";
+	width: 2.6em;
+	height: 2.6em;
+	left: 50%;
+	z-index: 59;
+	margin-top:-1.3em;
+	margin-left: -1.3em;
+}
+#wowslider-container$GallerySuffix$ .ws_playpause:after{
+	display: block;
+	text-align: center;
+	line-height: 2.6em;
+	line-height: 2.8em\9; /* ie9 hack */
+}
+/* IE10+ hacks */
+_:-ms-input-placeholder, :root #wowslider-container$GallerySuffix$ .ws_playpause:after {line-height: 2.8em;}
+#wowslider-container$GallerySuffix$ .ws_pause:after {
+	content: '\e803';
+}
+#wowslider-container$GallerySuffix$ .ws_play:after {
+	content: '\e802';
+}

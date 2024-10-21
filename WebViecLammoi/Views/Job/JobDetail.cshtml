@@ -1,0 +1,659 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+@model DoanhNghiep_TuyenDung
+@{
+    ViewBag.Title = "Chi tiết HSTD";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<style>
+    .container > .navbar-header {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    @@media screen and (max-width:767px){
+        .container {
+             padding-right: 0; 
+             padding-left: 0; 
+            margin-right: auto;
+            margin-left: auto;
+        }
+    }
+</style>
+@if (Model != null)
+{
+    var dm = new DanhMuc_Dao();
+    var dndn = new DN_DoanhNghiep_Dao();
+    var TD_NghiepVu = new TD_NghiepVu_TinHoc_NgoaiNgu_Dao();
+    var DN = dndn.GetDN_ByDNID(Model.DN_ID);
+    var yeucaunghe = dm.GetNgheNTVbyID(Model.YeuCauNghe_ID);
+    if (DN != null)
+    {
+        var kn = "";
+        var gioitinh = ""; var luong = " ";
+        if (Model.SoNamKinhNghiem == null || Model.SoNamKinhNghiem < 1)
+        {
+            kn = "Không cần kinh nghiệm";
+        }
+        else
+        { kn = "kinh nghiệm "+ Model.SoNamKinhNghiem.ToString() + " năm"; }
+        if (Model.YeuCauGioiTinh == 1)
+        {
+            gioitinh = "Giới tính nam";
+        }
+        else if (Model.YeuCauGioiTinh == 2)
+        {
+            gioitinh = "Giới tính nữ";
+        }
+        else { gioitinh = "Không yêu cầu giới tính"; }
+        var gioithieu = "";
+        if (DN.GioiThieu != null)
+        {
+            DN.GioiThieu.ToLower();
+        }
+
+        if ((Model.LuongTu == 0 && Model.LuongDen == 0) || Model.LuongTu == null || Model.LuongDen == null)
+        {
+            luong = "Lương thỏa thuận";
+        }
+        else if (Model.LuongTu > 100)
+        {
+            luong = Html.FormatValue(Model.LuongTu, "{0:#,###.##}") + " đến " + Html.FormatValue(Model.LuongDen, "{0:#,###.##}");
+        }
+        else
+        {
+            luong = Model.LuongTu + " đến " + Model.LuongDen + " triệu";
+        }
+        var nghiepvu = TD_NghiepVu.NghiepVu_TuyenDung(Model.TuyenDung_ID);
+        var ngoaingu = TD_NghiepVu.NghiepVu_Ngoaingu(Model.TuyenDung_ID);
+        var tinhoc = TD_NghiepVu.NghiepVu_TinHoc(Model.TuyenDung_ID);
+        int mkv = Model.NoiLamViec_HuyenID == null ? 12286 : Model.NoiLamViec_HuyenID.Value;
+        int tinh = Model.NoiLamViec_TinhID == null ? 42 : Model.NoiLamViec_TinhID.Value;
+        int kcn = DN.KhuCongNghiep_ID == null ? 0 : DN.KhuCongNghiep_ID.Value;
+        string tendc = dndn.GetDiaChiById(mkv)==null?"": dndn.GetDiaChiById(mkv).TenDiaChi;
+        string tinhdc = dndn.GetDiaChiById(tinh)==null?"": dndn.GetDiaChiById(tinh).TenDiaChi;
+        string dckcn = dndn.GetkhucnById(kcn) == null ? "" : dndn.GetkhucnById(kcn).TenKhuCongNghiep;
+        var tencty = DN.TenDoanhNghiep.ToLower();
+        var DMchucdanh = dm.GetChucDanhbyID(Model.ChucDanh_ID);
+        var chucdanh = DMchucdanh != null ? DMchucdanh.TenChucDanh : "Không có";
+        var DMChuyenMon = dm.GetChuyenMonbyID(Model.YeuCauTrinhDo_ID);
+        var ChuyenMon = DMChuyenMon != null ? DMChuyenMon.TenChuyenMon : "Không yêu cầu";
+        var tg = dm.GetTGbyID(Model.ThoiGianLamViec_ID);
+        var logo = XString.Cutstring(DN.Logo);
+        var path = XString.maplocal+ "Logo_DN\\" + XString.Cutstring(logo);
+        <div class="col-md-8" style="padding:0">
+            <div class="card card_t">
+                <div class="body" style="padding: 0; margin: -1px; ">
+                    <div class="row" style="margin:0">
+                        <div class="col-md-12" style="padding:15px; margin:0px">
+                            <button class="btn btn-info btn-width btn-send-msg" style="border-radius: 5px; margin-right:10px "> <i class="material-icons" style="font-size:16px">visibility</i> (@Model.SoLuotXem)</button>
+                            @if (Session["quyen"] != null)
+                            {
+                                if (Session["quyen"] == "NTV")
+                                {
+                                    if (ViewBag.HSNTVungtuyen > 0)
+                                    {
+                                        <a class="btn btn-primary btn-width btn-default" style="border-radius: 5px;"> <i class="material-icons" style="font-size:16px">assignment</i> Bạn đã ứng tuyển hồ sơ này</a>
+                                    }
+                                    else
+                                    {
+                                        <a onclick="uwngtuyen()" class="btn btn-primary btn-width btn-default" style="border-radius: 5px;"> <i class="material-icons" style="font-size:16px">assignment</i> Click ứng tuyển</a>
+
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                <a href="/Dang-Nhap" class="btn btn-primary btn-width btn-default" style="border-radius: 5px;"> <i class="material-icons" style="font-size:16px">assignment</i> Click ứng tuyển</a>
+                                <span>(bạn phải đăng nhập để ứng tuyển)</span>
+                            }
+                            @using (Html.BeginForm("UngTuyen", "Job", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <div class="row form-group" id="ungtuyen" style="padding:15px; margin:0px;font-size:larger;display:none">
+                                    <p>Tin nhắn gửi cty</p>
+                                    <div class="row">
+                                        <input name="idtuyendung" id="idtuyendung" value="@Model.TuyenDung_ID" hidden />
+                                        <input id="smsNTVtoDN" placeholder="Tôi muốn ứng tuyển ..." name="smsNTVtoDN" style="margin-right:10px;width:80%" required />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span>Tải hồ sơ ứng tuyển(giới hạn 5MB)</span>
+                                        <input id="file_inputDN" type="file" name="File_CVUngTuyen" />
+                                        <p id="thongbaosite" style="color:red; display:none">File quá lớn !!!</p>
+                                        @*<a href="~/Content/Upload/Document"><i class="glyphicon glyphicon-download"></i>nộp CV ứng tuyển</a>*@
+                                    </div>
+                                    <div class="col-md-12" style="margin:0px;font-size:larger">
+                                        <button id="btnLuu" type="submit">Gửi CV ứng tuyển</button>
+                                    </div>
+                                    <script>
+                                        $('#file_inputDN').bind('change', function () {
+                                            //this.files[0].size gets the size of your file.
+                                            var size = this.files[0].size;
+                                            const file = Math.round((size / 1024));
+                                            if (file >= 5200) {
+                                                $("#thongbaosite").css('display', 'block');
+                                                document.getElementById('btnLuu').disabled = true;
+                                            } else {
+                                                $("#thongbaosite").css('display', 'none')
+                                                document.getElementById('btnLuu').disabled = false;
+                                            }
+                                        });
+                                    </script>
+                                </div>
+                            }
+
+                            @*<button class="btn btn-warning btn-width btn-send-msg" style="border-radius: 5px; float: right; "> <i class="material-icons" style="font-size:16px">assignment_returned</i> Tải xuống</button>*@
+                            @*<button class="btn btn-success btn-width btn-send-msg" style="border-radius: 5px; float: right; margin-right: 10px "> <i class="material-icons" style="font-size:16px">assignment_ind</i> In phiếu</button>*@
+                        </div>
+                    </div>
+                    <div class="row" style="margin: 0; background-color: #f3f6f9">
+                        <div class="col-md-12" style="padding:15px; margin:0px">
+                            
+                            <div class="col-md-2 col-xs-12 imgTD">
+                                @if (File.Exists(path))
+                                {
+                                    <img src="@XString.GetImgBase64("Logo_DN",logo)" class="img_avatar" hidden/>
+                                    <img src="~/Content/Upload/Logo_DN/@logo" class="img_avatar" />
+                                }
+                                else
+                                {<img src="~/Content/Tien/icon3d/ctyicon.jpg" class="img_avatar" />}
+                            </div>
+                                <div class="col-md-10 col-xs-12">
+                                    <h3 style="margin:0; margin-bottom:10px">
+                                        @Model.TieuDeTuyenDung.Trim().ToUpper()
+                                    </h3>
+                                    <p style="color: #1d4c90;text-transform:capitalize">(@tencty)</p>
+
+
+
+
+                                    <div class="col-md-4" style="padding:0; margin:0px">
+                                        <span style="color: #0168a5">
+                                            <i class="material-icons" style="font-size:14px">book</i> Mã nghề: @Model.YeuCauNghe_ID
+                                        </span>
+                                    </div>
+                                    <div class="col-md-4" style="padding:0; margin:0px">
+                                        <span style="color: #0168a5">
+                                            <i class="material-icons" style="font-size:14px">card_travel</i> @yeucaunghe.TenNgheLaoDong
+                                        </span>
+                                    </div>
+                                </div>
+                            <div class="col-md-12" style="margin: 0">
+                                <div class="col-md-4" style="padding:0; margin:0px">
+                                    <span>
+                                        <i class="material-icons" style="font-size:14px">alarm_on</i> Ngày đăng tuyển: @Html.FormatValue(Model.NgayNhanHoSo, "{0:dd/MM/yyyy}")
+                                    </span>
+                                </div>
+
+                                <div class="col-md-4" style="padding:0; margin:0px">
+                                    <span>
+                                        <i class="material-icons" style="font-size:14px">date_range</i> Hạn cuối nộp hồ sơ: @Html.FormatValue(Model.NgayHetHan, "{0:dd/MM/yyyy}")
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-group" id="accordion_1" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" role="tab" id="headingOne_1">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_1" aria-expanded="true" aria-controls="collapseOne_1">
+                                        Chi tiết việc làm
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne_1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne_1">
+                                <div class="panel-body">
+                                    <div class="row" style="margin: 0; margin-bottom: 10px">
+                                        <div class="col-md-12" style="padding:0; margin:0px">
+                                            <b style="text-decoration:underline">Giới thiệu Công ty:</b>
+                                            <p>@Html.Raw(gioithieu)</p>
+                                            <b style="text-decoration:underline">Mô tả công việc:</b>
+
+                                            <p>
+                                                @Html.Raw(Model.MoTaCongViec)
+                                            </p>
+                                            <b style="text-decoration:underline">  Quyền Lợi</b>
+                                            <p>
+                                                @Html.Raw(Model.QuyenLoi)
+                                            </p>
+
+                                            <b style="text-decoration:underline">Yêu cầu về kinh nghiệm làm việc trong lĩnh vực</b>
+                                            @if (Model.YeuCauCongViec != null && Model.YeuCauCongViec != "")
+                                            {
+                                                <p>
+                                                    + @Html.Raw(Model.YeuCauCongViec)
+                                                </p>
+                                            }
+                                            <p>_Tuyển @Model.SoLuongTuyen @chucdanh (@ChuyenMon), @kn.@gioitinh</p>
+                                            <p>
+                                                <b>_Yêu cầu kỹ năng:</b>
+                                                @foreach (DoanhNghiep_TuyenDung_NgoaiNgu nn in ngoaingu)
+                                                {
+                                                    <span>Biết @nn.DM_NghiepVus.TenNghiepVu .</span>
+                                                }
+                                                @foreach (DoanhNghiep_TuyenDung_TinHoc th in tinhoc)
+                                                {
+                                                    <span>@th.DM_NghiepVus.TenNghiepVu ,</span>
+                                                }
+                                                @foreach (DoanhNghiep_TuyenDung_NghiepVu TD_NV in nghiepvu)
+                                                {
+                                                    <span>@TD_NV.DM_NghiepVus.TenNghiepVu .</span>
+                                                }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row" style="margin: 0; margin-bottom: 10px">
+                                        <div class="col-md-3" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Khu Công Nghiệp:
+                                            </span>
+                                            <br />
+                                            <span>
+                                                <i class="material-icons" style="font-size:14px">done</i> @dckcn
+
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Nơi làm việc:
+                                            </span>
+                                            <br />
+                                            <span>
+                                                <i class="material-icons" style="font-size:14px">done</i> @tendc,@tinhdc
+
+                                            </span>
+                                        </div>
+                                        <div class="col-md-5" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">Mức lương:</span>
+                                            <br />
+                                            <span>
+                                                <i class="material-icons" style="font-size:14px">done</i> @luong
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row" style="margin: 0; margin-bottom: 10px">
+                                        <div class="col-md-3" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Yêu cầu trình độ:
+                                            </span>
+                                            <br />
+                                            <span>
+                                                <i class="material-icons" style="font-size:14px">done</i> @ChuyenMon
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Số lượng tuyển:
+
+                                            </span>
+                                            <br />
+                                            <span>
+                                                <i class="material-icons" style="font-size:14px">done</i> @Model.SoLuongTuyen
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Chức danh:
+                                            </span>
+                                            <br />
+                                            <span>
+                                                <i class="material-icons" style="font-size:14px">done</i> @chucdanh
+
+                                            </span>
+                                        </div>
+                                        
+                                    </div>
+                                    <hr />
+                                    <div class="row" style="margin: 0; margin-bottom: 10px">
+
+                                        <div class="col-md-3" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Yêu cầu kinh nghiệm:
+
+                                            </span>
+                                            <br />
+                                            <span>
+                                                <i class="material-icons" style="font-size:14px">done</i>@kn
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4" style="padding:0; margin:0px">
+                                            <span style="color: #0168a5">
+                                                Yêu cầu thời gian:
+
+                                            </span>
+                                            <br />
+                                            <span>
+                                                <i class="material-icons" style="font-size:14px">done</i> @tg.TenThoiGianLamViec
+                                            </span>
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" role="tab" id="headingTwo_1">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseTwo_1" aria-expanded="false"
+                                       aria-controls="collapseTwo_1">
+                                        Yêu cầu về kỹ năng và các mức độ ưu tiên
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo_1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_1">
+                                <div class="panel-body">
+                                    <div class="row" style="margin: 0; margin-bottom: 10px">
+                                        <div class="col-md-6" style="padding: 0; margin: 0px;   padding-right:30px">
+                                            <span style="color: #0168a5;  ">
+                                                Ngoại ngữ:
+                                            </span>
+                                            @foreach (DoanhNghiep_TuyenDung_NgoaiNgu nn in ngoaingu)
+                                            {
+                                                <span style="font-weight: bold; float: right;  ">
+                                                    @nn.DM_NghiepVus.TenNghiepVu ,
+                                                </span>
+                                            }
+
+                                            <hr style="margin:0; padding-right:30px" />
+                                        </div>
+                                        <div class="col-md-6" style="padding: 0; margin: 0px;  padding-right: 30px ">
+                                            <span style="color: #0168a5;  ">
+                                                Tin học:
+                                            </span>
+                                            @foreach (DoanhNghiep_TuyenDung_TinHoc th in tinhoc)
+                                            {
+                                                <span style="font-weight: bold; float: right;  ">
+                                                    @th.DM_NghiepVus.TenNghiepVu ,
+                                                </span>
+                                            }
+                                            <hr style="margin:0; padding-right:30px" />
+                                        </div>
+
+                                    </div>
+                                    <div class="row" style="margin: 0; margin-bottom: 10px">
+
+                                        <div class="col-md-6" style="padding: 0; margin: 0px;   padding-right:30px">
+                                            <span style="color: #0168a5;  ">
+                                                Nghiệp vụ khác:
+                                            </span>
+                                            @foreach (DoanhNghiep_TuyenDung_NghiepVu TD_NV in nghiepvu)
+                                            {
+                                                <span style="font-weight: bold; float: right;  ">
+                                                    @TD_NV.DM_NghiepVus.TenNghiepVu .
+                                                </span>
+                                            }
+                                            <hr style="margin:0; padding-right:30px" />
+                                        </div>
+
+                                        <div class="col-md-6" style="padding: 0; margin: 0px; ">
+                                            <span style="color: #0168a5;  ">
+                                                Văn nghệ:
+                                            </span>
+                                            <span style="font-weight: bold; float: right; ">
+                                                Đang update ...
+                                            </span>
+                                            <hr style="margin:0;" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        int mkvcty = DN.Huyen_ID == null ? 12286 : DN.Huyen_ID.Value;
+        int tinhcty = DN.Tinh_ID == null ? 42 : DN.Tinh_ID.Value;
+        string tendccty = dndn.GetDiaChiById(mkv).TenDiaChi;
+        string tinhdccty = dndn.GetDiaChiById(tinh).TenDiaChi;
+
+        var ldn = DN.LoaiHinhDoanhNghiep_ID == null ? 0 : DN.LoaiHinhDoanhNghiep_ID.Value;
+        var loaidn = dndn.GetLoaiDNById(ldn);
+        var NgKD_ID = DN.NganhKD_ID == null ? 0 : DN.NganhKD_ID.Value;
+        var NgheKD_ID = DN.NgheKD_ID == null ? 0 : DN.NgheKD_ID.Value;
+        var nganhkd = dm.GetNghanhKDbyID(NgKD_ID);
+        var nghekd = dm.GetNgheKDbyID(NgheKD_ID);
+        <div class="col-md-4" style=" padding-left: 10px; padding-right: 5px;">
+            <div class="row" style="margin:0">
+                <div class="col-md-12" style="padding:0">
+                    <div class="card card_t">
+                        <div class="body" style="padding: 10px; margin: -1px;">
+                            <div class="row" style="margin:0 ">
+                                <div class="div_tieude">
+                                    <h5 style="margin-block:10px;text-transform:capitalize">
+                                        Công ty: @tencty
+                                    </h5>
+                                </div>
+                            </div>
+                            <p>
+                                <i class="icon-map-marker"></i>    @DN.DiaChi ,@tendccty,@tinhdccty
+
+                            </p>
+                            <div class="row">
+                                <div class="col-xs-6 col-md-5">
+                                    <h5 style="float: left; margin-top: 0; margin-bottom: 0;font-weight:bold">
+                                        <i class="icon-phone"></i>  Điện thoại:
+                                    </h5>
+                                </div>
+                                <div class="col-xs-6 col-md-7">
+                                    <span style="float:right">
+                                        @DN.DienThoai
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">
+                                    <h5 style="float: left; margin-top: 0; margin-bottom: 0; font-weight: bold">
+                                        <i class="icon-envelope-alt"></i>   Email:
+                                    </h5>
+                                </div>
+                                <div class="col-xs-12 col-md-7">
+                                    <span style="float: right">
+                                        @DN.Email
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">
+                                    <h5 style="float: left; margin-top: 0; margin-bottom: 0; font-weight: bold ">
+                                        <i class="icon-file-text"></i> Loại hình DN:
+                                    </h5>
+                                </div>
+                                <div class="col-xs-12 col-md-7">
+                                    <span style="float: right">
+                                        @if (loaidn != null)
+                                        {
+                                            @loaidn.TenLoaiHinhDoanhNghiep
+                                        }
+                                    </span>
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-md-5">
+                                    <h5 style="float: left; margin-top: 0; margin-bottom: 0; font-weight: bold ">
+                                        <i class="icon-file-text-alt"></i>   Quy mô:
+                                    </h5>
+                                </div>
+                                <div class="col-xs-6 col-md-7">
+                                    <span style="float: right">
+                                        @DN.SoLaoDong Lao động
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">
+                                    <h5 style="float: left; margin-top: 0; margin-bottom: 0; font-weight: bold ">
+                                        <i class="icon-paper-clip"></i> Ngành Nghề:
+                                    </h5>
+                                </div>
+                                <div class="col-xs-12 col-md-7">
+                                    @if (NgKD_ID > 0 && nganhkd != null)
+                                    {
+                                        <span style="float: right">
+                                            @nganhkd.TenNganhKD,
+                                            @if (nghekd != null)
+                                            {
+                                                <span>
+                                                    @nghekd.TenNgheKD
+                                                </span>
+                                            }
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                            <style>
+                                .btn-glyphicon {
+                                    padding: 6px;
+                                    background: #ffffff;
+                                    margin-right: 4px;
+                                }
+
+                                .icon-btn {
+                                    padding: 1px 15px 3px 2px;
+                                    border-radius: 10px;
+                                }
+                            </style>
+                            <div class="text-center">
+
+                                @if (Session["quyen"] != null)
+                                {
+                                    if (Session["quyen"] == "NTV")
+                                    {
+                                        if (ViewBag.hsluu > 0)
+                                        {
+                                            <a class="btn icon-btn btn-danger" href="" style="background-color: #d9534f; color: white; border-color: #d43f3a; "><span class="glyphicon btn-glyphicon glyphicon-heart img-circle text-danger"></span>Bạn đã Lưu tuyển dụng này</a>
+                                        }
+                                        else
+                                        {
+                                            <a title="Lưu lại để xem sau" class="btn icon-btn btn-danger" href="/Job/JobSave/@Model.TuyenDung_ID?DN_ID=@Model.DN_ID&TenHoSo=@Model.TieuDeTuyenDung" style="font-family: monospace;background-color: #d9534f; color: white; border-color: #d43f3a; "><span class="glyphicon btn-glyphicon glyphicon-heart img-circle text-danger"></span>Lưu để xem sau</a>
+                                        }
+                                        <p style="margin-top:10px"><span><a style="color: darkblue" href="/Account/_MainCandidate">Chọn tài khoản</a>=>Quản Lý Tuyển Dụng=>Hồ Sơ Đã Lưu</span></p>
+                                    }
+                                }
+                                else
+                                {
+                                    //<a class="btn icon-btn btn-success" href="/Dang-Nhap" style="font-family: monospace;background-color: #5cb85c; color: white; border-color: #4cae4c; "><span class="glyphicon btn-glyphicon glyphicon-file img-circle text-success"></span>Nộp Đơn</a>
+                                    <a class="btn icon-btn btn-danger" href="/Dang-Nhap" style="background-color: #d9534f; color: white; border-color: #d43f3a; " title="bạn phải đăng nhập để lưu"><span class="glyphicon btn-glyphicon glyphicon-heart img-circle text-danger"></span>Lưu để xem sau</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="margin:0">
+                <div class="col-md-12" style="padding:0">
+                    <div class="card card_t ">
+                        <div class="body">
+                            <h4 class="h4_tieude" style="margin:0;margin-bottom:5px;text-align:center">
+                                ** Hồ Sơ Cùng Công Ty
+                            </h4>
+                            @foreach (DoanhNghiep_TuyenDung cungcty in ViewBag.bycty)
+                            {
+                                var lcungty = "";
+                                if ((cungcty.LuongTu == 0 && cungcty.LuongDen == 0) || cungcty.LuongTu == null || cungcty.LuongDen == null)
+                                {
+                                    lcungty = "Lương thỏa thuận";
+                                }
+                                else if (cungcty.LuongTu > 100)
+                                {
+                                    lcungty = Html.FormatValue(cungcty.LuongTu, "{0:#,###.##}") + " đến " + Html.FormatValue(cungcty.LuongDen, "{0:#,###.##}");
+                                }
+                                else { lcungty = cungcty.LuongTu + " đến " + cungcty.LuongDen + " triệu"; }
+                                var nghecungcty = dm.GetNgheNTVbyID(cungcty.YeuCauNghe_ID);
+                                var DMChuyenMoncungty = dm.GetChuyenMonbyID(cungcty.YeuCauTrinhDo_ID);
+                                int Hcungcty = cungcty.NoiLamViec_HuyenID == null ? 12286 : cungcty.NoiLamViec_HuyenID.Value;
+                                var dccungcty = dndn.GetDiaChiById(Hcungcty);
+                                var tgcty = dm.GetTGbyID(cungcty.ThoiGianLamViec_ID);
+                                var tentieude = XString.Truncate(cungcty.TieuDeTuyenDung, 60);
+                                var str = XString.ConvertToUnSign(tentieude);
+                                var url = "/Tuyen-Dung/" + str + "-" + cungcty.TuyenDung_ID.ToString();
+                                <div class="div_moinhat">
+                                    <div class="row" style="margin:0">
+                                        <div class="col-md-12" style="padding: 0;  margin-bottom: 0">
+                                            <a href="@url" style="color: #555">
+                                                <h4 class="h4_tieude" style="margin:0;margin-bottom:5px;text-transform:capitalize">
+                                                    @cungcty.TieuDeTuyenDung
+                                                </h4>
+                                            </a>
+
+                                            <h5 class="h5_name" style="margin: 0; margin-bottom: 5px; color: #1d4c90 !important;text-transform:capitalize ">
+                                                @tencty
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <hr style="margin-top:5px;margin-bottom:5px" />
+                                    <div class="row" style="margin:0; margin-top:5px">
+                                        <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+                                            <p style="margin-bottom:5px">
+                                                @if (nghecungcty.TenNgheLaoDong == "Không rõ")
+                                                {
+                                                    <i class="icon-briefcase"></i><span>Trình độ CMKT:</span> <b>@DMChuyenMoncungty.TenChuyenMon</b>
+                                                }
+                                                else
+                                                { <i class="icon-briefcase"></i><span>Trình độ CMKT:</span><b>@DMChuyenMoncungty.TenChuyenMon</b><span>(@nghecungcty.TenNgheLaoDong)</span>
+                                            }
+
+                                            </p>
+                                            <p style="margin-bottom:0px">
+                                                <a>
+                                                    <i class="icon-usd"></i>@lcungty
+                                                </a>
+                                                @if (dccungcty != null)
+                                                {
+                                                    <a style="margin-left:10px">
+                                                        <i class="icon-map-marker"></i> @dccungcty.TenDiaChi
+                                                    </a>
+                                                }
+
+                                                <br />
+                                                @if (tgcty != null)
+                                                {
+                                                    <a>
+                                                        <i class="icon-time"></i> @tgcty.TenThoiGianLamViec
+                                                    </a>
+                                                }
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<script>
+    function uwngtuyen() {
+        if (document.getElementById('ungtuyen').style.display == 'none') {
+            document.getElementById('ungtuyen').style.display = 'block';
+        } else {
+            document.getElementById('ungtuyen').style.display = 'none';
+        }
+    }
+    onload();
+    function onload() {
+        //Kiểm tra xem icon font nào lỗi thì xóa luôn
+        const modle = document.getElementsByTagName("span");
+        for (var i = 0; i < modle.length; i++) {
+            if (modle[i].textContent === "ü") {
+                //alert(modle[i].textContent);
+                modle[i].textContent="";
+            }
+        }
+    }
+</script>

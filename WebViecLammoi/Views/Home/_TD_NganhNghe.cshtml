@@ -1,0 +1,100 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@model IEnumerable<DoanhNghiep_TuyenDung>
+
+<div class="col-md-12 div_tintuc_t" style="height:500px">
+    @if (Model.Count() > 0)
+    {
+        var dn_dao = new DN_HoSoTuyenDung_Dao();
+
+        <div class="row" style="padding:10px;padding-top:0">
+            @foreach (aspnet_mapauto nnmap in ViewBag.strmapaotu)
+            {
+                var hrr = "";
+                var liststr = dn_dao.GetCountTDbyNghanhNghe(nnmap.Id.ToString(), (bool)Session["Pay"]).Count();
+                if (liststr > 0)
+                {
+                    hrr = "/Tuyen-Dung/" + liststr + "/" + nnmap.Id;
+                }
+                <div class="col-xs-12 col-sm-6 col-md-6 div_nganhnghe" style="float:left">
+                    @if (liststr > 0)
+                    {
+                        <a href="@hrr">
+                            <span class="span_so">
+                                @liststr
+                            </span>
+                            <span class="span_tieude">
+                                @nnmap.Giaithich
+                            </span>
+                        </a>
+                    }
+                    else
+                    {
+                        <a>
+                            <span class="span_so">
+                                @liststr
+                            </span>
+                            <span class="span_tieude">
+                                @nnmap.Giaithich
+                            </span>
+                        </a>
+                    }
+                </div>
+            }
+
+        </div>
+
+    }
+</div>
+@*//var str1 = "Công nghệ thông tin"; var str01 = "1";
+    //var str2 = "Kế toán tài chính"; var str02 = "2";
+    //var str3 = "Giáo dục và đào tạo"; var str03 = "3";
+    //var str4 = "Quản trị kinh doanh"; var str04 = "4";
+    //var str5 = "Y tế"; var str05 = "14";
+    //var str6 = "Ngôn ngữ, dịch thuật"; var str06 = "5";
+    //var str7 = "Tạp vụ, giúp việc"; var str07 = "6";
+    //var str8 = "Kỹ sư, cơ khí, bảo trì"; var str08 = "7";
+    //var str9 = "Lao động phổ thông"; var str09 = "8";
+    //var str10 = "Nhân sự tổng hợp"; var str010 = "9";
+    //var str11 = "Hóa chất, sinh học"; var str011 = "10";
+    //var str12 = "Vận tải, lái xe"; var str012 = "11";
+    //var str13 = "Dệt may, da giày"; var str013 = "12";
+    //var str14 = "Ks, du lịch và dịch vụ"; var str014 = "13";
+
+    //var liststr1 = dn_dao.GetCountTDbyNghanhNghe(str01, (bool)Session["Pay"]).Count();
+    //var liststr2 = dn_dao.GetCountTDbyNghanhNghe(str02, (bool)Session["Pay"]).Count();
+    //var liststr3 = dn_dao.GetCountTDbyNghanhNghe(str03, (bool)Session["Pay"]).Count();
+    //var liststr4 = dn_dao.GetCountTDbyNghanhNghe(str04, (bool)Session["Pay"]).Count();
+    //var liststr5 = dn_dao.GetCountTDbyNghanhNghe(str05, (bool)Session["Pay"]).Count();
+    //var liststr6 = dn_dao.GetCountTDbyNghanhNghe(str06, (bool)Session["Pay"]).Count();
+    //var liststr7 = dn_dao.GetCountTDbyNghanhNghe(str07, (bool)Session["Pay"]).Count();
+    //var liststr8 = dn_dao.GetCountTDbyNghanhNghe(str08, (bool)Session["Pay"]).Count();
+    //var liststr9 = dn_dao.GetCountTDbyNghanhNghe(str09, (bool)Session["Pay"]).Count();
+    //var liststr10 = dn_dao.GetCountTDbyNghanhNghe(str010, (bool)Session["Pay"]).Count();
+    //var liststr11 = dn_dao.GetCountTDbyNghanhNghe(str011, (bool)Session["Pay"]).Count();
+    //var liststr12 = dn_dao.GetCountTDbyNghanhNghe(str012, (bool)Session["Pay"]).Count();
+    //var liststr13 = dn_dao.GetCountTDbyNghanhNghe(str013, (bool)Session["Pay"]).Count();
+    //var liststr14 = dn_dao.GetCountTDbyNghanhNghe(str014, (bool)Session["Pay"]).Count();
+    //string[] lstr0 = new string[] { str01, str02, str03, str04, str05, str06, str07, str08, str09, str010, str011, str012, str013, str014 };
+    //string[] lstr1 = new string[] { str1, str2, str3, str4, str5, str6, str7, str8, str9, str10, str11, str12, str13, str14 };
+    //int[] lstr2 = new int[] { liststr1, liststr2, liststr3, liststr4, liststr5, liststr6, liststr7, liststr8, liststr9, liststr10, liststr11, liststr12, liststr13, liststr14 };*@
+@*@for (int i = 0; i < lstr2.Length; i++)
+    {
+        var hrr = "";
+        if (lstr2[i] > 0)
+        {
+            hrr = "/Tuyen-Dung/" + lstr2[i] + "/" + lstr0[i];
+        }
+
+        <div class="col-xs-12 col-sm-6 col-md-6 div_nganhnghe" style="float:left">
+            <a href="@hrr">
+                <span class="span_so">
+                    @lstr2[i]
+                </span>
+                <span class="span_tieude">
+                    @lstr1[i]
+                </span>
+            </a>
+
+        </div>
+    }*@

@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+<div class="row wrapper">
+    <div class="divide24"> </div>
+    <div class="col-sm-3">
+        @Html.Action("_JobCategory", "Account")
+        <div class="divide16"> </div>
+
+    </div>
+    <div class="col-sm-9" id="Candidate_Mana">
+        <script>
+            $(function () {
+                $(".menu-content a:eq(0)").click(function () {
+                    $.ajax({
+                        url: "/Account/_JobDoc",
+                        success: function (respone) {
+                            if (respone == "No") {
+                                location.reload();
+                            } else {
+                                $("#Candidate_Mana").html(respone);
+                            }
+                        }
+                    });
+                });
+                $(".menu-content a:eq(1)").click(function () {
+                    $("#loadingTVL").show();
+                    $.ajax({
+                        url: "/Account/_JobManagement",
+                        success: function (respone) {
+                            if (respone == "No") {
+                                location.reload();
+                            } else {
+                                setTimeout(function () {
+                                    $("#Candidate_Mana").html(respone);
+                                    //1s sau hiên lên
+                                }, 600);
+                                $("#loadingTVL").hide();
+                            }
+                        }
+                    });
+                });
+                $(".menu-content a:eq(2)").click(function () {
+                    $.ajax({
+                        url: "/Account/_JobInfo",
+                        success: function (respone) {
+                            if (respone == "No") {
+                                location.reload();
+                            } else {
+                                $("#Candidate_Mana").html(respone);
+                            }
+                        }
+                    });
+                });
+            });
+
+
+
+        </script>
+        @Html.Action("_JobDoc", "Account")
+    </div>
+</div>
+

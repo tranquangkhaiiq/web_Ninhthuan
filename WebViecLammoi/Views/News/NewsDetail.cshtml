@@ -1,0 +1,430 @@
+﻿@using WebViecLammoi.Models
+@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+
+@model News
+@{
+    ViewBag.Title = "Chi tiết Tin tức";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<style>
+    /*////////////*/
+    .abc img {
+        width: 85% !important;
+        max-height: 85% !important;
+        margin: auto;
+    }
+    @@media only screen and (max-width: 1000px) {
+        #pdf_renderer {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .news-container {
+            width: 100% !important;
+            background: #fff;
+            padding-top: 0px !important;
+            margin-bottom: 2px;
+        }
+
+        #canvas_container {
+            width: 100% !important;
+            height: auto;
+            overflow: auto;
+        }
+
+        .navbar {
+            width: 100% !important;
+        }
+
+        .footer {
+            width: 100% !important;
+        }
+
+        .desDVVL {
+            width: 100% !important;
+        }
+
+        h4 {
+            font-size: 14px !important;
+        }
+
+        #current_page {
+            width: 45% !important;
+        }
+
+        #navigation_controls {
+            padding-top: 5px !important;
+        }
+
+        .teQAzf {
+            margin: 0 auto !important;
+            max-width: 90vw;
+            width: 350px !important;
+        }
+
+        h1 {
+            font-size: 16px !important;
+        }
+    }
+    
+    @@media only screen and (max-width: 700px) {
+        #pdf_renderer {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .news-container {
+            width: 100% !important;
+            background: #fff;
+            padding-top: 0px !important;
+            margin-bottom: 2px;
+        }
+
+        #canvas_container {
+            width: 100% !important;
+            height: auto;
+            overflow: auto;
+        }
+
+        .navbar {
+            width: 100% !important;
+        }
+
+        .footer {
+            width: 100% !important;
+        }
+
+        #navigation_controls {
+            padding-top: 5px !important;
+        }
+
+        .desDVVL {
+            width: 100% !important;
+        }
+
+        h4 {
+            font-size: 14px !important;
+        }
+
+        #current_page {
+            width: 45% !important;
+        }
+
+        h1 {
+            font-size: 16px !important;
+        }
+
+        blockquote {
+            margin: 0 0 20px !important;
+            font-size: 15px !important;
+            border-left: none !important;
+            padding: 0px !important;
+        }
+
+        iframe {
+            width: 350px !important;
+            height: 1901px;
+            border-top-width: 0px;
+            border-right-width: 0px;
+            border-bottom-width: 0px;
+            border-left-width: 0px;
+            background: white !important;
+        }
+
+        .Esexse {
+            display: none !important;
+        }
+
+        .fb_iframe_widget_fluid_desktop iframe {
+            background: white;
+        }
+
+        .gform {
+            height: 1775px;
+        }
+        
+    }
+
+    #canvas_container {
+        width: 100% !important;
+        /*height: 50%;*/
+        overflow: auto;
+    }
+
+    #canvas_container {
+        background: #333;
+        text-align: center;
+        border: solid 3px;
+    }
+
+    #navigation_controls {
+        padding-top: 10px !important;
+    }
+.abc .row{
+    display:block !important;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet" />
+@if (Model != null)
+{
+    @section metas{
+        <meta name="description" content="@Html.Raw(Model.Title)" />
+        <meta name="keywords" content="@Html.Raw(Model.Title)">
+        <meta property="og:title" content="@Html.Raw(Model.Title)">
+        <meta property="og:description" content="@Html.Raw(Model.Title)" />
+    }
+    var newDao = new New_Dao();
+    var loaitt = newDao.GetCategory(Model.CategoryId);
+    var pdf = XString.getStringpdf(Model.ImagePath2);
+    <div class="col-md-9" style="padding:0">
+        <div class="card card_t" style="border:0">
+            @*///*@
+            <div class="header bgcardhead header_t">
+                <div class="navbar-default bgnavbarTD">
+                    <div class="container" style="padding:0">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse2">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+
+                            @if (loaitt != null)
+                            {
+                                <label class="label_cardhead">
+
+                                    @loaitt.CategoryName.ToUpper()
+                                </label>
+                            }
+                        </div>
+                        <div class="navbar-collapse2 collapse" id="topmenu">
+                            @Html.Partial("DM_News")
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            
+            @*///*@
+            <div class="body" style="padding: 0; margin: -1px">
+                <h1 style=" font-weight: 600; font-size: 28px; line-height: 35px;text-align:center">
+                    @if (Model.Title != null)
+                    {
+                        @Model.Title.ToUpper()
+                    }
+                </h1>
+
+                <h4>
+                    @Html.Raw(Model.Summary)
+
+                </h4>
+                <p style="text-align:right">
+                    @Model.Createdate
+                </p>
+                <p>
+                    <div class="row">
+                        <div class="abc">
+
+                            @if (pdf != "Nopdf")
+                            {
+                                var url = "/Content/Upload/News_Img/" + pdf;
+                                var path = XString.maplocal + "News_Img\\" + pdf;
+                                if (File.Exists(path))
+                                {
+                                    <img src="@XString.GetImgBase64("News_Img",pdf)" hidden />
+                                    <div id="my_pdf_viewer" style="text-align:center">
+                                        <div id="canvas_container" style="text-align:center">
+                                            <i style="color:white;font-size:20px;cursor: pointer;margin-right: 20px; margin-top: 10px;" id="printfile" onclick="infile(this);" class="fa-solid fa-print"></i>
+                                        </div>
+                                        <div id="canvas_container">
+
+                                            <canvas id="pdf_renderer">
+                                            </canvas>
+                                        </div>
+                                        <div id="navigation_controls">
+                                            <button id="go_previous">Previous</button>
+                                            <input id="current_page" value="1" type="number" />
+                                            <button id="go_next">Next</button>
+                                        </div>
+                                        <div id="zoom_controls">
+                                            <button id="zoom_in">+</button>
+                                            <button id="zoom_out">-</button>
+                                        </div>
+                                    </div>
+                                    <iframe id="pdf-iframe" style="width: 100%; height: 1000px; margin: auto; display: none" src=@url type="application/pdf"></iframe>
+
+                                }
+                                else
+                                {
+                                    <img src="~/Content/Upload/News_Img/NOFILES.jpg" style="width:95%!important ; height:700px!important; margin:auto" class="img_avatar" />
+                                }
+
+                            }
+                            @if ((Model.Content == null || Model.Content.Trim() == "") && pdf == "Nopdf")
+                            {
+                                <img src="~/Content/Upload/News_Img/NOFILES.jpg" style="width:95%!important ; max-height:700px!important; margin:auto" class="img_avatar" />
+                            }
+                            else
+                            {
+                                @Html.Raw(Model.Content)
+                            }
+
+                        </div>
+
+                        <ul style="list-style-type:disc;">
+                            <li>
+                                <span style="color: #005b9f">
+                                    <strong>Mọi chi tiết liên hệ: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                                </span>
+                            </li>
+                        </ul><p style="text-align:left;"><span style="color: #005b9f "><strong>TRUNG TÂM DỊCH VỤ VIỆC LÀM TỈNH @XString.tinh</strong></span></p>
+                        <p style="text-align:left;"><span style="color: #005b9f "><i>Địa chỉ:</i>&nbsp; <strong>@XString.DiaChi</strong></span></p>
+                        <p style="text-align:left;"><span style="color: #005b9f ">ĐT: <strong>@XString.SDT</strong> </span></p>
+                        <p style="text-align:left;"><span style="color: #005b9f ">Email: <strong>@XString.EmailLienhe</strong>;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Website: <strong>  </strong></span></p>
+                        @*View pdf và In file*@
+                        <script>
+                            infile = function (bien) {
+                                //$(bien).contentWindow.print();
+                                document.getElementById('pdf-iframe').contentWindow.print();
+                                //alert('sdfdfdsf');
+                            }
+                            var pdf = '@XString.getStringpdf(Model.ImagePath2)';
+                            var url = "/Content/Upload/News_Img/" + pdf;
+                            var myState = {
+				                            pdf: null,
+				                            currentPage: 1,
+				                            zoom: 1.5
+                            }
+                            //console.log(pdf);
+                            pdfjsLib.getDocument('/Content/Upload/News_Img/' + pdf).then((pdf) => {
+
+				                            myState.pdf = pdf;
+				                            render();
+                            });
+                            function render() {
+				            myState.pdf.getPage(myState.currentPage).then((page) => {
+
+					            var canvas = document.getElementById("pdf_renderer");
+					            var ctx = canvas.getContext('2d');
+
+					            var viewport = page.getViewport(myState.zoom);
+					            canvas.width = viewport.width;
+					            canvas.height = viewport.height;
+
+					            page.render({
+						            canvasContext: ctx,
+						            viewport: viewport
+					            });
+				            });
+}
+document.getElementById('go_previous').addEventListener('click', (e) => {
+				if(myState.pdf == null || myState.currentPage == 1)
+				  return;
+				myState.currentPage -= 1;
+				document.getElementById("current_page").value = myState.currentPage;
+				render();
+});
+document.getElementById('go_next').addEventListener('click', (e) => {
+				if(myState.pdf == null || myState.currentPage >= myState.pdf._pdfInfo.numPages)
+				   return;
+				myState.currentPage += 1;
+				document.getElementById("current_page").value = myState.currentPage;
+				render();
+});
+document.getElementById('current_page').addEventListener('keypress', (e) => {
+				if(myState.pdf == null) return;
+
+				// Get key code
+				var code = (e.keyCode ? e.keyCode : e.which);
+
+				// If key code matches that of the Enter key
+				if(code == 13) {
+					var desiredPage =
+					document.getElementById('current_page').valueAsNumber;
+
+					if(desiredPage >= 1 && desiredPage <= myState.pdf._pdfInfo.numPages) {
+						myState.currentPage = desiredPage;
+						document.getElementById("current_page").value = desiredPage;
+						render();
+					}
+				}
+});
+document.getElementById('zoom_in').addEventListener('click', (e) => {
+				if(myState.pdf == null) return;
+				myState.zoom += 0.5;
+				render();
+});
+document.getElementById('zoom_out').addEventListener('click', (e) => {
+				if(myState.pdf == null) return;
+				myState.zoom -= 0.5;
+				render();
+});
+                        </script>
+                        @*Kết thúc view pdf và in file*@
+                    </div>
+
+                </p>
+            </div>
+        </div>
+        <div class="row" style="margin:0">
+            <div class="col-md-12" style="padding: 0; margin-bottom: 0">
+
+                <h4 class="h4_thongtin">TIN CÙNG CHUYÊN MỤC</h4>
+                <hr class="hr_thongtin" />
+
+            </div>
+        </div>
+        @foreach (New_small cungcm in ViewBag.footee)
+        {
+            var str = " ";
+            var title = cungcm.Title.ToLower();
+            var path = XString.maplocal + "News_Img\\" + cungcm.ImagePath;
+            if (cungcm.Title.Length > 100)
+            {
+                str = XString.ConvertToUnSign(cungcm.Title).Substring(0, 100);
+            }
+            else { str = XString.ConvertToUnSign(cungcm.Title); }
+
+            var url = "/Tin-Tuc/" + str.Replace("/", "-") + "-" + cungcm.NewId;
+            <a href="@url">
+                <div class="row" style="margin:0">
+                    <div class="col-md-2" style="padding: 0; margin-bottom: 0">
+                        
+                        @if (File.Exists(path))
+                        {
+
+                            <img src="@XString.GetImgBase64("News_Img",cungcm.ImagePath)"hidden/>
+                            <img src="~/Content/Upload/News_Img/@cungcm.ImagePath" style="width:111px"/>
+                        }
+                        else
+                        {<img src="~/Content/Upload/News_Img/NoPic.jpg" style="width:111px" />}
+
+                    </div>
+                    <div class="col-md-10" style="padding: 0; margin-bottom: 0">
+                        @if (cungcm.Title != null)
+                        {
+                            <h5 style="color: #005b9f;font-weight:bold">
+                                @cungcm.Title.ToUpper()
+                            </h5>
+                         }
+                            <p>
+                                <i class="icon-calendar"></i> @cungcm.Createdate
+                            </p>
+                        </div>
+                </div>
+                <hr />
+            </a>
+        }
+
+
+
+    </div>
+}
+<div class="col-md-3" id="Panel_Right" style="padding:0px">
+    @Html.Action("Panel_Right", "News")
+</div>
+
