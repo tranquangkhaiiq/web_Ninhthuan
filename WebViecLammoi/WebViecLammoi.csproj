@@ -5344,6 +5344,8 @@
     <Content Include="Content\Upload\News_Img\NoPic.jpg" />
     <Content Include="Content\Upload\QuangCao\customer-service.jpg" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont3295.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -5795,6 +5797,16 @@
     <Content Include="Content\font-awesome\font-awesome\scss\_variables.scss" />
     <Content Include="Content\owlcarousel\README.md" />
     <Content Include="Content\js\jquery-1.10.2.min.map" />
+    <Content Include="fonts\fontawesome-webfont3295.eot" />
+    <Content Include="fonts\fontawesome-webfont3295.ttf" />
+    <Content Include="fonts\fontawesome-webfont3295.woff" />
+    <Content Include="fonts\fontawesome-webfont3295.woff2" />
+    <Content Include="fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regulard41d.eot" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
