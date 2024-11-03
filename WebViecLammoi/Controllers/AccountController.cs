@@ -1433,6 +1433,168 @@ namespace WebViecLammoi.Controllers
                 return View("_CandidateEdit", model1);
             }
         }
+        //3/11/2024 ****************
+        public ActionResult _EditCddAccount()
+        {
+            //load trang NTV
+            if (Session["UsrID"] != null)
+            {
+                int uID = int.Parse(Session["UsrID"].ToString());
+                var user = dbc.UserWebs.SingleOrDefault(kh => kh.UserID == uID && kh.UserRoles_NVLoaitaikhoan == 3);
+                var model = dbc.KhachHangs.Where(kh => kh.KH_ID == user.UserChild_id).Single();
+
+                var modal_kh_nghiepvu3 = dbc.KhachHang_NghiepVu.Where(kh => kh.KH_ID == model.KH_ID)
+                    .OrderBy(kh => kh.KHNghiepVu)
+                    .Take(1)
+                    .ToList();
+                var modal_kh_nghiepvu22 = dbc.KhachHang_TimViec_NgoaiNgu_2022s.Where(kh => kh.KH_ID == model.KH_ID)
+                    .OrderBy(kh => kh.KhachHang_TimViec_NgoaiNgu_ID)
+                    .Skip(1)
+                    .Take(1)
+                    .ToList();
+                var modal_kh_nghiepvu2 = dbc.KhachHang_TimViec_NgoaiNgu_2022s.Where(kh => kh.KH_ID == model.KH_ID)
+                    .OrderBy(kh => kh.KhachHang_TimViec_NgoaiNgu_ID)
+                    .Take(1)
+                    .ToList();
+                var modal_kh_nghiepvu11 = dbc.KhachHang_TimViec_TinHocs.Where(kh => kh.KH_ID == model.KH_ID)
+                    .OrderBy(kh => kh.NghiepVu_TinHoc_ID)
+                    .Skip(1)
+                    .Take(1)
+                    .ToList();
+                var modal_kh_nghiepvu1 = dbc.KhachHang_TimViec_TinHocs.Where(kh => kh.KH_ID == model.KH_ID)
+                    .OrderBy(kh => kh.NghiepVu_TinHoc_ID)
+                    .Take(1)
+                    .ToList();
+
+
+                //ViewBag.Gioitinh = model.GioiTinh;
+                if (modal_kh_nghiepvu3.Count != 0)
+                {
+                    ViewBag.NghiepVu3 = new SelectList(dbc.DM_NghiepVu.Where(kh => kh.GhiChu == "0" || kh.GhiChu == "3").OrderBy(kh => kh.NghiepVu_ID), "NghiepVu_ID", "TenNghiepVu", modal_kh_nghiepvu3.First().NghiepVu_ID);
+                }
+                else { ViewBag.NghiepVu3 = new SelectList(dbc.DM_NghiepVu.Where(kh => kh.GhiChu == "0" || kh.GhiChu == "3").OrderBy(kh => kh.NghiepVu_ID), "NghiepVu_ID", "TenNghiepVu"); }
+
+                if (modal_kh_nghiepvu2.Count != 0)
+                {
+                    ViewBag.NghiepVu2 = new SelectList(dbc.DM_NghiepVu.Where(kh => kh.GhiChu == "0" || kh.GhiChu == "2").OrderBy(kh => kh.NghiepVu_ID), "NghiepVu_ID", "TenNghiepVu", modal_kh_nghiepvu2.First().NghiepVu_NgoaiNgu_ID);
+                }
+                else { ViewBag.NghiepVu2 = new SelectList(dbc.DM_NghiepVu.Where(kh => kh.GhiChu == "0" || kh.GhiChu == "2").OrderBy(kh => kh.NghiepVu_ID), "NghiepVu_ID", "TenNghiepVu"); }
+
+                if (modal_kh_nghiepvu22.Count != 0)
+                {
+                    ViewBag.NghiepVu22 = new SelectList(dbc.DM_NghiepVu.Where(kh => kh.GhiChu == "0" || kh.GhiChu == "2").OrderBy(kh => kh.NghiepVu_ID), "NghiepVu_ID", "TenNghiepVu", modal_kh_nghiepvu22.First().NghiepVu_NgoaiNgu_ID);
+                }
+                else { ViewBag.NghiepVu22 = new SelectList(dbc.DM_NghiepVu.Where(kh => kh.GhiChu == "0" || kh.GhiChu == "2").OrderBy(kh => kh.NghiepVu_ID), "NghiepVu_ID", "TenNghiepVu"); }
+
+                if (modal_kh_nghiepvu1.Count != 0)
+                {
+                    ViewBag.NghiepVu1 = new SelectList(dbc.DM_NghiepVu.Where(kh => kh.GhiChu == "0" || kh.GhiChu == "1").OrderBy(kh => kh.NghiepVu_ID), "NghiepVu_ID", "TenNghiepVu", modal_kh_nghiepvu1.First().NghiepVu_TinHoc_ID);
+                }
+                else { ViewBag.NghiepVu1 = new SelectList(dbc.DM_NghiepVu.Where(kh => kh.GhiChu == "0" || kh.GhiChu == "1").OrderBy(kh => kh.NghiepVu_ID), "NghiepVu_ID", "TenNghiepVu"); }
+                if (modal_kh_nghiepvu11.Count != 0)
+                {
+                    ViewBag.NghiepVu11 = new SelectList(dbc.DM_NghiepVu.Where(kh => kh.GhiChu == "0" || kh.GhiChu == "1").OrderBy(kh => kh.NghiepVu_ID), "NghiepVu_ID", "TenNghiepVu", modal_kh_nghiepvu11.First().NghiepVu_TinHoc_ID);
+                }
+                else { ViewBag.NghiepVu11 = new SelectList(dbc.DM_NghiepVu.Where(kh => kh.GhiChu == "0" || kh.GhiChu == "1").OrderBy(kh => kh.NghiepVu_ID), "NghiepVu_ID", "TenNghiepVu"); }
+
+                ViewBag.HocVan_ID = dbc.DM_HocVan.ToList().OrderBy(kh => kh.HocVan_ID);
+                ViewBag.NoiCap_ID = dbc.DM_DiaChi.ToList().Where(nh => nh.ParentId == 0);
+
+                ViewBag.TamTru_Tinh_ID = new SelectList(dbc.DM_DiaChi.Where(nh => nh.Id == TT_Tinh), "Id", "TenDiaChi");
+                ViewBag.TamTru_Huyen_ID = new SelectList(dbc.DM_DiaChi.Where(nh => nh.ParentId == TT_Tinh), "Id", "TenDiaChi", model.TamTru_Huyen_ID);
+                ViewBag.TamTru_Xa_ID = new SelectList(dbc.DM_DiaChi.Where(nh => nh.ParentId == model.TamTru_Huyen_ID), "Id", "TenDiaChi", model.TamTru_Xa_ID);
+
+                var model2 = dbc.KhachHang_TrinhDo.Where(p => p.KH_ID == user.UserChild_id).SingleOrDefault();
+                if (model2 != null)
+                {
+                    ViewBag.Nganh_ID = model2;
+                    int NganhHienTai = model2.Nganh_ID;
+                    int TrinhDoHienTai = model2.TrinhDo_ID;
+
+                    ViewBag.KHTrinhDo = model2.KHTrinhDo;
+                    ViewBag.Nganh_ID = new SelectList(dbc.DM_NganhLaoDong.ToList(), "NganhLaoDong_ID", "TenNganhLaoDong", NganhHienTai);
+                    ViewBag.Nghe_ID = new SelectList(dbc.DM_NgheLaoDong.Where(kh => kh.NhomNganhLaoDong == NganhHienTai), "NgheLaoDong_ID", "TenNgheLaoDong", model2.Nghe_ID);
+                    ViewBag.TrinhDo_ID = new SelectList(dbc.DM_TrinhDoChuyenMon.ToList(), "TrinhDoChuyenMon_ID", "TenChuyenMon", TrinhDoHienTai);
+
+                }
+                else
+                {
+                    ViewBag.Nganh_ID = new SelectList(dbc.DM_NganhLaoDong.ToList(), "NganhLaoDong_ID", "TenNganhLaoDong");
+                    ViewBag.Nghe_ID = new SelectList(dbc.DM_NgheLaoDong.ToList(), "NgheLaoDong_ID", "TenNgheLaoDong");
+                    ViewBag.TrinhDo_ID = new SelectList(dbc.DM_TrinhDoChuyenMon.ToList(), "TrinhDoChuyenMon_ID", "TenChuyenMon");
+
+                }
+                return PartialView(model);
+            }
+            else return PartialView("_Login");
+
+        }
+        public ActionResult _EditCddAcountJson(string CMND = "", string HoTen = "", string NgaySinh = "", int GioiTinh = 0
+            , string NgayCap = "", int NoiCap_ID = 0, string DienThoai = "", string Email = "", int TamTru_Tinh_ID = 0
+            , int TamTru_Huyen_ID = 0, int TamTru_Xa_ID = 0, string TamTru_DiaChi = ""
+            , int TinhTrangHonNhan = 0, int HocVan_ID = 0, int TrinhDo_ID = 0, int Nganh_ID = 0, int Nghe_ID = 0
+            , int NghiepVu1 = 0, int NghiepVu11 = 0, int NghiepVu2 = 0, int NghiepVu22 = 0, int NghiepVu3 = 0)
+        {
+            if (Session["UsrID"] != null)
+            {
+                int uID = int.Parse(Session["UsrID"].ToString());
+                var user = dbc.UserWebs.SingleOrDefault(kh => kh.UserID == uID && kh.UserRoles_NVLoaitaikhoan == 3);
+                var Khh = dbc.KhachHangs.Where(kh => kh.KH_ID == user.UserChild_id).Single();
+
+                var model = dbc.KhachHangs.Find(Khh.KH_ID);
+                model.CMND = CMND;
+                model.HoTen = HoTen;
+                model.NgaySinh = DateTime.Parse(NgaySinh);
+                model.GioiTinh = GioiTinh;
+                model.NgayCap = DateTime.Parse(NgayCap);
+                model.NoiCap_ID = NoiCap_ID;
+                model.DienThoai = DienThoai;
+                model.Email = Email;
+                model.TamTru_Tinh_ID = TamTru_Tinh_ID;
+                model.TamTru_Huyen_ID = TamTru_Huyen_ID;
+                model.TamTru_Xa_ID = TamTru_Xa_ID;
+                model.TamTru_DiaChi = TamTru_DiaChi;
+                ///////////////////////////////////////
+
+                model.TinhTrangHonNhan = TinhTrangHonNhan;
+                model.HocVan_ID = HocVan_ID;
+                model.NgayCapNhat = DateTime.Now;
+                if (model.SoLanCapNhat == null)
+                {
+                    model.SoLanCapNhat = 0;
+                }
+                else
+                {
+                    model.SoLanCapNhat += 1;
+                }
+                var kq1 = DAO.NTV_KhachHang_Dao.Update_NTV112024(dbc, model);
+                if (kq1)
+                {
+                    var UserW = dbc.UserWebs.Find(int.Parse(Session["UsrID"].ToString()));
+                    if (UserW.EmailConnection != Email)
+                    {
+                        UserW.EmailConnection = Email;
+                        dbc.Entry(UserW).State = System.Data.Entity.EntityState.Modified;
+                        dbc.SaveChanges();
+                    }
+                    //ghi bảng KhachHang_TrinhDo
+                    var trinhdo = new DAO.Khachhang_trinhdo_nghiepvu_DAO().Xoa_InsertKhachHang_trinhdo(
+                        TrinhDo_ID, Nganh_ID, Nghe_ID, model.KH_ID, UserW.UserID);
+
+                    //ghi bảng nghiệp vụ
+                    var kqnv = new DAO.Khachhang_trinhdo_nghiepvu_DAO().Xoa_InsertKhachHang_NN_TH_NV(
+                        NghiepVu1, NghiepVu11, NghiepVu2, NghiepVu22, NghiepVu3, model.KH_ID, UserW.UserID);
+                    Session["ThongBao_KH_updatetaikhoan"] = "Update thành công thông tin cá nhân.";
+                }
+                else
+                {
+                    Session["ThongBao_KH_updatetaikhoan"] = "Update không thành công, Có lỗi update !!!.";
+                }
+                return Json("No", JsonRequestBehavior.AllowGet);
+            }
+            return Json("No", JsonRequestBehavior.AllowGet);
+        }
+        //3/11/2024 ****************
         [ProtectNTV]
         public ActionResult _EditCandidateAccount()
         {

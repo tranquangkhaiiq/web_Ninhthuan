@@ -293,11 +293,12 @@
                                 //alert('sdfdfdsf');
                             }
                             var pdf = '@XString.getStringpdf(Model.ImagePath2)';
+
                             var url = "/Content/Upload/News_Img/" + pdf;
                             var myState = {
 				                            pdf: null,
 				                            currentPage: 1,
-				                            zoom: 1.5
+				                            zoom: 1.4
                             }
                             //console.log(pdf);
                             pdfjsLib.getDocument('/Content/Upload/News_Img/' + pdf).then((pdf) => {

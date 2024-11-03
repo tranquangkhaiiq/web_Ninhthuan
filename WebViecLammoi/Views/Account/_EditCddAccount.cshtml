@@ -1,0 +1,556 @@
+﻿@using WebViecLammoi.DAO
+@using WebViecLammoi.Utils
+@using WebViecLammoi.Models
+@using WebViecLammoi.i18n
+@model KhachHang
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="~/Content/js/summernote-vi-VN.js"></script>
+<script src="~/Content/js/summernote.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link href="~/Content/css/Info_Style.css" rel="stylesheet" />
+<style>
+    .glyphicon {
+        line-height: 2 !important;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <p>Thông tin tài khoản</p>
+        <div class="thongbao_SVL">
+            <p>@Session["ThongBao_KH_updatetaikhoan"]</p>
+        </div>
+    </div>
+    <div class="panel-body">
+        @if (Model != null)
+        {
+            var logo = XString.Cutstring(Model.Hinh);
+            var HoTen = Model.HoTen;
+            var DienThoai = Model.DienThoai;
+            var Email = Model.Email;
+            var path = XString.maplocal + "Avatar_UV\\" + logo;
+            <ul class="nav nav-pills ">
+                <li class="active"><a id="kh0" data-toggle="pill" href="#ungtuyen">Tên-Thông tin khác</a></li>
+                <li><a id="kh1" data-toggle="pill" href="#phuhop">Địa Chỉ-Email</a></li>
+                <li><a id="kh2" data-toggle="pill" href="#menu2">Nghành nghề-kỹ năng</a></li>
+
+            </ul>
+            <div class="kh0 active" style="display: block">
+                <div class="table-responsive">
+                    <fieldset class="info_form setkhai">
+                        <div class="leftcontact">
+                            <div class="form-group">
+                                <p>@Common.FullName <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-user"></i></span>
+                                <input value="@HoTen" style="width:90%; height: 42px !important" type="text" class="form-control" id="HoTen" required>
+                                @*//11/2/2024*@
+                                <div class="validation"></div>
+                            </div>
+                            <div class="form-group">
+                                <p>@Common.DateofBirth <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-calendar"></i></span>
+                                @Html.TextBoxFor(x => x.NgaySinh, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @required = true, @style = " height: 40px" })
+                                <div class="validation"></div>
+                            </div>
+                            <div class="form-group">
+                                <p>@Common.Sex <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-magnet"></i></span>
+                                <select class="form-control" id="GioiTinh" name="GioiTinh" style="width: 75%; height: 40px">
+                                    @if (Model.GioiTinh == 1)
+                                    {
+                                        <option value="1" selected>@Common.Male</option>
+                                        <option value="2">@Common.Female</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="1">@Common.Male</option>
+                                        <option value="2" selected>@Common.Female</option>
+                                    }
+                                </select>
+                                <div class="validation"></div>
+                            </div>
+                            <div class="form-group">
+                                <p>@Common.Phonenumber <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-phone"></i></span>
+                                <input value="@DienThoai" style="height: 42px !important" type="tel" class="form-control" id="DienThoai" name="DienThoai" required>
+                            </div>
+                        </div>
+                        <div class="rightcontact">
+                            <div class="form-group">
+                                <p>@Common.IDNum <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                @Html.TextAreaFor(kh => kh.CMND, new { @class = "form-control", @required = "required", @style = "height: 40px" })
+                                <div class="validation"></div>
+                            </div>
+                            <div class="form-group">
+                                <p>Nơi cấp CMND</p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                <select id="NoiCap_ID" class="form-control" name="NoiCap_ID" style="width: 75%; height: 40px">
+                                    @foreach (DM_DiaChi h in ViewBag.NoiCap_ID)
+                                    {
+                                        if (Model.NoiCap_ID == h.Id)
+                                        {
+                                            <option value="@h.Id" selected>@h.TenDiaChi</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@h.Id">@h.TenDiaChi</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <p>Ngày cấp CMND</p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-calendar"></i></span>
+                                @Html.TextBoxFor(x => x.NgayCap, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @required = true, @style = " height: 40px" })
+                                <div class="validation"></div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+                </div>
+            </div>
+            <div class="kh1" style="display:none">
+                <div class="table-responsive">
+                    <fieldset class="info_form setkhai">
+                        <div class="leftcontact">
+                            <div class="form-group">
+                                <p>@Common.CurrentPlace<span>*</span></p>
+                                <div>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-home"></i></span>
+                                    @Html.DropDownList("TamTru_Tinh_ID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                </div>
+                                <br />
+                                <label>@Common.Town - Tạm trú </label>
+                                <div class="form-group">
+                                    <span class="icon-case"><i class="glyphicon glyphicon-home"></i></span>
+                                    @Html.DropDownList("TamTru_Huyen_ID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                </div>
+                                <label>@Common.Ward - Tạm trú </label>
+                                <div class="form-group">
+                                    <span class="icon-case"><i class="glyphicon glyphicon-home"></i></span>
+                                    @Html.DropDownList("TamTru_Xa_ID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                </div>
+                                <div class="form-group">
+                                    <p>@Common.Address (phần còn lại)<span>*</span></p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-home"></i></span>
+                                    @Html.TextBoxFor(kh => kh.TamTru_DiaChi, new { @class = "form-control", @required = true, @style = " height: 40px" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="rightcontact">
+                            <div class="form-group">
+                                <p>Email (điền đúng định dạng email)<span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-record"></i></span>
+                                <input value="@Email" style="height: 42px !important" type="email" class="form-control" id="Email" name="Email" required>
+                            </div>
+                            @*<div class="form-group">
+                                    <p>@Common.Img Đại Diện(Tạo ấn tượng với nhà tuyển dụng)<span>*</span></p>
+                                    <div class="image-upload">
+                                        <input id="file-input" type="file" name="HinhDaiDien" />
+                                        <p id="thongbaosite" style="color:red; display:none">File quá lớn !!!</p>
+                                        @Html.HiddenFor(kh => kh.Hinh)
+                                    </div>
+                                    <script>
+                                        //$('#file-input').bind('change', function () {
+                                        //    //this.files[0].size gets the size of your file.
+                                        //    var ff = this.files[0]
+                                        //    if (ff != null) {
+                                        //        var size = ff.size;
+                                        //        const file = Math.round((size / 1024));
+                                        //        if (file >= 5200) {
+                                        //            $("#thongbaosite").css('display', 'block');
+                                        //            document.getElementById('btnUpdateTT').disabled = true;
+                                        //        } else {
+                                        //            $("#thongbaosite").css('display', 'none')
+                                        //            document.getElementById('btnUpdateTT').disabled = false;
+                                        //        }
+                                        //    } else {
+                                        //        $("#thongbaosite").css('display', 'none')
+                                        //        document.getElementById('btnUpdateTT').disabled = false;
+                                        //    }
+                                        //});
+                                    </script>
+                                    <div class="form-group col-sm-6">
+                                        @if (File.Exists(path))
+                                        {
+                                            <img src="@XString.GetImgBase64("Avatar_UV",logo)" hidden />
+                                            <img class="img-responsive img-thumbnail" src="~/Content/Upload/Avatar_UV/@logo" style="max-width:260px;max-height:200px" />
+                                        }
+
+                                    </div>
+                                </div>*@
+                            <div class="form-group">
+                                <p>@Common.MaritalStatus <span>*</span></p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-user"></i></span>
+                                <select class="form-control" id="TinhTrangHonNhan" name="TinhTrangHonNhan" style="width: 68%; height: 40px">
+                                    @if (ViewBag.Honnhan == 0 || ViewBag.Honnhan == -1)
+                                    {
+                                        <option value="0" selected>Không Rõ</option>
+                                        <option value="1">@Common.Single</option>
+                                        <option value="2">@Common.Married</option>
+                                    }
+                                    else if (ViewBag.Honnhan == 1)
+                                    {
+                                        <option value="0">Không Rõ</option>
+                                        <option value="1" selected>@Common.Single</option>
+                                        <option value="2">@Common.Married</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="0">Không Rõ</option>
+                                        <option value="1">@Common.Single</option>
+                                        <option value="2" selected>@Common.Married</option>
+                                    }
+                                </select>
+                                <div class="validation"></div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+                </div>
+            </div>
+            <div class="kh2" style="display:none">
+                <div class="table-responsive">
+                    <fieldset class="info_form setkhai">
+                        <div class="leftcontact">
+                            <div class="chuyenmon">
+                                <div class="form-group">
+                                    <p>@Common.Educationallevel</p>
+                                    <span class="icon-case"><i class="glyphicon glyphicon-scissors"></i></span>
+                                    <select id="HocVan_ID" class="form-control" name="HocVan_ID" style="width: 75%; height: 40px">
+                                        @foreach (DM_HocVan h in ViewBag.HocVan_ID)
+                                        {
+                                            if (Model.HocVan_ID == h.HocVan_ID)
+                                            {
+                                                <option value="@h.HocVan_ID" selected>@h.HocVan_Ten</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@h.HocVan_ID">@h.HocVan_Ten</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <input type="text" value="@ViewBag.KHTrinhDo" style="display:none" />
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <b style="margin-bottom:2px">Trình độ bằng cấp <span>*</span></b>
+                                        <div>
+                                            <span class="icon-case"><i class="glyphicon glyphicon-confluence"></i></span>
+                                            @Html.DropDownList("TrinhDo_ID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                        </div>
+                                        <div class="validation"></div>
+                                    </div>
+                                    <b style="margin-bottom:2px">Ngành đào tạo</b>
+                                    <div>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-education"></i></span>
+                                        @Html.DropDownList("Nganh_ID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+
+                                    </div>
+                                    <div class="validation"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <b style="margin-bottom:2px">Nghề đào tạo</b>
+                                    <div>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-education"></i></span>
+                                        @Html.DropDownList("Nghe_ID", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                    </div>
+                                    <div class="validation"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rightcontact">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6  col-xs-12">
+                                        <p>Khả năng @Common.Computerlevel 1</p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-lamp"></i></span>
+                                        @Html.DropDownList("NghiepVu1", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                    </div>
+                                    <div class="col-md-6  col-xs-12">
+                                        <p>Khả năng @Common.Computerlevel 2</p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-lamp"></i></span>
+                                        @Html.DropDownList("NghiepVu11", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6  col-xs-12">
+                                        <p>Thành thạo @Common.ForeignLanguage 1</p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-lamp"></i></span>
+                                        @Html.DropDownList("NghiepVu2", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                    </div>
+                                    <div class="col-md-6  col-xs-12">
+                                        <p>Thành thạo @Common.ForeignLanguage 2</p>
+                                        <span class="icon-case"><i class="glyphicon glyphicon-lamp"></i></span>
+                                        @Html.DropDownList("NghiepVu22", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <p>Khả năng khác</p>
+                                <span class="icon-case"><i class="glyphicon glyphicon-flash"></i></span>
+                                @Html.DropDownList("NghiepVu3", null, new { @class = "form-control", style = "width: 75%; height: 40px" })
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        }
+
+
+
+    </div>
+    <div class="panel-footer" style="text-align:center">
+        <button id="btnUpdateTT" class="btn-primary">Update thông tin</button>
+
+    </div>
+</div>
+<script type="text/javascript">
+    $('#kh0').click(function () {
+        $('.kh0').css("display", "block");
+        $('.kh1').css("display", "none");
+        $('.kh2').css("display", "none");
+    });
+    $('#kh1').click(function () {
+        $('.kh0').css("display", "none");
+        $('.kh1').css("display", "block");
+        $('.kh2').css("display", "none");
+    });
+    $('#kh2').click(function () {
+        $('.kh0').css("display", "none");
+        $('.kh1').css("display", "none");
+        $('.kh2').css("display", "block");
+    });
+
+    //XỬ LÝ ĐỊA CHỈ Ở PHẦN TẠM TRÚ
+    // LOAD XÃ/PHƯỜNG KHI THAY ĐỔI HUYỆN
+    $(function () {
+        $('#btnUpdateTT').click(function () {
+            if (!confirm("Bạn muốn update thông tin cá nhân ??")) {
+                return false;
+            } else {
+                var hoten = $('#HoTen').val();
+                var NgaySinh = $('#NgaySinh').val();
+                var DienThoai = $('#DienThoai').val();
+                var CMND = $('#CMND').val();
+                var GioiTinh = $('#GioiTinh').val();
+                var NoiCap_ID = $('#NoiCap_ID').val();
+                var NgayCap = $('#NgayCap').val();
+                var TamTru_Tinh_ID = $('#TamTru_Tinh_ID').val();
+                var TamTru_Huyen_ID = $('#TamTru_Huyen_ID').val();
+                var TamTru_Xa_ID = $('#TamTru_Xa_ID').val();
+                var TamTru_DiaChi = $('#TamTru_DiaChi').val();
+                var Email = $('#Email').val();
+                var TinhTrangHonNhan = $('#TinhTrangHonNhan').val();
+                var HocVan_ID = $('#HocVan_ID').val();
+                var TrinhDo_ID = $('#TrinhDo_ID').val();
+                var Nganh_ID = $('#Nganh_ID').val();
+                var Nghe_ID = $('#Nghe_ID').val();
+                var NghiepVu1 = $('#NghiepVu1').val();
+                var NghiepVu11 = $('#NghiepVu11').val();
+                var NghiepVu2 = $('#NghiepVu2').val();
+                var NghiepVu22 = $('#NghiepVu22').val();
+                var NghiepVu3 = $('#NghiepVu3').val();
+                //var FilenameOut = '';
+                //var fullPath = document.getElementById('file-input').value;
+                //if (fullPath) {
+                //    var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                //    var filename = fullPath.substring(startIndex);
+                //    if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                //        filename = filename.substring(1);
+                //    }
+                //    FilenameOut = filename;
+                //    //alert(fullPath);
+                //}
+                $.ajax({
+                    url: "/Account/_EditCddAcountJson", // we are calling json method
+                    data: {
+                        CMND: CMND, HoTen: hoten, NgaySinh: NgaySinh, GioiTinh: GioiTinh, NgayCap: NgayCap, NoiCap_ID: NoiCap_ID,
+                        DienThoai: DienThoai, Email: Email, TamTru_Tinh_ID: TamTru_Tinh_ID, TamTru_Huyen_ID: TamTru_Huyen_ID,
+                        TamTru_Xa_ID: TamTru_Xa_ID, TamTru_DiaChi: TamTru_DiaChi, TinhTrangHonNhan: TinhTrangHonNhan,
+                        HocVan_ID: HocVan_ID, TrinhDo_ID: TrinhDo_ID, Nganh_ID: Nganh_ID, Nghe_ID: Nghe_ID, NghiepVu1: NghiepVu1, NghiepVu11: NghiepVu11,
+                        NghiepVu2: NghiepVu2, NghiepVu22: NghiepVu22, NghiepVu3: NghiepVu3
+                    },
+                    type: "POST",
+                    datatype: 'Json',
+                    success: function (response) {
+                        if (response == "No") {
+                            location.reload();
+                        } else {
+                            alert('Update thành công thông tin cá nhân.')
+                        }
+                    },
+                    error: function (ex) {
+                        alert('Lỗi Update thông tin cá nhân: ' + ex);
+                    }
+                });
+            }
+        });
+
+
+
+        $('#TamTru_Huyen_ID').change(function () {
+            $('#TamTru_Xa_ID').empty();
+            var MaQuanHuyen = $('#TamTru_Huyen_ID').val();
+            //alert(MaQuanHuyen.toString());
+            $.ajax({
+                url: "/Account/TamTru_Xa_ID", // we are calling json method
+                data: { TamTru_Huyen_ID: MaQuanHuyen },
+                success: function (response) {
+                    $(response).each(function (i, e) {
+                        $("#TamTru_Xa_ID").append(
+                            $('<option/>')
+                                .attr('value', e.Id)
+                                .text(e.TenDiaChi)
+                        );
+                        // here we are adding option for Phuongxa
+                    });
+                },
+                error: function (ex) {
+                    alert('Lỗi load phường xã: ' + ex);
+                }
+            });
+        });
+    });
+    $(function () {
+        var MaTinh = $('#TamTru_Tinh_ID').val();
+        $('#TamTru_Tinh_ID').change(function () {
+            $('#TamTru_Huyen_ID').empty();
+            var MaTinh = $('#TamTru_Tinh_ID').val();
+            //alert(MaQuanHuyen.toString());
+            $.ajax({
+                url: "/Account/TamTru_Huyen_ID", // we are calling json method
+                data: { TamTru_Tinh_ID: MaTinh },
+                success: function (response) {
+                    $(response).each(function (i, e) {
+                        $("#TamTru_Huyen_ID").append(
+                            $('<option/>')
+                                .attr('value', e.Id)
+                                .text(e.TenDiaChi)
+                        );
+                        // here we are adding option for Phuongxa
+                    });
+                },
+                error: function (ex) {
+                    alert('Lỗi load Quận/ huyện: ' + ex);
+
+                }
+            });
+
+
+            //LOAD XÃ/PHƯỜNG KHI THAY ĐỔI TỈNH --> QUẬN/HUYỆN THAY ĐỔI --> XÃ/PHƯỜNG THAY ĐỔI THEO - NHỰT
+            $(function () {
+                $('#TamTru_Xa_ID').empty();
+                var MaQuanHuyen = $('#TamTru_Huyen_ID').val();
+                //alert(MaQuanHuyen.toString());
+                $.ajax({
+                    url: "/Account/TamTru_Xa_ID", // we are calling json method
+                    data: { TamTru_Huyen_ID: MaQuanHuyen },
+                    success: function (response) {
+                        $(response).each(function (i, e) {
+                            $("#TamTru_Xa_ID").append(
+                                $('<option/>')
+                                    .attr('value', e.Id)
+                                    .text(e.TenDiaChi)
+                            );
+                            // here we are adding option for Phuongxa
+                        });
+                    },
+                    error: function (ex) {
+                        //alert('Lỗi load phường xã khi có đã load quận huyện: ' + ex);
+                        var abc = $('#TamTru_Huyen_ID').val();
+                        $(function () {
+                            $('#TamTru_Xa_ID').empty();
+                            //alert(MaQuanHuyen.toString());
+                            $.ajax({
+                                url: "/Account/TamTru_Xa_ID", // we are calling json method
+                                data: { TamTru_Huyen_ID: abc },
+                                success: function (response) {
+                                    $(response).each(function (i, e) {
+                                        $("#TamTru_Xa_ID").append(
+                                            $('<option/>')
+                                                .attr('value', e.Id)
+                                                .text(e.TenDiaChi)
+                                        );
+                                        // here we are adding option for Phuongxa
+                                    });
+                                },
+                                error: function (ex) {
+                                    alert('Lỗi load phường xã ( lúc này đã load quận huyện): ' + ex);
+                                }
+                            });
+
+
+                        });
+                    }
+                });
+
+            });
+        });
+    });
+
+
+
+
+    //XỬ LÝ LOAD NGHỀ THEO NGÀNH - CHUYÊN MÔN 1
+    $(function () {
+        var MaNganhNghe = $('#Nganh_ID').val();//truyền hằng số cho lần chạy đầu tiên
+        $.ajax({
+            url: "/Account/Nghe_ID", // we are calling json method
+            data: { Nganh_ID: MaNganhNghe },
+            success: function (response) {
+                $(response).each(function (i, e) {
+                    $("#Nghe_ID").append(
+                        $('<option/>')
+                            .attr('value', e.NgheLaoDong_ID)
+                            .text(e.TenNgheLaoDong)
+                    );
+                });
+            },
+            error: function (ex) {
+                alert('Lỗi load ngành nghề: ' + ex);
+            }
+        });
+    });
+
+
+    // XỬ LÝ LOAD NGHỀ THEO NGÀNH - KHI THAY ĐỔI NGÀNH
+    $(function () {
+        $('#Nganh_ID').change(function () {
+            $('#Nghe_ID').empty();
+            var MaNganhNghe = $('#Nganh_ID').val();
+            $.ajax({
+                url: "/Account/Nghe_ID", // we are calling json method
+                data: { Nganh_ID: MaNganhNghe },
+                // here we are get value of selected QuanHuyen and passing same value
+                //as inputto json method Phuongxa.
+                success: function (response) {
+                    // states contains the JSON list
+                    // of states passed from the controller
+                    $(response).each(function (i, e) {
+                        $("#Nghe_ID").append(
+                            $('<option/>')
+                                .attr('value', e.NgheLaoDong_ID)
+                                .text(e.TenNgheLaoDong)
+                        );
+                        // here we are adding option for Phuongxa
+                    });
+                },
+                error: function (ex) {
+                    alert('Lỗi load ngành nghề: ' + ex);
+                }
+            });
+        });
+    });
+
+</script>
+@Scripts.Render("~/bundles/jqueryval")

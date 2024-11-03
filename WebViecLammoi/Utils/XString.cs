@@ -69,6 +69,7 @@ namespace WebViecLammoi.Utils
             return regex.Replace(strFormD, String.Empty).Replace("u0111", "d").Replace("u0110", "D");
 
         }
+        
         public static String EditStringtoid(this String n)
         {
             if (n != "" && n != null)

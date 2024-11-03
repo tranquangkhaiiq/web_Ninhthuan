@@ -1,14 +1,15 @@
 ﻿.info_form .info_header {
-            font-size: 18px;
-            background: #F6AA93 none repeat scroll 0% 0%;
-            color: rgb(255, 255, 255);
-            padding: 22px 25px;
-            border-radius: 5px 5px 0px 0px;
-            margin: auto;
-            text-shadow: none;
-            text-align: left;
-            font-family:monospace
-        }
+    font-size: 18px;
+    /*background: #F6AA93 none repeat scroll 0% 0%;*/
+    background: rgb(0, 111, 199);
+    color: rgb(255, 255, 255);
+    padding: 22px 25px;
+    border-radius: 5px 5px 0px 0px;
+    margin: auto;
+    text-shadow: none;
+    text-align: left;
+    /*font-family:monospace*/
+}
 
         .info_form {
             border-radius: 5px;

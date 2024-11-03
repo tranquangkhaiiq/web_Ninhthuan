@@ -5905,6 +5905,7 @@
     <Content Include="Views\Home\mlienket.cshtml" />
     <Content Include="Views\Account\_RegisterEmail.cshtml" />
     <Content Include="Views\Account\_RegisterOTP.cshtml" />
+    <Content Include="Views\Account\_EditCddAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Tien\quangcao\" />

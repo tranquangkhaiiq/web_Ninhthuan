@@ -115,7 +115,7 @@
                         <p>@Common.Sex <span>*</span></p>
                         <span class="icon-case"><i class="glyphicon glyphicon-magnet"></i></span>
                         <select class="form-control" name="GioiTinh" style="width: 75%; height: 40px">
-                            @if (ViewBag.Gioitinh == 1)
+                            @if (Model.GioiTinh == 1)
                             {
                                 <option value="1" selected>@Common.Male</option>
                                 <option value="2">@Common.Female</option>
