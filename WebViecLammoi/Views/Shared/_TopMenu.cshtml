@@ -15,7 +15,7 @@
             <li><a href="/Tin-Tuc/1/3315">Hướng dẫn sử dụng web</a></li>
         </ul>
     </li>
-
+    <li><a href="/Khu-Vuc">Việc làm khu vực</a></li>
     @if (Session["emailFace"] != null)
     {
         if (Session["quyen"] != null && Session["quyen"].ToString() == "NTV")
@@ -37,8 +37,6 @@
         else
         {
             <li><a href="/Van-Ban">Văn bản pháp luật</a></li>
-            <li><a href="/Gioi-Thieu">Giới thiệu trung tâm</a></li>
-            
             <li><a href="/Dang-Nhap" class="title_user">Đăng nhập</a></li>
             <li><a href="/Dang-Ky" class="title_user">Đăng ký</a></li>
         }
@@ -60,8 +58,6 @@
     else
     {
         <li><a href="/Van-Ban">Văn bản pháp luật</a></li>
-        <li><a href="/Gioi-Thieu">Giới thiệu trung tâm</a></li>
-        
         <li><a href="/Dang-Nhap" class="title_user">Đăng nhập</a></li>
         <li><a href="/Dang-Ky" class="title_user">Đăng ký</a></li>
     }

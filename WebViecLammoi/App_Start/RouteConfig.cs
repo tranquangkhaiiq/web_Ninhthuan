@@ -93,7 +93,12 @@ namespace WebViecLammoi
              defaults: new { controller = "Home", action = "About", id = UrlParameter.Optional },
              namespaces: new[] { "WebViecLammoi.Controllers" }
          );
-
+            routes.MapRoute(
+             name: "KhuVuc",
+             url: "Khu-Vuc",
+             defaults: new { controller = "Home", action = "ViecLamKhuVuc", id = UrlParameter.Optional },
+             namespaces: new[] { "WebViecLammoi.Controllers" }
+         );
             routes.MapRoute(
              name: "VanBan",
              url: "Van-Ban",

@@ -243,6 +243,7 @@
     <Compile Include="DAO\NTV_KhachHang_Dao.cs" />
     <Compile Include="DAO\TD_NghiepVu_TinHoc_NgoaiNgu_Dao.cs" />
     <Compile Include="DAO\Video_Dao.cs" />
+    <Compile Include="DAO\VieclamKhuVuc.cs" />
     <Compile Include="Filters\ProtectAttribute.cs" />
     <Compile Include="Filters\ProtectNTVAttribute.cs" />
     <Compile Include="Filters\ProtectTDAttribute.cs" />
@@ -260,6 +261,41 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Common.vi.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DM_database.cs" />
+    <Compile Include="Models\Model_Cty\DoanhNghiep.cs" />
+    <Compile Include="Models\Model_Cty\DoanhNghiep_TuyenDung.cs" />
+    <Compile Include="Models\Model_Cty\DoanhNghiep_TuyenDung_NghiepVu.cs" />
+    <Compile Include="Models\Model_Cty\DoanhNghiep_TuyenDung_NgoaiNgu.cs" />
+    <Compile Include="Models\Model_Cty\DoanhNghiep_TuyenDung_TinHoc.cs" />
+    <Compile Include="Models\Model_Cty\DoanhNghiep_UngTuyen.cs" />
+    <Compile Include="Models\Model_Cty\KhachHang.cs" />
+    <Compile Include="Models\Model_Cty\KhachHang_NghiepVu.cs" />
+    <Compile Include="Models\Model_Cty\KhachHang_TimViecLam.cs" />
+    <Compile Include="Models\Model_Cty\KhachHang_TimViecLam_FileDinhKem.cs" />
+    <Compile Include="Models\Model_Cty\KhachHang_TimViec_KinhNghiem_2022.cs" />
+    <Compile Include="Models\Model_Cty\KhachHang_TimViec_NgoaiNgu_2022.cs" />
+    <Compile Include="Models\Model_Cty\KhachHang_TimViec_TinHoc.cs" />
+    <Compile Include="Models\Model_Cty\KhachHang_TrinhDo.cs" />
+    <Compile Include="Models\Model_Cty\News.cs" />
+    <Compile Include="Models\Model_Cty\NewsCategory.cs" />
+    <Compile Include="Models\Model_Cty\VLCty.cs" />
+    <Compile Include="Models\Model_VLBN\DoanhNghiep.cs" />
+    <Compile Include="Models\Model_VLBN\DoanhNghiep_TuyenDung.cs" />
+    <Compile Include="Models\Model_VLBN\DoanhNghiep_TuyenDung_NghiepVu.cs" />
+    <Compile Include="Models\Model_VLBN\DoanhNghiep_TuyenDung_NgoaiNgu.cs" />
+    <Compile Include="Models\Model_VLBN\DoanhNghiep_TuyenDung_TinHoc.cs" />
+    <Compile Include="Models\Model_VLBN\DoanhNghiep_UngTuyen.cs" />
+    <Compile Include="Models\Model_VLBN\KhachHang.cs" />
+    <Compile Include="Models\Model_VLBN\KhachHang_NghiepVu.cs" />
+    <Compile Include="Models\Model_VLBN\KhachHang_TimViecLam.cs" />
+    <Compile Include="Models\Model_VLBN\KhachHang_TimViecLam_FileDinhKem.cs" />
+    <Compile Include="Models\Model_VLBN\KhachHang_TimViec_KinhNghiem_2022.cs" />
+    <Compile Include="Models\Model_VLBN\KhachHang_TimViec_NgoaiNgu_2022.cs" />
+    <Compile Include="Models\Model_VLBN\KhachHang_TimViec_TinHoc.cs" />
+    <Compile Include="Models\Model_VLBN\KhachHang_TrinhDo.cs" />
+    <Compile Include="Models\Model_VLBN\News.cs" />
+    <Compile Include="Models\Model_VLBN\NewsCategory.cs" />
+    <Compile Include="Models\Model_VLBN\VLBN.cs" />
     <Compile Include="Models\m_Lienket.cs" />
     <Compile Include="Models\aspnet_mapSub.cs" />
     <Compile Include="Models\aspnet_mapauto.cs" />
@@ -5834,10 +5870,8 @@
     <Content Include="Views\Home\_TD_MoiNhat.cshtml" />
     <Content Include="Views\Home\_LD_MoiNhat.cshtml" />
     <Content Include="Views\Shared\_Contact.cshtml" />
-    <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_TopMenu.cshtml" />
-    <Content Include="Views\Shared\_MainMenu.cshtml" />
     <Content Include="Views\Candidate\MainCandidate.cshtml" />
     <Content Include="Views\Candidate\FindCandidate.cshtml" />
     <Content Include="Views\Candidate\CandidateList.cshtml" />
@@ -5906,6 +5940,7 @@
     <Content Include="Views\Account\_RegisterEmail.cshtml" />
     <Content Include="Views\Account\_RegisterOTP.cshtml" />
     <Content Include="Views\Account\_EditCddAccount.cshtml" />
+    <Content Include="Views\Home\ViecLamKhuVuc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Tien\quangcao\" />

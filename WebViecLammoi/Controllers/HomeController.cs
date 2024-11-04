@@ -64,6 +64,15 @@ namespace WebViecLammoi.Controllers
 
             return View();
         }
+        public ActionResult ViecLamKhuVuc()
+        {
+
+            ViewBag.QC_NewLong = new DAO.New_Dao().Get_NewSTTOne(4170);
+            ViewBag.Vieclamkhuvuc = dbc.DM_databases.Where(kh=>kh.kichhoat==true).ToList();
+            ViewBag.LogoVLCty = new DAO.VieclamKhuVuc().GetLoGobyDB_Cty();
+            ViewBag.LogoVLBN = new DAO.VieclamKhuVuc().GetLoGobyDB_VLBN();
+            return View();
+        }
         public ActionResult QLLoGo()
         {
             ViewBag.Logo = dbc.News.Where(kh => kh.CategoryId == 4176 && kh.isActive==true)

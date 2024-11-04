@@ -3,36 +3,40 @@
   "WorkspaceRootPath": "E:\\GitHubDestop\\web_Ninhthuan\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\views\\account\\_editcandidateaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\views\\account\\_editcandidateaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\views\\home\\vieclamkhuvuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\views\\home\\vieclamkhuvuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\views\\account\\_editcddaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\views\\account\\_editcddaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|E:\\GitHubDestop\\web_Ninhthuan\\webvieclammoi\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\dao\\vieclamkhuvuc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\dao\\vieclamkhuvuc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|E:\\GitHubDestop\\web_Ninhthuan\\webvieclammoi\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\dao\\dn_hosotuyendung_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\dao\\dn_hosotuyendung_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\dao\\dn_doanhnghiep_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\dao\\dn_doanhnghiep_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\views\\shared\\_mainlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\views\\shared\\_mainlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|E:\\GitHubDestop\\web_Ninhthuan\\webvieclammoi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\dao\\ntv_khachhang_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\dao\\ntv_khachhang_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\views\\account\\_candidatedoc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\views\\account\\_candidatedoc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|E:\\GitHubDestop\\web_Ninhthuan\\webvieclammoi\\controllers\\jobcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\controllers\\jobcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|e:\\githubdestop\\web_ninhthuan\\webvieclammoi\\views\\shared\\danhmuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C50FA7D2-CCCD-4EFF-BBA8-DC5B9CB67869}|WebViecLammoi\\WebViecLammoi.csproj|solutionrelative:webvieclammoi\\views\\shared\\danhmuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,69 +46,95 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "_EditCandidateAccount.cshtml",
-              "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Account\\_EditCandidateAccount.cshtml",
-              "RelativeDocumentMoniker": "WebViecLammoi\\Views\\Account\\_EditCandidateAccount.cshtml",
-              "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Account\\_EditCandidateAccount.cshtml",
-              "RelativeToolTip": "WebViecLammoi\\Views\\Account\\_EditCandidateAccount.cshtml",
-              "ViewState": "AQIAAOwBAAAAAAAAAAAAAPgBAABAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-03T03:49:29.652Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "_CandidateDoc.cshtml",
-              "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Account\\_CandidateDoc.cshtml",
-              "RelativeDocumentMoniker": "WebViecLammoi\\Views\\Account\\_CandidateDoc.cshtml",
-              "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Account\\_CandidateDoc.cshtml",
-              "RelativeToolTip": "WebViecLammoi\\Views\\Account\\_CandidateDoc.cshtml",
-              "ViewState": "AQIAAB0BAAAAAAAAAAAAAAIAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-03T03:30:18.271Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "_EditCddAccount.cshtml",
-              "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Account\\_EditCddAccount.cshtml",
-              "RelativeDocumentMoniker": "WebViecLammoi\\Views\\Account\\_EditCddAccount.cshtml",
-              "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Account\\_EditCddAccount.cshtml",
-              "RelativeToolTip": "WebViecLammoi\\Views\\Account\\_EditCddAccount.cshtml",
-              "ViewState": "AQIAAF4BAAAAAAAAAAAAAGkBAAA2AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-03T03:26:53.741Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "NTV_KhachHang_Dao.cs",
-              "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\DAO\\NTV_KhachHang_Dao.cs",
-              "RelativeDocumentMoniker": "WebViecLammoi\\DAO\\NTV_KhachHang_Dao.cs",
-              "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\DAO\\NTV_KhachHang_Dao.cs",
-              "RelativeToolTip": "WebViecLammoi\\DAO\\NTV_KhachHang_Dao.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAYwCUAAAA4AAAA",
+              "Title": "DN_HoSoTuyenDung_Dao.cs",
+              "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\DAO\\DN_HoSoTuyenDung_Dao.cs",
+              "RelativeDocumentMoniker": "WebViecLammoi\\DAO\\DN_HoSoTuyenDung_Dao.cs",
+              "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\DAO\\DN_HoSoTuyenDung_Dao.cs",
+              "RelativeToolTip": "WebViecLammoi\\DAO\\DN_HoSoTuyenDung_Dao.cs",
+              "ViewState": "AQIAACsAAAAAAAAAAAAAADkAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-03T03:23:27.705Z",
+              "WhenOpened": "2024-11-04T13:47:27.476Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "_MainLayout.cshtml",
+              "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Shared\\_MainLayout.cshtml",
+              "RelativeDocumentMoniker": "WebViecLammoi\\Views\\Shared\\_MainLayout.cshtml",
+              "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Shared\\_MainLayout.cshtml",
+              "RelativeToolTip": "WebViecLammoi\\Views\\Shared\\_MainLayout.cshtml",
+              "ViewState": "AQIAABQBAAAAAAAAAAAAAB4BAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-04T13:30:55.91Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DN_DoanhNghiep_Dao.cs",
+              "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\DAO\\DN_DoanhNghiep_Dao.cs",
+              "RelativeDocumentMoniker": "WebViecLammoi\\DAO\\DN_DoanhNghiep_Dao.cs",
+              "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\DAO\\DN_DoanhNghiep_Dao.cs",
+              "RelativeToolTip": "WebViecLammoi\\DAO\\DN_DoanhNghiep_Dao.cs",
+              "ViewState": "AQIAACIAAAAAAAAAAAAxwC0AAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-04T12:37:38.155Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VieclamKhuVuc.cs",
+              "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\DAO\\VieclamKhuVuc.cs",
+              "RelativeDocumentMoniker": "WebViecLammoi\\DAO\\VieclamKhuVuc.cs",
+              "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\DAO\\VieclamKhuVuc.cs",
+              "RelativeToolTip": "WebViecLammoi\\DAO\\VieclamKhuVuc.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAowCkAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-04T10:37:40.466Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ViecLamKhuVuc.cshtml",
+              "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Home\\ViecLamKhuVuc.cshtml",
+              "RelativeDocumentMoniker": "WebViecLammoi\\Views\\Home\\ViecLamKhuVuc.cshtml",
+              "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Home\\ViecLamKhuVuc.cshtml",
+              "RelativeToolTip": "WebViecLammoi\\Views\\Home\\ViecLamKhuVuc.cshtml",
+              "ViewState": "AQIAADMAAAAAAAAAAAAAAEEAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-04T09:29:01.579Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DanhMuc.cshtml",
+              "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Shared\\DanhMuc.cshtml",
+              "RelativeDocumentMoniker": "WebViecLammoi\\Views\\Shared\\DanhMuc.cshtml",
+              "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Shared\\DanhMuc.cshtml",
+              "RelativeToolTip": "WebViecLammoi\\Views\\Shared\\DanhMuc.cshtml",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAAEYAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-04T09:16:59.818Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "WebViecLammoi\\Views\\Home\\Index.cshtml",
               "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "WebViecLammoi\\Views\\Home\\Index.cshtml",
-              "ViewState": "AQIAAAMBAAAAAAAAAAAAABgBAABUAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-11-02T10:23:18.71Z",
               "EditorCaption": ""
@@ -112,19 +142,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "JobController.cs",
-              "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Controllers\\JobController.cs",
-              "RelativeDocumentMoniker": "WebViecLammoi\\Controllers\\JobController.cs",
-              "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Controllers\\JobController.cs",
-              "RelativeToolTip": "WebViecLammoi\\Controllers\\JobController.cs",
-              "ViewState": "AQIAAFEBAAAAAAAAAAAiwF0BAAA7AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T05:53:04.918Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "AccountController.cs",
               "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "WebViecLammoi\\Controllers\\AccountController.cs",
@@ -137,13 +154,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "HomeController.cs",
               "DocumentMoniker": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "WebViecLammoi\\Controllers\\HomeController.cs",
               "ToolTip": "E:\\GitHubDestop\\web_Ninhthuan\\WebViecLammoi\\Controllers\\HomeController.cs",
               "RelativeToolTip": "WebViecLammoi\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAUAAAA",
+              "ViewState": "AQIAAHgAAAAAAAAAAAAqwIYAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-01T05:27:49.229Z",
               "EditorCaption": ""

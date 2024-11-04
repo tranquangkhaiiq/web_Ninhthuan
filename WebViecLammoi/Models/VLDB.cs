@@ -11,6 +11,7 @@ namespace WebViecLammoi.Models
             : base("name=VLDB")
         {
         }
+        public virtual DbSet<DM_database> DM_databases { get; set; }
         public virtual DbSet<m_Lienket> m_Lienkets { get; set; }
         public virtual DbSet<aspnet_mapSub> aspnet_mapSubs { get; set; }
         public virtual DbSet<aspnet_mapauto> aspnet_mapautos { get; set; }
