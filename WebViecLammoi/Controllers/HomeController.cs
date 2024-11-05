@@ -64,15 +64,7 @@ namespace WebViecLammoi.Controllers
 
             return View();
         }
-        public ActionResult ViecLamKhuVuc()
-        {
-
-            ViewBag.QC_NewLong = new DAO.New_Dao().Get_NewSTTOne(4170);
-            ViewBag.Vieclamkhuvuc = dbc.DM_databases.Where(kh=>kh.kichhoat==true).ToList();
-            ViewBag.LogoVLCty = new DAO.VieclamKhuVuc().GetLoGobyDB_Cty();
-            ViewBag.LogoVLBN = new DAO.VieclamKhuVuc().GetLoGobyDB_VLBN();
-            return View();
-        }
+        
         public ActionResult QLLoGo()
         {
             ViewBag.Logo = dbc.News.Where(kh => kh.CategoryId == 4176 && kh.isActive==true)
@@ -131,6 +123,26 @@ namespace WebViecLammoi.Controllers
             ViewBag.CandidateXemNhieu_Active = NTV_HoSoXinViec_Dao.GetListNTV_XemNhieu(dbc, 0, 1);
             
             return PartialView("");
+        }
+        //05/11/2024 ViecLamKhuVuc
+        public ActionResult ViecLamKhuVuc()
+        {
+            New_Dao.Pay_Sys = New_Dao.GetPay_Sys(dbc);
+            Session["Pay"] = New_Dao.Pay_Sys.Pay;
+            New_Dao.model_NewsSlide = New_Dao.LinQ_NewsSlide(dbc);
+            if ((bool)Session["Pay"] == true)
+            {
+                DN_HoSoTuyenDung_Dao.model_ListTD_Pay = DN_HoSoTuyenDung_Dao.LinQ_DN_TD_Pay(dbc);
+            }
+            else
+            {
+                DN_HoSoTuyenDung_Dao.model_ListTD = DN_HoSoTuyenDung_Dao.LinQ_DN_TD(dbc);
+            }
+            ////
+            ViewBag.Vieclamkhuvuc = dbc.DM_databases.Where(kh => kh.kichhoat == true).ToList();
+            ViewBag.LogoVLCty = new DAO.VieclamKhuVuc().GetLoGobyDB_Cty();
+            ViewBag.LogoVLBN = new DAO.VieclamKhuVuc().GetLoGobyDB_VLBN();
+            return View();
         }
         public ActionResult LastestJob_PC()
         {

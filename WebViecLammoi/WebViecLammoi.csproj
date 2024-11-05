@@ -275,6 +275,7 @@
     <Compile Include="Models\Model_Cty\KhachHang_TimViec_KinhNghiem_2022.cs" />
     <Compile Include="Models\Model_Cty\KhachHang_TimViec_NgoaiNgu_2022.cs" />
     <Compile Include="Models\Model_Cty\KhachHang_TimViec_TinHoc.cs" />
+    <Compile Include="Models\Model_Cty\Pay_Sys.cs" />
     <Compile Include="Models\Model_Cty\KhachHang_TrinhDo.cs" />
     <Compile Include="Models\Model_Cty\News.cs" />
     <Compile Include="Models\Model_Cty\NewsCategory.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Models\Model_VLBN\KhachHang_TimViec_KinhNghiem_2022.cs" />
     <Compile Include="Models\Model_VLBN\KhachHang_TimViec_NgoaiNgu_2022.cs" />
     <Compile Include="Models\Model_VLBN\KhachHang_TimViec_TinHoc.cs" />
+    <Compile Include="Models\Model_VLBN\Pay_Sys.cs" />
     <Compile Include="Models\Model_VLBN\KhachHang_TrinhDo.cs" />
     <Compile Include="Models\Model_VLBN\News.cs" />
     <Compile Include="Models\Model_VLBN\NewsCategory.cs" />
