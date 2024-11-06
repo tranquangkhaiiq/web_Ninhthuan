@@ -12,12 +12,16 @@ using System.Web.UI;
 using System.Configuration;
 using WebViecLammoi.Filters;
 using WebViecLammoi.Utils;
+using WebViecLammoi.Models.Model_Cty;
+using WebViecLammoi.Models.Model_VLBN;
 
 namespace WebViecLammoi.Controllers
 {
     public class HomeController : Controller
     {
         VLDB dbc = new VLDB();
+        VLCty VLCty = new VLCty();
+        VLBN VLBN = new VLBN();
         public ActionResult Index()
         {
             //CategoryId == 4168 : QuangCao_Small
@@ -127,22 +131,26 @@ namespace WebViecLammoi.Controllers
         //05/11/2024 ViecLamKhuVuc
         public ActionResult ViecLamKhuVuc()
         {
-            New_Dao.Pay_Sys = New_Dao.GetPay_Sys(dbc);
-            Session["Pay"] = New_Dao.Pay_Sys.Pay;
-            New_Dao.model_NewsSlide = New_Dao.LinQ_NewsSlide(dbc);
-            if ((bool)Session["Pay"] == true)
-            {
-                DN_HoSoTuyenDung_Dao.model_ListTD_Pay = DN_HoSoTuyenDung_Dao.LinQ_DN_TD_Pay(dbc);
-            }
-            else
-            {
-                DN_HoSoTuyenDung_Dao.model_ListTD = DN_HoSoTuyenDung_Dao.LinQ_DN_TD(dbc);
-            }
+            ////truyền biến model_List**
+            DAO.VieclamKhuVuc.model_ListTDCty = DAO.VieclamKhuVuc.LinQ_DN_TDCty(VLCty);
+            DAO.VieclamKhuVuc.model_ListTDVLBN = DAO.VieclamKhuVuc.LinQ_DN_TDVLBN(VLBN);
             ////
             ViewBag.Vieclamkhuvuc = dbc.DM_databases.Where(kh => kh.kichhoat == true).ToList();
             ViewBag.LogoVLCty = new DAO.VieclamKhuVuc().GetLoGobyDB_Cty();
             ViewBag.LogoVLBN = new DAO.VieclamKhuVuc().GetLoGobyDB_VLBN();
             return View();
+        }
+        public ActionResult LastestJobCty_PC()
+        {
+            //Index//_TDKhuVuc_MoiNhat = _TD_MoiNhat
+            ViewBag.LastestJob_Cty = DAO.VieclamKhuVuc.GetListTDCty_moinhat(0, 10);
+            return PartialView("_TDKhuVuc_MoiNhat");
+        }
+        public ActionResult LastestJobVLBN_PC()
+        {
+            //Index//_TDKhuVuc_MoiNhat = _TD_MoiNhat
+            ViewBag.LastestJob_VLBN = DAO.VieclamKhuVuc.GetListTDVLBN_moinhat(0, 10);
+            return PartialView("_TDKhuVuc_MoiNhat");
         }
         public ActionResult LastestJob_PC()
         {

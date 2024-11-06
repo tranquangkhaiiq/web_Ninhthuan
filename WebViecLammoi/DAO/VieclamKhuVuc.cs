@@ -14,8 +14,6 @@ namespace WebViecLammoi.DAO
     {
         VLCty VLCty = null;
         VLBN VLBN = null;
-        public static Models.Model_Cty.Pay_Sys Pay_Sys_Cty = new Models.Model_Cty.Pay_Sys();
-        public static Models.Model_VLBN.Pay_Sys Pay_Sys_VLBN = new Models.Model_VLBN.Pay_Sys();
         public VieclamKhuVuc()
         {
             VLCty = new VLCty();
@@ -23,15 +21,15 @@ namespace WebViecLammoi.DAO
         }
         public List<Models.Model_Cty.News> GetLoGobyDB_Cty()
         {
-                
+
             var model = VLCty.News.Where(kh => kh.CategoryId == 4176 && kh.isActive == true)
                 .OrderByDescending(kh => kh.NewId)
                 .Take(1)
                 .ToList();
             if (model != null)
-                {
-                    return model.ToList();
-                }
+            {
+                return model.ToList();
+            }
             return null;
         }
         public List<Models.Model_VLBN.News> GetLoGobyDB_VLBN()
@@ -46,13 +44,22 @@ namespace WebViecLammoi.DAO
             }
             return null;
         }
-        public static List<Models.Model_Cty.DoanhNghiep_TuyenDung> model_ListTDCty_Pay = new List<Models.Model_Cty.DoanhNghiep_TuyenDung>();
+        public static List<Models.Model_Cty.DoanhNghiep_TuyenDung> LinQ_DN_TDCty(VLCty db)
+        {
+            var model = db.Database.SqlQuery<Models.Model_Cty.DoanhNghiep_TuyenDung>("exec GetBase_DN_TD_khai").ToList();
+            return model;
+        }
+        public static List<Models.Model_VLBN.DoanhNghiep_TuyenDung> LinQ_DN_TDVLBN(VLBN db)
+        {
+            var model = db.Database.SqlQuery<Models.Model_VLBN.DoanhNghiep_TuyenDung>("exec GetBase_DN_TD_khai").ToList();
+            return model;
+        }
         public static List<Models.Model_Cty.DoanhNghiep_TuyenDung> model_ListTDCty = new List<Models.Model_Cty.DoanhNghiep_TuyenDung>();
-        public static List<Models.Model_Cty.DoanhNghiep_TuyenDung> GetListTDCty_moinhat(bool key, int skip, int take)
+        public static List<Models.Model_Cty.DoanhNghiep_TuyenDung> GetListTDCty_moinhat(int skip, int take)
         {
             var mode = new List<Models.Model_Cty.DoanhNghiep_TuyenDung>();
             var model_List = new List<Models.Model_Cty.DoanhNghiep_TuyenDung>();
-            model_List = (key == true) ? model_ListTDCty_Pay : model_ListTDCty;
+            model_List = model_ListTDCty;
             if (skip == 0)
             {
                 mode = model_List
@@ -71,13 +78,12 @@ namespace WebViecLammoi.DAO
 
             return mode;
         }
-        public static List<Models.Model_VLBN.DoanhNghiep_TuyenDung> model_ListTDVLBN_Pay = new List<Models.Model_VLBN.DoanhNghiep_TuyenDung>();
         public static List<Models.Model_VLBN.DoanhNghiep_TuyenDung> model_ListTDVLBN = new List<Models.Model_VLBN.DoanhNghiep_TuyenDung>();
-        public static List<Models.Model_VLBN.DoanhNghiep_TuyenDung> GetListTDVLBN_moinhat(bool key, int skip, int take)
+        public static List<Models.Model_VLBN.DoanhNghiep_TuyenDung> GetListTDVLBN_moinhat(int skip, int take)
         {
             var mode = new List<Models.Model_VLBN.DoanhNghiep_TuyenDung>();
             var model_List = new List<Models.Model_VLBN.DoanhNghiep_TuyenDung>();
-            model_List = (key == true) ? model_ListTDVLBN_Pay : model_ListTDVLBN;
+            model_List = model_ListTDVLBN;
             if (skip == 0)
             {
                 mode = model_List
