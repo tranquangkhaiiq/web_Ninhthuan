@@ -11,6 +11,7 @@ namespace WebViecLammoi.Models.Model_Cty
             : base("name=VLCty")
         {
         }
+        public virtual DbSet<DM_DiaChi> DM_DiaChis { get; set; }
         public virtual DbSet<Pay_Sys> Pay_Syss { get; set; }
         public virtual DbSet<DoanhNghiep> DoanhNghieps { get; set; }
         public virtual DbSet<DoanhNghiep_TuyenDung> DoanhNghiep_TuyenDung { get; set; }
