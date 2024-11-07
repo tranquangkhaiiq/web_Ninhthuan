@@ -35,15 +35,15 @@ namespace WebViecLammoi.Models.Model_Cty
 
         public int? LuongDen { get; set; }
 
-        public int? ThoiGianLamViec_ID { get; set; }
+        public int ThoiGianLamViec_ID { get; set; }
 
-        public int? ChucDanh_ID { get; set; }
+        public int ChucDanh_ID { get; set; }
 
-        public int? YeuCauTrinhDo_ID { get; set; }
+        public int YeuCauTrinhDo_ID { get; set; }
 
-        public int? YeuCauNganh_ID { get; set; }
+        public int YeuCauNganh_ID { get; set; }
 
-        public int? YeuCauNghe_ID { get; set; }
+        public int YeuCauNghe_ID { get; set; }
 
         public int? SoNamKinhNghiem { get; set; }
 
@@ -129,5 +129,25 @@ namespace WebViecLammoi.Models.Model_Cty
         public int? MucDichLamViec_2022 { get; set; }
 
         public int? HopDongLaoDong_2022 { get; set; }
+        [ForeignKey("TinhTrangHoSo")]
+        public virtual DM_TinhTrangPheDuyetHoSo DM_TinhTrangPheDuyetHoSos { get; set; }
+
+        [ForeignKey("DN_ID")]
+        public virtual DoanhNghiep DoanhNghieps { get; set; }
+
+        [ForeignKey("ThoiGianLamViec_ID")]
+        public virtual DM_ThoiGianLamViec DM_ThoiGianLamViecs { get; set; }
+
+        [ForeignKey("YeuCauTrinhDo_ID")]
+        public virtual DM_TrinhDoChuyenMon DM_TrinhDoChuyenMons { get; set; }
+
+        [ForeignKey("ChucDanh_ID")]
+        public virtual DM_ChucDanh DM_ChucDanhs { get; set; }
+
+        [ForeignKey("YeuCauNganh_ID")]
+        public virtual DM_NganhLaoDong DM_NganhLaoDongs { get; set; }
+
+        [ForeignKey("YeuCauNghe_ID")]
+        public virtual DM_NgheLaoDong DM_NgheLaoDongs { get; set; }
     }
 }

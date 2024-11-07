@@ -102,5 +102,26 @@ namespace WebViecLammoi.DAO
 
             return mode;
         }
+        ////
+        public Models.Model_Cty.DM_DiaChi GetDiaChiCtyById(int Id)
+        {
+            var mode = VLCty.DM_DiaChis.Find(Id);
+            return mode;
+        }
+        public Models.Model_VLBN.DM_DiaChi GetDiaChiVLBNById(int Id)
+        {
+            var mode = VLBN.DM_DiaChis.Find(Id);
+            return mode;
+        }
+        public Models.Model_Cty.DoanhNghiep GetDNCty_ByDNID(int DN_ID)
+        {
+            var mode = VLCty.DoanhNghieps.Find(DN_ID);
+            return mode;
+        }
+        public Models.Model_VLBN.DoanhNghiep GetDNVLBN_ByDNID(int DN_ID)
+        {
+            var mode = VLBN.DoanhNghieps.Find(DN_ID);
+            return mode;
+        }
     }
 }

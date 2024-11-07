@@ -140,17 +140,17 @@ namespace WebViecLammoi.Controllers
             ViewBag.LogoVLBN = new DAO.VieclamKhuVuc().GetLoGobyDB_VLBN();
             return View();
         }
-        public ActionResult LastestJobCty_PC()
+        public ActionResult LastestJob_VLCty()
         {
             //Index//_TDKhuVuc_MoiNhat = _TD_MoiNhat
-            ViewBag.LastestJob_Cty = DAO.VieclamKhuVuc.GetListTDCty_moinhat(0, 10);
-            return PartialView("_TDKhuVuc_MoiNhat");
+            ViewBag.LastestJob_VLCty = DAO.VieclamKhuVuc.GetListTDCty_moinhat(0, 10);
+            return PartialView("_TDVLCty_MoiNhat");
         }
-        public ActionResult LastestJobVLBN_PC()
+        public ActionResult LastestJob_VLBN()
         {
             //Index//_TDKhuVuc_MoiNhat = _TD_MoiNhat
             ViewBag.LastestJob_VLBN = DAO.VieclamKhuVuc.GetListTDVLBN_moinhat(0, 10);
-            return PartialView("_TDKhuVuc_MoiNhat");
+            return PartialView("_TDVLBN_MoiNhat");
         }
         public ActionResult LastestJob_PC()
         {
